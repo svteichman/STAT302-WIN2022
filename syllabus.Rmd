@@ -6,13 +6,13 @@ title: "Syllabus"
 
 # Course Information
 
-**Instructor**: Peter Gao (petergao at uw dot edu)
+**Instructor**: Sarah Teichman (teichs at uw dot edu)
 
 **Time**: Mondays and Wednesdays, 3:30 - 4:50pm
 
-**Location**: MGH 271
+**Location**: SAV 155
 
-**Office hours**: T 3:30-5:30, F 10:30-11:30 via Zoom [(meeting link)](https://washington.zoom.us/j/95826723086)
+**Office hours**: T 3-4, F 1:30-3:30 via Zoom [(meeting link)](https://washington.zoom.us/j/3955335000)
 
 **Note**: When emailing either the instructor or grader, please include "[STAT 302]" at the beginning of the email header!
 It will help us respond to you faster.
@@ -101,7 +101,7 @@ In addition, I hope that we can be patient with one another as we begin transiti
 If you do not have a personal computer, you can borrow one for free from UW through the Student Technology Loan Program. In general, if you have trouble accessing a computer, please contact me so we can make sure you have the resources you need to learn.
 
 ### Feedback
-  I encourage and appreciate your feedback throughout the quarter. You are welcome to provide feedback on any aspect of the course at any time via email or in person. If you would prefer to do so confidentially, you can do so through the form [here](https://forms.gle/pyjQB57dqyqEq3M99).
+  I encourage and appreciate your feedback throughout the quarter. You are welcome to provide feedback on any aspect of the course at any time via email or in person. If you would prefer to do so confidentially, you can do so through the form [here](https://forms.gle/MiVUgmhwfHSDG8Fm8).
 
 ### Collaboration
   On most assignments, collaboration is allowed and encouraged. You may discuss problems, approaches, and solutions with your classmates. Acceptable collaboration is limited to your classmates in this course and you must clearly include on any collaborative work the name(s) of anyone with whom you worked. Additionally, all submitted work must be your own; you should not submit code or answers copied from any resource including your classmates. Plagiarism and cheating is easy for us to detect and can lead to serious negative consequences for you (see Academic Integrity below). If you have any questions regarding this policy, please ask for clarification.
