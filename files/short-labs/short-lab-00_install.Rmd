@@ -1,0 +1,92 @@
+---
+title: "Short Lab 0"
+author: "INSERT YOUR NAME HERE"
+date: "Due Date Here"
+output: html_document
+---
+
+To begin, please use the following links to download R, RStudio, and R Markdown:
+
+* [Install R](https://cran.r-project.org/)
+
+* [Install RStudio](https://rstudio.com/products/rstudio/download/#download)
+
+* [Install RMarkdown](https://bookdown.org/yihui/rmarkdown/installation.html#installation)
+
+You should edit this .Rmd using RStudio, then click *Knit* in the menu bar of the Source window (above the text of this .Rmd).
+Remember, you must submit *both* your .Rmd and the compiled .html in order to receive full credit!
+
+## Part 1. Written Response
+
+**1.** What is the name we should call you/how should we refer to you?
+
+Replace this text with your answer.
+
+**2.** What is your (intended) major?
+
+Replace this text with your answer.
+
+**3.** What is your coding/computational experience? Please specifically mention whether or not you have any experience in each of R, RMarkdown, and LaTeX.
+
+Replace this text with your answer.
+
+**4.** Please explain what you hope to take away from this course.
+
+Replace this text with your answer.
+
+**5.** Explain the grading scale of Short Labs in this course.
+
+Replace this text with your answer.
+
+**6.** What is the penalty if you submit an assignment 32 hours late?
+
+Replace this text with your answer.
+
+**7.** What percent extra credit is possible in this course, and how do you earn it?
+
+Replace this text with your answer.
+
+**8.** Do my current proposed office hour times work for you? If not, please provide some general availability.
+
+Replace this text with your answer.
+
+**9.** Is there anything else I should know that might help you succeed in this course? 
+
+Replace this text with your answer.
+
+<!--- Note: I use the backslash to skip a line for formatting. --->
+\ 
+
+## Part 2. R, RStudio, and RMarkdown
+
+**10.** What is the relationship between R and RStudio?
+
+**11.** What is the difference between R and R Markdown?
+
+**12.** Edit the code chunk below to assign the value ```5``` to the variable ```x```.
+
+```{r}
+# Your code here
+```
+
+**13.** Explain in words what the following code does. (*Optional: Why does ```print(y)``` produce 5 and not 6?*)
+
+```{r}
+y <- 5
+z <- y
+z <- z + 1
+print(y)
+print(z)
+```
+
+**14.** *Optional: What does the function defined below do? What mathematical function is this? Try running the code chunk below and then running ```h(t)``` for different values of ```t```*
+
+```{r}
+h <- function(x) {
+  if (x > 1) {
+    return(x * h(x - 1))
+  } else {
+    return(1)
+  }
+}
+```

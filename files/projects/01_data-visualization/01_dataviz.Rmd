@@ -1,0 +1,54 @@
+---
+title: "Project 1: Data Exploration and Visualization"
+author: "INSERT YOUR NAME(S) HERE"
+date: "Due Date Here"
+output: html_document
+---
+
+
+## Instructions
+
+For this project, you will be exploring and visualizing data on building permits from the City of Seattle from 2017 to 2021. Your goal is to observe and visualize interesting trends and patterns in the data, and to tell a cohesive and compelling story about the insights you gain. This project is intentionally open-ended!
+
+Exceptional projects will include creative and unique insights into the data. For example, how have the number of residential building permits issued changed over time? How many housing units have been built in each council district? Where are the most expensive building projects in Seattle? Has the COVID-19 pandemic affected the number of permits issued? These are just a few examples of the types of question I hope you will explore for this project.
+
+Your projects will be evaluated on the quality of your visualizations and exploratory analyses.
+
+This includes, but is not limited to, the quality of your writing, the informativeness and clarity of your visualizations, and your creativity.
+
+Your submission should read as one continuous and cohesive report, rather than six distinct and unconnected sections. 
+
+To this end, your report should include an introductory paragraph as well as a conclusion/summary paragraph at the end.
+
+The target audience of your report is an educated reader who is uninformed about the details of the data, but is interested in learning more about recent trends in Seattle. If you would like, you may also propose a different dataset for this project, but please get my permission via email.
+
+You have the option to work with **one** partner for this project and submit a group report.
+
+**If you do so, you must both submit the same .Rmd, .html, and .Rproj files on Canvas with both of your names at the top of the .html.**
+
+
+### Details
+
+* If you use this .Rmd as your starting template, please remove all instructions, details, and requirements. I only want to receive your final written report.
+* Your Project 1 directory should include an R Project associated with your report and analysis.
+* Final submissions must include .Rmd, .html, and .Rproj files
+* The data are available [here](https://raw.githubusercontent.com/peteragao/STAT302-AUT2021/base/files/projects/01_data-visualization/Building_Permits_Clean.csv). Note that you can use links within `read_csv()` to read online .csv files. I **strongly** recommend saving a version of the unprocessed .csv on your machine in a `Data` subfolder within your Project 1 folder so you will be able to work offline.
+
+### Requirements
+
+* Your project should include at least 6 visualizations. Feel free to add more to tell a more complete and compelling story, but each visualization should contribute to the substance of your report.
+* Your project should include at least 3 different types of visualizations (e.g. scatterplots, box plots, bar plots, histograms, line plots, etc.).
+* At least one of your plots should display variation over time in some way.
+* At least one of your plots should display variation over location in some way.
+* Each visualization should include a caption that fully explains how to understand your visualization (i.e. explain all the components, legends, etc.). A good guideline is that someone who has not read your report should be able to look at just a visualization and its caption and fully understand what that visualization is showing.
+* Each visualization, in order to contribute to your 6 visualization requirement, must be accompanied by at least one paragraph of text. This text should include an interpretation of your visualization as well as what is interesting about your visualization. A strong visualization will be accompanied by text explaining what patterns or insights it helps us glean from the data. Sometimes, you may find that you need two or more visualizations to make a single point. This is fine (and likely preferred if you think it's necessary), but it will only count towards 1 of your total visualizations.
+* **At the end of your report**, you should include a code appendix with all of your code, from downloading the data to generating the figures. This code should be well-commented and follow the style guidelines we learned in class. Use comments to label which blocks of code correspond to which visualizations. **You should have no code in the main body of your report!** (Remember: you can use `echo = FALSE` to hide code.)
+
+Keep in mind: **there are no right answers for this project!**
+These are real data, and I'm hoping for creative and interesting analyses that tell a compelling story about the data rather than cookie cutter reports. Have some fun with it, and good luck!
+
+
+
+
+
+

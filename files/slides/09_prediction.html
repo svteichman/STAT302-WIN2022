@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STAT 302, Lecture Slides 9</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Peter Gao" />
+    <script src="09_prediction_files/header-attrs/header-attrs.js"></script>
+    <link href="09_prediction_files/remark-css/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="gao-theme.css" type="text/css" />
+    <link rel="stylesheet" href="gao-theme-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, title-slide
+
+# STAT 302, Lecture Slides 9
+## Statistical Prediction
+### Peter Gao
+
+---
+
+
+
+
+
+# Outline
+
+1. Training and Testing
+2. Cross-validation
+3. Statistical Prediction Algorithms
+
+.middler[**Goal:** Learn the concepts, terminology, and techniques in statistical prediction!]
+
+---
+# Acknowledgement
+
+This lecture borrows heavily from the Ryan Tibshirani's [Statistical Prediction lecture](http://www.stat.cmu.edu/~ryantibs/statcomp/lectures/prediction.html) for Statistical Computing at Carnegie Mellon University.
+
+---
+class: inverse
+
+.sectionhead[Part 1. Training and Testing]
+
+---
+
+
+# Recall: Regression
+
+Let's assume we have some data `\(X_1,\ldots,X_p, Y\)` where `\(X_1,\ldots,X_p\)` are `\(p\)` **independent variables/explanatory variables/covariates/predictors** and `\(Y\)` is the **dependent variables/response/outcome**.
+We want to know the relationship between our covariates and our response, we can do this with a method called **regression**.
+Regression provides us with a statistical method to conduct
+
+* **inference:** assess the relationship between our variables, our statistical model as a whole, predictor importance
+  * What is the relationship between sleep and GPA?
+  * Is parents' education or parents' income more important for explaining income?
+* **prediction:** predict new/future outcomes from new/future covariates
+  * Can we predict test scores based on hours spent studying?
+  
+
+  
+---
+
+# Recall: Linear Regression
+
+Given our response `\(Y\)` and our predictors `\(X_1, \ldots, X_p\)`, a **linear regression model** takes the form:
+
+\\[
+\LARGE
+`\begin{eqnarray}
+&amp;Y &amp;= \beta_0 + \beta_1 X_1 + \cdots + \beta_p X_p + \epsilon,\\
+&amp;\epsilon &amp;\sim N(0,\sigma^2) 
+\end{eqnarray}`
+\\]
+
+
+Previously, we focused on using this model for inference (e.g. `\(H_0: \beta_1 = 0\)`). Today, we are shifting our focus to prediction.
+
+---
+
+# Statistical Prediction
+
+Often, we use a linear model even when we know that the "truth" is not a purely linear relationship with normally-distributed errors.
+
+--
+
+Does this mean our model is wrong? Yes, in some sense.
+
+
+--
+
+
+Does this mean our model is bad? No, not necessarily!
+
+If we consider a linear model only to be a rough approximation, we can still make use of it for **statistical prediction**!
+
+
+---
+layout: true
+# Test Error
+---
+
+
+.middler-nocent[
+**Training data:** data we use to train/fit our model (everything we've seen so far)
+
+**Test data:** data we use to evaluate/test the performance of our model 
+]
+
+---
+
+Suppose we have training data `\(X_{i1}, \ \ldots,\ X_{ip}, Y_i, \ i = 1,\ldots,n\)` which we use to estimate regression coefficents `\(\hat\beta_0, \ \hat\beta_1, \ldots \hat\beta_p\)` (Recall: we use `\(\hat{}\)` "hats" to indicate **estimates**)
+
+Now suppose we are given new testing data `\(X^*_1, \ \ldots, X^*_{p}\)` and asked to predict the associated `\(Y^∗\)`. 
+Using our estimated linear model, the prediction is: 
+`$$\widehat{Y}^* = \hat\beta_0 + \hat{\beta}_1 X^*_1 + \cdots + \hat{\beta}_p X^*_p$$`
+---
+
+Given our prediction 
+
+`$$\hat{Y} = \hat\beta_0 + \hat{\beta}_1 X^*_1 + \cdots + \hat{\beta}_p X^*_p$$`
+We define the **test error**, or **prediction error**, as
+`$$\mathbb{E}[(Y^* -\hat{Y}^*)^2].$$`
+
+In other words, the test error is defined as the expected squared difference between a new prediction and the truth!&lt;sup&gt;1&lt;/sup&gt;
+
+.footnote[[1] where the expectation is taken over all random training and test data.]
+
+---
+
+**Test Error:** `\(\mathbb{E}[(Y^* -\hat{Y}^*)^2],\)` the expected squared difference between a new prediction and the truth.
+
+The test error would make a great way to assess the predictive power of our model!
+
+However, how do we estimate it? We don't know the value of that expectation, so somehow we have to use our data to estimate it in order to use it to assess our model. 
+This provides us with a tool for
+
+* **predictive assessment:** an understanding of the magnitude of errors we should expect when making future predictions
+* **model/method selection:** choose among multiple choices of model based on minimizing test error
+
+---
+layout: false
+layout: true
+# Training Error
+
+---
+
+A natural estimator for the test error might be the observed average **training error:**
+
+`$$\dfrac{1}{n}\sum_{i=1}^n (Y_i - \hat{Y}_i)^2.$$`
+
+Can you think of a problem with this approach?
+
+---
+
+`$$\dfrac{1}{n}\sum_{i=1}^n (Y_i - \hat{Y}_i)^2.$$`
+Can you think of a problem with this approach?
+
+In general, this will be *too optimistic*. Why? We chose estimates `\(\hat{\beta}_0,\ \ldots,\ \hat{\beta}_p\)` based on our training data! 
+More specifically (with a linear regression model), we chose estimates *such that* they minimize the error from our training data.
+We cannot expect this error rate to generalize to test data.
+
+Critically, the more complex our model, the more optimistic our training data will be as an estimate for our test data!
+
+---
+layout: false
+layout: true
+
+# Training Error vs Test Error Examples
+---
+
+
+```r
+library(ggpubr)
+# generate data
+set.seed(302)
+n &lt;- 30
+x &lt;- sort(runif(n, -3, 3))
+y &lt;- 2*x + 2*rnorm(n)
+x_test &lt;- sort(runif(n, -3, 3))
+y_test &lt;- 2*x_test + 2*rnorm(n)
+df_train &lt;- data.frame("x" = x, "y" = y)
+df_test &lt;- data.frame("x" = x_test, "y" = y_test)
+
+# store a theme
+my_theme &lt;- theme_bw(base_size = 16) + 
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"),
+        plot.subtitle = element_text(hjust = 0.5))
+
+# generate plots
+g_train &lt;- ggplot(df_train, aes(x = x, y = y)) + geom_point() +
+  xlim(-3, 3) + ylim(min(y, y_test), max(y, y_test)) + 
+  labs(title = "Training Data") + my_theme
+g_test &lt;- ggplot(df_test, aes(x = x, y = y)) + geom_point() +
+  xlim(-3, 3) + ylim(min(y, y_test), max(y, y_test)) + 
+  labs(title = "Test Data") + my_theme
+ggarrange(g_train, g_test) # from ggpubr, to put side-by-side
+```
+
+
+---
+
+.middler[
+&lt;img src="09_prediction_files/figure-html/unnamed-chunk-2-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+
+```r
+# Fit linear model and calculate training error
+lm_fit &lt;- lm(y ~ x, data = df_train)
+yhat_train &lt;- predict(lm_fit)
+# (y_i - yhat_i)^2
+train_err &lt;- mean((df_train$y - yhat_train)^2)
+
+# Calculate testing error
+yhat_test &lt;- predict(lm_fit, data.frame(x = df_test$x))
+test_err &lt;- mean((df_test$y - yhat_test)^2)
+
+# Add linear model and error text to plot
+g_train2 &lt;- g_train + 
+  labs(subtitle = paste("Training error:", round(train_err, 3))) +
+  geom_line(aes(y = fitted(lm_fit)), col = "red", lwd = 1.5)
+g_test2 &lt;- g_test + 
+  labs(subtitle = paste("Test error:", round(test_err, 3))) +
+  geom_line(aes(y = fitted(lm_fit), x = df_train$x), col = "red", lwd = 1.5)
+
+ggarrange(g_train2, g_test2)
+```
+
+
+---
+
+## Degree 1 Model
+
+.middler[
+&lt;img src="09_prediction_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+
+```r
+# Fit 5 degree polynomial and calculate training error
+lm_fit_5 &lt;- lm(y ~ poly(x, 5), data = df_train)
+yhat_train_5 &lt;- predict(lm_fit_5)
+train_err_5 &lt;- mean((df_train$y - yhat_train_5)^2)
+
+# Calculate testing error
+yhat_test_5 &lt;- predict(lm_fit_5, data.frame(x = df_test$x))
+test_err_5 &lt;- mean((df_test$y - yhat_test_5)^2)
+
+# Create smooth line for plotting
+x_fit &lt;- data.frame(x = seq(-3, 3, length = 100))
+line_fit &lt;- data.frame(x = x_fit, y = predict(lm_fit_5, newdata = x_fit))
+                       
+# Add linear model and error text to plot
+g_train3 &lt;- g_train + 
+  labs(subtitle = paste("Training error:", round(train_err_5, 3))) +
+  geom_line(data = line_fit, aes(y = y, x = x), col = "red", lwd = 1.5)
+g_test3 &lt;- g_test + 
+  labs(subtitle = paste("Test error:", round(test_err_5, 3))) +
+  geom_line(data = line_fit, aes(y = y, x = x), col = "red", lwd = 1.5)
+
+ggarrange(g_train3, g_test3)
+```
+
+---
+
+## Degree 5 Model
+
+.middler[
+&lt;img src="09_prediction_files/figure-html/unnamed-chunk-6-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+
+```r
+# Fit 10 degree polynomial and calculate training error
+lm_fit_10 &lt;- lm(y ~ poly(x, 10), data = df_train)
+yhat_train_10 &lt;- predict(lm_fit_10)
+train_err_10 &lt;- mean((df_train$y - yhat_train_10)^2)
+
+# Calculate testing error
+yhat_test_10 &lt;- predict(lm_fit_10, data.frame(x = df_test$x))
+test_err_10 &lt;- mean((df_test$y - yhat_test_10)^2)
+
+# Create smooth line for plotting
+x_fit &lt;- data.frame(x = seq(-3, 3, length = 100))
+line_fit &lt;- data.frame(x = x_fit, y = predict(lm_fit_10, newdata = x_fit))
+                       
+# Add linear model and error text to plot
+g_train4 &lt;- g_train + 
+  labs(subtitle = paste("Training error:", round(train_err_10, 3))) +
+  geom_line(data = line_fit, aes(y = y, x = x), col = "red", lwd = 1.5)
+g_test4 &lt;- g_test + 
+  labs(subtitle = paste("Test error:", round(test_err_10, 3))) +
+  geom_line(data = line_fit, aes(y = y, x = x), col = "red", lwd = 1.5)
+
+ggarrange(g_train4, g_test4)
+```
+
+---
+
+## Degree 10 Model
+
+.middler[
+&lt;img src="09_prediction_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+
+```r
+# Fit 15 degree polynomial and calculate training error
+lm_fit_15 &lt;- lm(y ~ poly(x, 15), data = df_train)
+yhat_train_15 &lt;- predict(lm_fit_15)
+train_err_15 &lt;- mean((df_train$y - yhat_train_15)^2)
+
+# Calculate testing error
+yhat_test_15 &lt;- predict(lm_fit_15, data.frame(x = df_test$x))
+test_err_15 &lt;- mean((df_test$y - yhat_test_15)^2)
+
+# Create smooth line for plotting
+x_fit &lt;- data.frame(x = seq(-3, 3, length = 100))
+line_fit &lt;- data.frame(x = x_fit, y = predict(lm_fit_15, newdata = x_fit))
+                       
+# Add linear model and error text to plot
+g_train5 &lt;- g_train + 
+  labs(subtitle = paste("Training error:", round(train_err_15, 3))) +
+  geom_line(data = line_fit, aes(y = y, x = x), col = "red", lwd = 1.5)
+g_test5 &lt;- g_test + 
+  labs(subtitle = paste("Test error:", round(test_err_15, 3))) +
+  geom_line(data = line_fit, aes(y = y, x = x), col = "red", lwd = 1.5)
+
+ggarrange(g_train5, g_test5)
+```
+
+---
+
+## Degree 15 Model
+
+.middler[
+&lt;img src="09_prediction_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+layout: false
+layout: true
+
+# Bias-Variance Tradeoff
+
+---
+
+.middler-nocent[
+The formula for test error can be decomposed as a function of the bias and variance of our estimates.
+
+* **Bias:** the expected difference between our estimate and the truth
+
+* **Variance:** the variability of our estimate of the truth
+]
+
+---
+
+.center[&lt;img src="images/bvtradeoff.png" alt="" height="450"/&gt;]
+
+Image Credit: An Introduction to Statistical Learning by Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani
+
+---
+
+.middler-nocent[
+* **Bias:** underfitting, error from missing relevant relationships
+
+* **Variance:** overfitting, error from high sensitivity
+]
+
+---
+
+.middler[&lt;img src="images/underover1.png" alt="" height="300"/&gt;]
+
+.footnote[[Image Source](https://medium.com/greyatom/what-is-underfitting-and-overfitting-in-machine-learning-and-how-to-deal-with-it-6803a989c76)]
+
+
+---
+
+.middler[&lt;img src="images/underover2.png" alt="" height="300"/&gt;]
+
+.footnote[[Image Source](https://medium.com/greyatom/what-is-underfitting-and-overfitting-in-machine-learning-and-how-to-deal-with-it-6803a989c76)]
+
+---
+
+It is easy to fit a model with extremely low variance and extremely high bias, or extremely low bias and extremely high variance, but these models will not have a good test error.
+Ideally, we would like an estimate that has both low bias and low variance, but this is not always possible!
+
+As a general rule of thumb, as we increase the complexity of our model, the bias will decrease but the variance will increase.
+You can think of our bias decreasing because we are training our model to be more specific to our training data.
+You can think of the variance increasing because our model will be overfit, and will vary substantially with new training data.
+
+
+---
+layout: false
+class: inverse
+
+.sectionhead[Part 2. Cross-validation]
+
+
+---
+layout: true
+
+# Sample-splitting
+---
+
+Where do we get our "training data" and our "test data" in practice? We can't just simulate more data for our test data in the real world. 
+In practice, we use a technique called **sample-splitting:**
+
+1. Split the data set into two (or more...) parts
+2. First part of data: train the model/method
+3. Second part of data: make predictions
+4. Evaluate observed test error
+
+---
+
+
+```r
+# Generate data
+set.seed(302)
+n &lt;- 50
+x &lt;- sort(runif(n, -3, 3))
+y &lt;- 2*x + 2*rnorm(n)
+
+# Randomly split data into two parts
+inds &lt;- sample(rep(1:2, length = n))
+split &lt;- as.factor(inds) %&gt;%
+  fct_recode(Training = "1", Test = "2")
+data &lt;- data.frame("x" = x, "y" = y, "split" = split)
+
+g_split &lt;- ggplot(data, aes(x = x, y = y, color = split)) + geom_point() +
+  labs(title = "Sample-splitting") + my_theme
+g_split
+```
+
+
+---
+
+&lt;img src="09_prediction_files/figure-html/unnamed-chunk-12-1.png" style="display: block; margin: auto;" /&gt;
+---
+
+
+```r
+# Train on the training split
+data_train &lt;- data %&gt;% filter(split == "Training")
+lm_1 &lt;- lm(y ~ x, data = data_train)
+lm_10 &lt;- lm(y ~ poly(x, 10), data = data_train)
+
+# Predict on the second half
+data_test &lt;- data %&gt;% filter(split == "Test")
+pred_1 &lt;- predict(lm_1, data.frame(x = data_test$x))
+pred_10 &lt;- predict(lm_10, data.frame(x = data_test$x))
+
+# Calculate test error
+test_err_1 &lt;- mean((data_test$y - pred_1)^2)
+test_err_10 &lt;- mean((data_test$y - pred_10)^2)
+```
+
+
+---
+
+
+```r
+# Create smooth lines for plotting
+x_fit &lt;- data.frame(x = seq(min(data$x), max(data$x), length = 100))
+line_fit_1 &lt;- data.frame(x = x_fit, y = predict(lm_1, newdata = x_fit))
+line_fit_10 &lt;- data.frame(x = x_fit, y = predict(lm_10, newdata = x_fit))
+                       
+# Add linear model and error text to plot
+g_split1 &lt;- g_split + 
+  labs(subtitle = paste("Degree 1 Test error:", round(test_err_1, 3))) +
+  geom_line(data = line_fit_1, aes(y = y, x = x), col = "black", lwd = 1.5)
+g_split10 &lt;- g_split + 
+  labs(subtitle = paste("Degree 10 Test error:", round(test_err_10, 3))) +
+  geom_line(data = line_fit_10, aes(y = y, x = x), col = "black", lwd = 1.5)
+
+ggarrange(g_split1, g_split10, common.legend = TRUE, legend = "bottom")
+```
+
+---
+
+&lt;img src="09_prediction_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+
+Sample-splitting gives us a powerful tool to evaluate the performance of estimator *on data that was not used to train it*! Of course, this comes at the cost of sacrificing some of our data that could be used in order to train a model with as much information as possible, but this is a sacrifice we must make in practice if we want to appropriately evaluate the predictive performance of our models/methods!
+
+However, we can do better than just splitting our data in half.
+
+---
+layout: false
+layout: true
+
+# k-fold Cross-validation
+---
+
+In general, the process of `\(k\)`-fold cross-validation is as follows:
+
+1. Split data into `\(k\)` parts (folds)
+2. Use all but 1 fold as your training data and fit the model
+3. Use the remaining fold for your test data and make predictions
+4. Switch which fold is your test data and repeat steps 2 and 3 until all folds have been test data (k times)
+5. Compute squared error
+
+Commonly, we use `\(k=5\)` and `\(k=10\)`.
+
+---
+
+.middler[&lt;img src="images/cv.png" alt="" height="500"/&gt;]
+
+---
+
+For each split, we calculate the out-of-sample test error, also known as the **mean squared error (MSE)**.
+For example, for the first split, we calculate
+
+`$$MSE_1 = \dfrac{1}{m}\sum_{j = 1}^{m} (Y_{j,test} - \hat{Y}_{j,test})^2,$$`
+where `\(m\)` is the number of observations in the test set.
+
+Then we calculate the **cross-validation estimate** of our test error
+
+`$$CV_{(k)} = \dfrac{1}{k}\sum_{i=1}^{k}MSE_i.$$`
+
+In words, our cross-validation estimate of the test error is the average of the mean squared errors across the splits!
+
+---
+
+## Leave-One-Out Cross-Validation
+
+Leave-one-out cross-validation (LOOCV) is a special instance of `\(k\)`-fold cross-validation where `\(k\)` is equal to the sample size `\(n\)`.
+This means you fit `\(n\)` different models using `\(n-1\)` data points for your training data, and then test on the remaining individual data point. 
+
+---
+
+## Bias-variance Tradeoff
+
+LOOCV strengths in that it uses as much data as possible to train the model while still having out-of-sample test data.
+Thus, it will provide approximately unbiased estimates of the test error, and is the best choice for minimizing bias.
+
+However, LOOCV has one major drawback: variance. 
+Because it fits `\(n\)` models, each of which is trained on almost identical training data, the outputs of the models are highly correlated.
+All other things being equal, the mean of correlated observations has a higher variance than  the mean of uncorrelated observations. 
+Thus, LOOCV has higher variance than `\(k\)`-fold CV with `\(k&lt;n\)`.
+
+As a rule of thumb, stick to `\(k=5\)` and `\(k=10\)`. 
+These values tend to result in an ideal balance in terms of the bias-variance tradeoff.
+
+---
+
+## What to do after cross-validation?
+
+We use cross-validation as a method to evaluate our model, *not* to build our model!
+Thus, once we have used `\(k\)`-fold cross-validation to come up with a reasonable estimate of our out-of-sample test-error (and perhaps to choose among several models based on this test error), we use the *full* data to train our final predictive model.
+
+Thus, using cross-validation, we are able to build a model based on our full data, and still evaluate the performance of our model on out-of-sample data!
+
+
+---
+layout: false
+layout: true
+
+# k-fold Cross-validation Example
+
+---
+
+
+```r
+set.seed(302)
+# Split data in 5 parts, randomly
+k &lt;- 5
+inds &lt;- sample(rep(1:k, length = n))
+# Use data from before
+data &lt;- data.frame("x" = x, "y" = y, "split" = inds)
+
+# Empty matrix to store predictions, 2 columns for 2 models
+pred_mat &lt;- matrix(NA, n, 2)
+for (i in 1:k) {
+  data_train &lt;- data %&gt;% filter(split != i)
+  data_test &lt;- data %&gt;% filter(split == i)
+  
+  # Train our models
+  lm_1_cv &lt;- lm(y ~ x, data = data_train)
+  lm_10_cv &lt;- lm(y ~ poly(x, 10), data = data_train)
+  
+  # Record predictions
+  pred_mat[inds == i, 1] &lt;- predict(lm_1_cv, data.frame(x = data_test$x))
+  pred_mat[inds == i, 2] &lt;- predict(lm_10_cv, data.frame(x = data_test$x))
+}
+
+# Compute average MSE to get CV error
+cv_err &lt;- colMeans((pred_mat - data$y)^2)
+```
+
+---
+
+
+```r
+# Create predictive model
+lm_1 &lt;- lm(y ~ x, data = data)
+lm_10 &lt;- lm(y ~ poly(x, 10), data = data)
+
+# Create smooth lines for plotting
+x_fit &lt;- data.frame(x = seq(min(data$x), max(data$x), length = 100))
+line_fit_1 &lt;- data.frame(x = x_fit, y = predict(lm_1, newdata = x_fit))
+line_fit_10 &lt;- data.frame(x = x_fit, y = predict(lm_10, newdata = x_fit))
+
+# Recode split for legend
+data &lt;- data %&gt;% 
+  mutate(Fold = fct_recode(as.factor(split), "Fold 1" = "1", "Fold 2" = "2",
+                           "Fold 3" = "3", "Fold 4" = "4", "Fold 5" = "5"))
+
+g_cv &lt;- ggplot(data, aes(x = x, y = y, color = Fold)) + geom_point() +
+  labs(title = "Cross-validation") + my_theme
+g_cv1 &lt;- g_cv + 
+  labs(subtitle = paste("Degree 1 CV error:", round(cv_err[1], 3))) +
+  geom_line(data = line_fit_1, aes(y = y, x = x), col = "black", lwd = 1.5)
+g_cv10 &lt;- g_cv + 
+  labs(subtitle = paste("Degree 10 CV error:", round(cv_err[2], 3))) +
+  geom_line(data = line_fit_10, aes(y = y, x = x), col = "black", lwd = 1.5)
+ggarrange(g_cv1, g_cv10, common.legend = TRUE, legend = "bottom")
+```
+---
+
+&lt;img src="09_prediction_files/figure-html/unnamed-chunk-18-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+layout: false
+class: inverse
+
+.sectionhead[Part 3. Statistical Prediction Algorithms]
+
+---
+
+# Statistical Prediction Algorithms
+
+We've talked about how regression can be used for both statistical inference and prediction.
+We are now going to shift to talk about algorithms designed specifically for statistical prediction. 
+
+
+We will discuss only a few methods for this course to teach you about the principles of how they work. 
+This will serve as an introduction to topics you may encounter if you venture further into fields such as **machine learning**.
+
+---
+
+# Statistical Prediction Algorithms
+
+The normal distribution, specified by parameters for the mean and the variance, is an example of a  **parametric model**.  We are now going to discuss some **non-parametric models**.
+As the name implies, these models have no parameters at all.
+
+Non-parametric models are not motivated by assuming a distribution about the data.
+Instead, the focus is often on pure prediction.
+How can we use data to help us classify and predict the world around us?
+For the most part, many of these methods would have been impossible before the rise of high-powered computing.
+
+---
+layout: true
+
+# k-nearest neighbors
+---
+
+k-nearest neighbors is a non-parametric prediction algorithm.
+
+* **Input:** training data `\(X_i = (X_{i1}, \ldots, X_{ip})\)` and output class `\(Y_i\)` for `\(i = 1,\ldots, n\)`
+* **Input:** test data `\(X^* = (X^*_1, \ldots, X^*_p)\)` with unknown output class `\(Y^*\)`
+* **Algorithm:** Find `\(X_{(1)},\ldots, X_{(k)}\)`, the `\(k\)` nearest points to `\(X^*\)`
+* **Output:** Predicted class `\(\hat{Y}^*\)`, the most common class from `\(X_{(1)},\ldots, X_{(k)}\)`
+
+This method is simple and highly flexible, but it can also be slow and inappropriate for certain settings.
+
+---
+
+.middler[&lt;img src="images/knn.png" alt="" height="350"/&gt;
+
+Image Credit: An Introduction to Statistical Learning by Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani
+]
+
+---
+
+.middler[&lt;img src="images/knn2.png" alt="" height="350"/&gt;
+
+Image Credit: An Introduction to Statistical Learning by Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani
+]
+---
+
+## Choosing k
+
+What happens when `\(k=1\)`? `\(k = n\)`?
+
+In order to choose an "optimal" `\(k\)`, it is common to use cross-validation:
+
+* For `\(k=1,\ldots,n\)` (or a more restrictive range), fit `\(k\)`-nearest neighbors
+* Use cross-validation to identify `\(k\)` with the minimum test error
+* Re-train a `\(k\)`-nearest neighbor model using all the data with optimal choice of `\(k\)`
+
+Cross-validation is a great tool to choose values for tuning parameters across a number of algorithms, not just `\(k\)`-nearest neighbors!
+
+---
+
+.middler[&lt;img src="images/choosek.png" alt="" height="350"/&gt;
+
+Test error is minimized at about `\(k=10\)`.
+
+Image Credit: An Introduction to Statistical Learning by Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani
+]
+
+
+---
+layout: false
+layout: true
+
+# Trees
+---
+
+Instead of classifying based on neighboring data points in the training data, we can classify based on splits in our covariates. 
+
+* **Input:** training data `\(X_i = (X_{i1}, \ldots, X_{ip})\)` and output class/value `\(Y_i\)` for `\(i = 1,\ldots, n\)`
+* **Input:** test data `\(X^* = (X^*_1, \ldots, X^*_p)\)` with unknown output class/value `\(Y^*\)`
+* **Algorithm:** Identify splits in `\(X_i\)` that best predict `\(Y_i\)`
+* **Output:** Predicted class/value `\(\hat{Y}^*\)` using splits
+
+Trees to predict class are referred to as **classification trees**. Trees to predict quantitative output are referred to as **regression trees**.
+
+This algorithm is easy, efficient, and interpretable, but it is not as flexible as `\(k\)`-nearest neighbors.
+
+
+---
+
+.middler[&lt;img src="images/tree.png" alt="" height="350"/&gt;
+
+[Image source](http://www.stat.cmu.edu/~ryantibs/statcomp/lectures/prediction.html)
+]
+
+---
+
+## Random Forest
+
+In practice, we don't typically predict with a single tree. Instead, we combine multiple trees and take the average/most common of their predictions. Keeping with the tree metaphor, this is referred to as the **random forest** algorithm.
+
+.center[&lt;img src="images/randomforest.png" alt="" height="325"/&gt;
+
+[Image source](https://towardsdatascience.com/random-forests-and-decision-trees-from-scratch-in-python-3e4fa5ae4249)]
+
+---
+
+## Random Forest
+
+In practice, we don't typically predict with a single tree. Instead, we combine multiple trees and take the average/most common of their predictions. Keeping with the tree metaphor, this is referred to as the **random forest** algorithm.
+
+.center[&lt;img src="images/randomforest2.jpeg" alt="" height="325"/&gt;
+
+[Image source](https://towardsdatascience.com/understanding-random-forest-58381e0602d2)]
+
+---
+
+## Variable Importance
+
+One major benefit of tree-based prediction algorithms is that they provide a powerful and interpretable tool for assessing **variable importance**.
+For example, we can look across all trees in a random forest, assess how often variables were used for splitting and how helpful those splits were for prediction, and identify the variables that improve our predictions the most!
+
+(For more on this, see the *Gini index*. I highly recommend the book I've been using for some of these images, "An Introduction to Statistical Learning" by Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani.)
+
+---
+layout: false
+
+# Statistical Prediction Algorithms
+
+This was a very brief overfiew of a very small subset of the algorithms used for statistical prediction. Other common examples include:
+
+* neural networks,
+* support vector machines,
+* kernel classifiers,
+* Bayesian classifiers,
+&lt;br&gt;
+`\(\ \ \ \ \ \ \ \vdots\)`
+
+These algorithms, and related topics, are likely things that you will cover if you take courses more focused on machine learning.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "default",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

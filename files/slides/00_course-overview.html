@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STAT 302: Lecture 0</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Peter Gao (adapted from slides by Bryan Martin)" />
+    <script src="00_course-overview_files/header-attrs/header-attrs.js"></script>
+    <link href="00_course-overview_files/remark-css/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="gao-theme.css" type="text/css" />
+    <link rel="stylesheet" href="gao-theme-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, title-slide
+
+# STAT 302: Lecture 0
+## Course Overview
+### Peter Gao (adapted from slides by Bryan Martin)
+
+---
+
+
+
+
+
+# Outline
+
+1. Course Overview
+2. Introductions
+3. What is R? What is statistical computing?
+4. R Basics
+5. Short Lab 0
+
+
+---
+
+# Syllabus
+
+.middler[.large[
+[Link to syllabus](https://peteragao.github.io/STAT302-AUT2021/syllabus.html)
+]]
+---
+
+# Introductions
+
+* What should we call you?
+* Why are you taking this class?
+* One goal for the school year
+
+---
+
+# Collaboration
+
+* You may discuss problems, approaches, and solutions with your **classmates**.
+* You must credit anyone with whom you worked on each assignment.
+* All submitted work must be your own; you should not submit code or answers copied from any resource including your classmates.
+
+---
+
+# Piazza Discussion
+
+* Worth up to 2% extra credit on your final grade!
+* Substantive and helpful questions and answers
+
+--
+
+.pull-left[
+### Bad questions:
+
+* How do you do problem 2?
+* Here's my code and it's broken. How do I fix it?
+]
+
+.pull-right[
+### Good questions:
+* Here's a snippet of code I used for problem 2: 
+&lt;br/&gt;`formatted code snippet`
+&lt;br/&gt;It returned the following error:
+&lt;br/&gt;`formatted error message`
+&lt;br/&gt;Does anyone know why? I already tried...
+* I don't understand the concept from Slide 18 today. Could anyone elaborate on why...
+]
+
+---
+
+# Piazza Discussion
+
+* Worth up to 2% extra credit on your final grade!
+* Substantive and helpful questions and answers
+
+.pull-left[
+### Bad answers:
+* this is sooooo easy, here's my solution
+]
+
+.pull-right[
+### Good answers:
+* This error message occurs because your variable is a string instead of a numeric.
+Have you tried checking...
+* I think you have a bug in line 3 of the code you posted. You have more left parentheses than right parentheses so the line is incomplete.
+]
+
+---
+
+# What is statistical computing?
+
+--
+
+.middler[.large[statistics + computing]]
+
+
+---
+
+# What is statistical computing?
+
+In this class we will discuss some basic computer science concepts, but we will emphasize skills for utilizing computers to aid in data analysis.
+
+--
+
+Advances in computation have enabled advances at every step of the data analysis pipeline:
+
+* Data collection, storage, and sharing
+* Exploratory data analysis and visualization
+* Statistical inference and prediction
+* Simulation 
+* Communication and distribution of results
+---
+
+
+# Why R?
+
+R is a programming language designed for statistical analysis.
+
+--
+
+* open-source
+* free
+* large and active community of developers and users
+* great analysis tools
+* great visualization tools
+--
+
+* great user interface...
+
+---
+
+# Why RStudio?
+
+RStudio is an integrated development environment (IDE) designed to make your life easier. 
+
+--
+
+* Organizes scripts, files, plots, code console, ...
+* Highlights syntax
+* Helpful interactive graphical interface
+* Will make an efficient, reproducible workflow *much* easier
+--
+
+* R Markdown integration...
+
+---
+
+# Why R Markdown?
+
+* Combine code, output, and writing
+* Self-contained analyses
+* Creates HTML, PDF, slides (like these!), webpages, ...
+--
+
+* Required for your labs!
+
+---
+class: inverse
+
+.middler[.huge[Part 1: Introduction to R Utilities]]
+
+---
+
+# Operators
+
+
+```r
+# Addition
+6 + 3
+```
+
+```
+## [1] 9
+```
+
+
+```r
+# Subtraction
+6 - 3
+```
+
+```
+## [1] 3
+```
+
+
+```r
+# Multiplication
+6 * 3
+```
+
+```
+## [1] 18
+```
+
+
+```r
+# Division
+6 / 3
+```
+
+```
+## [1] 2
+```
+
+
+---
+
+
+# Comparison Operators
+
+
+```r
+# Greater than
+6 &gt; 3
+```
+
+```
+## [1] TRUE
+```
+
+
+```r
+# Less than
+6 &lt; 3
+```
+
+```
+## [1] FALSE
+```
+
+
+```r
+# Equal to
+6 == 3
+```
+
+```
+## [1] FALSE
+```
+
+```r
+6 == 3 + 3
+```
+
+```
+## [1] TRUE
+```
+
+
+---
+
+# Comparison Operators
+
+
+```r
+# Not equal to
+6 != 3
+```
+
+```
+## [1] TRUE
+```
+
+
+```r
+6 &lt; 6
+```
+
+```
+## [1] FALSE
+```
+
+```r
+# Less than or equal to
+6 &lt;= 6
+```
+
+```
+## [1] TRUE
+```
+
+
+---
+
+# Logical Operators
+
+
+```r
+# and
+(6 &lt; 3) &amp; (1 &lt; 3)
+```
+
+
+--
+
+
+
+```
+## [1] FALSE
+```
+
+
+--
+
+
+```r
+# and
+(2 &lt; 3) &amp; (1 &lt; 3)
+```
+
+
+--
+
+
+
+```
+## [1] TRUE
+```
+
+
+--
+
+
+```r
+# or
+(6 &lt; 3) | (1 &lt; 3)
+```
+
+
+--
+
+
+
+```
+## [1] TRUE
+```
+
+
+--
+
+
+```r
+# a bit harder...
+(6 &lt; 3) | (1 &lt; 3) &amp; (6 &lt; 3)
+```
+
+
+--
+
+
+
+```
+## [1] FALSE
+```
+
+
+---
+
+# Object Types
+
+
+```r
+class(7)
+```
+
+```
+## [1] "numeric"
+```
+
+```r
+class("7")
+```
+
+```
+## [1] "character"
+```
+
+```r
+is.numeric(7)
+```
+
+```
+## [1] TRUE
+```
+
+```r
+is.numeric("7")
+```
+
+```
+## [1] FALSE
+```
+
+
+---
+
+# Object Types
+
+
+```r
+is.character(7)
+```
+
+```
+## [1] FALSE
+```
+
+```r
+is.character("7")
+```
+
+```
+## [1] TRUE
+```
+
+```r
+is.na(7)
+```
+
+```
+## [1] FALSE
+```
+
+```r
+is.na(0/0)
+```
+
+```
+## [1] TRUE
+```
+
+
+---
+
+# Object Types
+
+
+```r
+as.character(7)
+```
+
+```
+## [1] "7"
+```
+
+```r
+as.numeric("7")
+```
+
+```
+## [1] 7
+```
+
+```r
+as.numeric("7") + 3 == 10
+```
+
+```
+## [1] TRUE
+```
+
+```r
+"7" + 3 == 10
+```
+
+```
+## Error in "7" + 3: non-numeric argument to binary operator
+```
+
+
+---
+
+# Assigning Variables
+
+
+```r
+x &lt;- 7
+x
+```
+
+```
+## [1] 7
+```
+
+```r
+x + 3
+```
+
+```
+## [1] 10
+```
+
+```r
+x == 7
+```
+
+```
+## [1] TRUE
+```
+
+```r
+as.character(x)
+```
+
+```
+## [1] "7"
+```
+
+```r
+y &lt;- 3
+x + y
+```
+
+```
+## [1] 10
+```
+
+
+---
+
+# Workspaces
+
+
+```r
+# List all defined objects
+ls()
+```
+
+```
+## [1] "x" "y"
+```
+
+```r
+# Remove an object
+rm("x")
+ls()
+```
+
+```
+## [1] "y"
+```
+
+```r
+x
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'x' not found
+```
+
+
+---
+
+# Workspaces
+
+
+```r
+x &lt;- 7
+ls()
+```
+
+```
+## [1] "x" "y"
+```
+
+```r
+# Use with caution! This erases everything!
+rm(list = ls())
+ls()
+```
+
+```
+## character(0)
+```
+
+---
+layout:false
+class: inverse
+
+.middler[.huge[Part 2: Using RStudio and R Markdown]]
+---
+
+# RStudio Interface
+
+By default...
+
+* *Top left*: Editor pane. Browse and edit scripts and data with tabs
+* *Top right*: List of objects in your Environment (recall `ls()`), code History
+* *Bottom left*: Console for running R code line-by-line (`&gt;` prompt)
+* *Bottom right*: Files, plots, packages, help files
+
+---
+
+# Editor
+
+* Your workflow should be contained here (**not** your console)
+* Primarily used for writing and editing .R scripts
+
+--
+ 
+  
+  
+* Try opening a file now using *File &gt; New File &gt; R Script*, write two lines of simple code
+* Click `Run` in the bar above your script. What happens?
+* Click on one of the lines of code. Press `Ctrl`/`⌘` + `Enter`. What happens?
+
+--
+
+.center[**Important:** Every part of your R workflow belongs in this window!]
+
+---
+layout: true
+# Environment &amp; History
+
+* If you didn't already, define a variable in your R Script and run it
+* What happens in your Environment tab?
+
+--
+* Type `install.packages("palmerpenguins")` in your Console.
+* Now add `library(palmerpenguins)` and `data(penguins)` to your script and run it.
+* What happens if you click on this in your Environment tab?
+  * Note: We will delve deeper into data later!
+  
+--
+* Remove one of your variables and see what happens.
+
+---
+
+* Click on the History tab to see what it contains. Try searching!
+
+--
+* Select a line from your history and click `To Source`. What happens?
+
+--
+  * Useful for adding lines that you tested in your Console to your scripts
+
+--
+
+
+.pushdown[.center[**Summary:** Useful to quickly browse what you have defined in your environment]]
+
+---
+layout: false
+layout: true
+# Console
+---
+
+* The quick and easy way to run individual lines of code
+* Nothing you do here is saved as part of your workflow!
+
+--
+* Useful for debugging, testing code, iterating a plot until you like it ...
+* Once you get what you were looking for, add it to your script files!
+* **Never** manipulate your data in the console. 
+Your workflow should always be **reproducible!**
+
+---
+
+## Incomplete Code
+
+What if we start a command, but do not finish it?
+
+
+```r
+&gt; 5 -
++ 
+```
+
+Two options:
+  * Press `Esc` to exit and *not* execute the line
+  * Complete the command
+
+---
+layout: false
+
+# Files, Plots, Packages, Help
+
+* We will explore this tab more as we get into functions and visualization
+* Files is used to browse the files on your computer
+  * Useful for opening files/data, moving files you are working with
+  * *Use caution!* Changing files here is the same as changing them on your computer. If you delete something, it's gone!
+* Plots are used to display plots you create in R
+* Help is used to browse help files of functions. You can explore these by preceding a function name with `?`. Try `?sqrt` to see.
+* Packages shows all the packages you currently have installed (we will get more into this later!)
+
+---
+class: inverse
+
+.middler[.huge[Brief Intermission: File Organization]]
+---
+layout:true
+
+# File Names Matter
+
+---
+
+
+.pull-left[
+## Bad
+
+* `newfinal2actualFINALnew.docx`
+* `asdfasdf.R`
+* `analy$i$ functions!.R`
+* `stuff.R`
+
+
+* Cluttered
+* Uninformative
+* Spaces
+* Special characters other than `_` and `-`
+]
+
+.pull-right[
+## Good
+* `stat302_lab1.Rmd`
+* `analysis_functions.R`
+* `analysisFunctions.R`
+* `2020-01-08_labWriteup.Rmd`
+
+
+* Meaningful
+* Concise
+* camelCase or using `_` to distinguish words
+* Machine sortable
+]
+
+---
+
+## Summary
+
+* Machine readable
+* Human readable
+* Plays well with default ordering
+
+--
+  * `01_draft.Rmd`, `02_draft.Rmd` , ... , `11_draft.Rmd`
+  * `2018-05-05_resume.docx`, `2019-02-17_resume.docx`, `2020-01-08_resume.docx`
+
+---
+layout: false
+layout: true
+
+# File Organization Matters
+
+---
+
+
+Easier to start with best practice rather than fix things later!
+
+.middler[![](images/psyduck.gif)]
+
+---
+
+1. Somewhere on your computer, create the folder `STAT302`
+2. Within that folder, create the subfolders `short_labs`&lt;sup&gt;1&lt;/sup&gt;, `labs`, `projects`
+3. Within your Short Labs folder, create a subfolder `short_lab_1`&lt;sup&gt;2&lt;/sup&gt;
+4. Put your both of short lab files from Monday into that folder
+5. Within your Labs folder, create a folder for Lab 1 that follows the filename guide
+
+.footnote[[1] or `shortLabs`, `ShortLabs`, `Short_Labs`, ... (just follow the rules for file names!)
+
+[2] or `shortLab1`, `short_lab1`, ...
+]
+
+--
+.pushdown[May seem excessive for now, but this will come in handy when labs start 
+including extra files such as data and figures!]
+
+
+
+---
+layout: false
+
+# All done! For now...
+
+.middler[![](images/files.gif)]
+
+---
+layout: true
+# R Markdown
+---
+
+Let's try making an R Markdown file:
+
+1. Choose *File &gt; New File &gt; R Markdown...*
+2. Make sure *HTML Output* is selected and click OK
+3. Save the file in your new folder, call it `stat302_Lab1.Rmd`
+  * *Hint:* Follow along, because this will become your Lab 1 submission!
+4. Click the *Knit HTML* button
+  * After it is done, browse to the file location using the `Files` tab. What do you notice?
+  * Click *Open in Browser* to view the full HTML
+
+---
+
+## R Markdown Headers
+
+The header of .Rmd files is YAML (YAML Ain't Markup Language) code
+
+5. Change `title` to "Lab 1"
+6. Change `author` to your name in quotes
+7. Change `date` to the due date in quotes
+
+--
+
+
+Congrats! You have a functional .Rmd that will soon be your Lab 1 submissions!
+
+---
+
+## R Markdown Syntax
+
+(Thanks to Charles Lanfear, UW Sociology, for this very concise summary)
+
+---
+
+.pull-left[
+
+## Output
+
+**bold/strong emphasis**
+
+*italic/normal emphasis*
+
+.forcehead[Header]
+## Subheader
+### Subsubheader
+
+]
+
+.pull-right[
+## Syntax
+
+&lt;pre&gt;
+**bold/strong emphasis**
+
+*italic/normal emphasis*
+
+# Header
+
+
+## Subheader
+
+### Subsubheader
+
+&lt;/pre&gt;
+]
+
+---
+
+.pull-left[
+## Output
+
+1. Ordered lists
+1. Are real easy
+  1. Even with sublists
+  1. Or when lazy with numbering
+  
+* Unordered lists
+* Are also real easy
+  + Also even with sublists
+
+[URLs are trivial](http://www.uw.edu)
+
+![pictures too](http://depts.washington.edu/uwcreate/img/UW_W-Logo_smallRGB.gif)
+]
+
+.pull-right[
+
+## Syntax
+
+&lt;div style="width:400px;overflow:auto"&gt;
+&lt;pre&gt;
+1. Ordered lists
+1. Are real easy
+  1. Even with sublists
+  1. Or when lazy with numbering
+
+* Unordered lists
+* Are also real easy
+  + Also even with sublists
+
+[URLs are trivial](http://www.uw.edu)
+
+![pictures too](http://depts.washington.edu/uwcreate/img/UW_W-Logo_smallRGB.gif)
+&lt;/div&gt;
+&lt;/pre&gt;
+]
+
+---
+
+.pull-left[
+## Output 
+
+You can put some math `\(y= \left( \frac{2}{3} \right)^2\)` right up in there.
+
+
+
+`$$\frac{1}{n} \sum_{i=1}^{n} x_i = \bar{x}_n$$`
+
+Or a sentence with `code-looking font`.
+
+
+Or a block of code:
+
+```
+y &lt;- 1:5
+z &lt;- y^2
+```
+]
+
+.pull-right[
+
+## Syntax
+
+&lt;div style="width:400px;overflow:auto"&gt;
+&lt;pre&gt;
+You can put some math $y= \left(\frac{2}{3} 
+\right)^2$ right up in there
+
+`$$\frac{1}{n} \sum_{i=1}^{n}
+x_i = \bar{x}_n$$`
+
+Or a sentence with `code-looking font`.
+
+Or a block of code:
+
+    ```
+    y &lt;- 1:5
+    z &lt;- y^2
+    ```
+&lt;/pre&gt;
+]
+&lt;/div&gt;
+
+---
+
+## Helpful Links
+* [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/)
+* [R Markdown Cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf)
+
+
+
+---
+
+## R Code within R Markdown
+
+As you saw in Short Lab 1, we can run and execute R code within R Markdown. 
+To do so encase your code as follows.
+
+
+    ```{r, eval = TRUE, echo = TRUE}
+    # Your code goes here!
+    ```
+
+You can click the green triangle in the corner to evaluate that code chunk to preview the results without compiling the entire document
+
+---
+
+## Useful Code Chunk Parameters
+
+Parameters go into the opening brackets `{r}` and are separated by commas. Here are some you might find useful (checkout the guide links above for more):
+
+* `echo=FALSE`: Hide R code but keep results
+
+* `eval=FALSE`: Do not execute the R code
+
+* `include=FALSE`: Hides all output (useful to load packages at the beginning of your document)
+
+* `cache=TRUE`: Stores the results of the chunk, and only re-runs if the chunk is changed. Useful for files that take a while to compile
+
+* `fig.height=5, fig.width=5`: modify the dimensions of any plots that are generated in the chunk (units are in inches)
+
+---
+
+## In-Line R Code
+
+
+
+You can also include and execute R code directly in the text of your .Rmd!
+For example, say we define a variable
+
+```r
+x &lt;- 7
+```
+If I want to reference this variable in text, I can do so directly by writing using ticks and starting with r. So if I type:
+
+    The variable I want to reference is `r x`.
+what will appear is:
+
+The variable I want to reference is 7.
+
+---
+
+## In-Line R Code
+
+* This allows you to easily see where your values came from!
+* This prevents any typos in translating coding results to text!
+* This allows you to modify your analysis without needing to copy and paste updated results into your text!
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "default",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

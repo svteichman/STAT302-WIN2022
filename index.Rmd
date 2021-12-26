@@ -1,0 +1,80 @@
+---
+title: "STAT 302"
+description: |
+  Statistical Software and its Applications
+site: distill::distill_website
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+![](files/images/bombe.jpeg)
+
+Materials for this course were originally developed by [Bryan Martin](https://bryandmartin.github.io/STAT302/index.html).
+
+# Schedule 
+
+### Week Two
+
+* **M 10/04**: Short Lab 1 assigned
+* **W 10/06**: Short Lab 1 due before class; Lab 1 assigned
+
+### Week Three
+
+* **M 10/11**: Short Lab 2 assigned
+* **W 10/13**: Short Lab 2 and Lab 1 due before class; Lab 2 assigned
+
+### Week Four
+
+* **M 10/18**: No assignment
+* **W 10/20**: Lab 2 due before class; Project 1 assigned
+
+### Week Five
+
+* **M 10/25**: No assignment
+* **W 10/27**: Project 1 due before class; Short Lab 3 assigned
+
+### Week Six
+
+* **M 11/01**: Short Lab 3 due before class; Lab 3 assigned
+* **W 11/03**: Continue work on Lab 3 (due 11/10)
+
+### Week Seven
+
+* **M 11/08**: Continue work on Lab 3 (due 11/10)
+* **W 11/10**: Lab 3 due; Project 2 assigned (due 11/22) 
+
+### Week Eight
+
+* **M 11/15**: Continue work on Project 2
+* **W 11/17**: Continue work on Project 2; Short Lab 4 assigned
+
+### Week Nine
+
+* **M 11/22**: Short Lab 4 and Project 2 due; Short Lab 5 assigned
+* **W 11/24**: Class cancelled
+
+### Week Ten
+
+* **M 11/29**: Short Lab 5 due; Lab 4 assigned
+* **W 12/01**: Continue work on Lab 4
+
+### Week Eleven
+
+* **M 12/06**: Lab 4 due; Project 3 assigned (due 12/13)
+* **W 12/08**: Continue work on Project 3
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+# Learn more about creating websites with Distill at:
+# https://rstudio.github.io/distill/website.html
+
+# Learn more about publishing to GitHub Pages at:
+# https://rstudio.github.io/distill/publish_website.html#github-pages
+
+```
+

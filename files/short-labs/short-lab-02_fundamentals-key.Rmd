@@ -1,0 +1,120 @@
+---
+title: "Short Lab 2"
+author: "INSERT YOUR NAME HERE"
+date: "Due Date Here"
+output: html_document
+---
+
+<!--- Begin styling code. --->
+<style type="text/css">
+/* Whole document: */
+body{
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-size: 12pt;
+}
+h1.title {
+  font-size: 38px;
+  text-align: center;
+}
+h4.author {
+  font-size: 18px;
+  text-align: center;
+}
+h4.date {
+  font-size: 18px;
+  text-align: center;
+}
+</style>
+<!--- End styling code. --->
+
+
+As usual, all code below should follow the style guidelines from the lecture slides.
+
+## Part 1. Control Flow
+
+**1a.** Write a function that checks whether the input is an even number or not. This function should check to make sure the input is an integer. If the input is not an integer, the function should `stop` with an informative error message.
+
+```{r}
+# is_even: returns logical checking whether input is even
+# input: x numeric
+# output: logical reflecting parity of x
+is_even <- function(x) {
+  if (!is.integer(x)) {
+    stop("input must be an integer")
+  } else {
+    return(x %% 2 == 0) # true if x is even
+  }
+}
+```
+
+
+**1b.** Evaluate your function with even integer input.
+
+```{r, error = T}
+is_even(4) # in R, integers are followed by L
+is_even(4L)
+```
+
+**1c.** Evaluate your function with odd numeric input.
+
+```{r, error = T}
+is_even(3L) # in R, integers are followed by L
+```
+
+**1d.** Trigger your custom error message. Note: You will need to add the parameter 
+`error = TRUE` to your R Markdown code chunk. If you do not, your document will not compile!
+
+```{r, error = T}
+is_even(3.5) 
+```
+
+## Part 2. Loops
+
+**2.** Define and demonstrate the use of a function that loops through through a numeric input vector and returns a numeric vector of the same length, where the $i$th element of the output is equal to the sum of the first $i$ elements of the input. (Hint: The first element of the output should match the first element of the input. The last element of the output should match the sum of the elements of the input.)
+
+```{r, error = T}
+cumulative_sum <- function(input_vec) {
+  # create output vector
+  output <- numeric(length(input_vec))
+  for (i in 1:length(input_vec)) {
+    # ith value should be sum of first i values of input
+    output[i] <- sum(input_vec[1:i])
+  }
+  return(output)
+}
+cumulative_sum(c(5,4,2,3,1))
+```
+
+**3.** Define and demonstrate the use of a function that loops through each element of a matrix and replaces each element with the row index minus the column index. (Hint: use `ncol()` and `nrow()`)
+
+```{r, error = T}
+transform_mat_1 <- function(input_mat) {
+  # copy input matrix
+  output_mat <- input_mat 
+  for (i in 1:nrow(input_mat)) {
+    for (j in 1:ncol(input_mat)) {
+      output_mat[i, j] <- i - j
+    }
+  }
+  return(output_mat)
+}
+transform_mat_1(diag(5))
+```
+
+**4.** Define and demonstrate the use of a function takes an integer $n$ as input and produces an $n\times n$ matrix where each entry above the main diagonal is the column index, but the main diagonal and all the entries below the main diagonal are zero.
+
+```{r, error = T}
+special_mat <- function(size) {
+  # fill output matrix with zeroes
+  output_mat <- matrix(0, nrow = size, ncol = size)
+  # need to be careful with indices
+  # which rows do we want to fill? which columns?
+  for (i in 1:(size - 1)) {
+    for (j in (i + 1):size) {
+      output_mat[i, j] <- j
+    }
+  }
+  return(output_mat)
+}
+special_mat(4)
+```

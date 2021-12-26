@@ -1,0 +1,51 @@
+---
+title: "Short Lab 2"
+author: "INSERT YOUR NAME HERE"
+date: "Due Date Here"
+output: html_document
+---
+
+<!--- Begin styling code. --->
+<style type="text/css">
+/* Whole document: */
+body{
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-size: 12pt;
+}
+h1.title {
+  font-size: 38px;
+  text-align: center;
+}
+h4.author {
+  font-size: 18px;
+  text-align: center;
+}
+h4.date {
+  font-size: 18px;
+  text-align: center;
+}
+</style>
+<!--- End styling code. --->
+
+
+As usual, all code below should follow the style guidelines from the lecture slides.
+
+## Part 1. Control Flow
+
+**1a.** Write a function that checks whether the input is an even number or not. This function should check to make sure the input is an integer. If the input is not an integer, the function should `stop` with an informative error message.
+
+**1b.** Evaluate your function with even integer input.
+
+**1c.** Evaluate your function with odd numeric input.
+
+**1d.** Trigger your custom error message. Note: You will need to add the parameter 
+`error = TRUE` to your R Markdown code chunk. If you do not, your document will not compile!
+
+## Part 2. Loops
+
+**2.** Define and demonstrate the use of a function that loops through through a numeric input vector and returns a numeric vector of the same length, where the $i$th element of the output is equal to the sum of the first $i$ elements of the input. (Hint: The first element of the output should match the first element of the input. The last element of the output should match the sum of the elements of the input.)
+
+**3.** Define and demonstrate the use of a function that loops through each element of a matrix and replaces each element with the row index minus the column index. (Hint: use `ncol()` and `nrow()`)
+
+**4.** Define and demonstrate the use of a function takes an integer $n$ as input and produces an $n\times n$ matrix where each entry above the main diagonal is the column index, but the main diagonal and all the entries below the main diagonal are zero.
+

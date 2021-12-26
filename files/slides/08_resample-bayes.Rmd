@@ -1,0 +1,330 @@
+---
+title: "STAT 302, Lecture Slides 8"
+subtitle: "Resampling"
+author: "Peter Gao"
+date: ""
+output:
+  xaringan::moon_reader:
+    css: ["default", "gao-theme.css", "gao-theme-fonts.css"]
+    nature:
+      highlightStyle: default
+      highlightLines: true
+      countIncrementalSlides: false
+      titleSlideClass: ["center"]
+---
+
+```{r setup, include=FALSE, purl=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(comment = "##")
+knitr::opts_chunk$set(cache = FALSE)
+knitr::opts_chunk$set(error = TRUE)
+library(kableExtra)
+library(tidyverse)
+```
+
+
+# Outline
+
+1. Permutation Tests
+2. Bootstrap
+
+.middler[**Goal:** Understand various computational approaches for statistical inference.]
+
+---
+# Motivation
+
+Suppose we want to examine the oft-cited claim that right-handed people live longer than left-handed people. We randomly sample 10 left-handed and 10 right-handed death certificates and compare the sample average lifespans. Suppose we find that the right-handed sample mean is 3 years longer than the left-handed sample mean.
+
+--
+
+What is our null hypothesis here?
+
+--
+
+$H_0:\mu_{L}=\mu_{R}$
+
+--
+
+The **sample mean difference** of 3 years is an example of a sample statistic. We want to know: Is this difference meaningful, or is it just noise? What should we do?
+
+---
+# A parametric approach
+
+A common approach here is the **two-sample t-test** for difference of means. Can we use this method here? What assumptions does this test require?
+
+--
+Usually:
+
+1. Observations must be **independent** of each other.
+2. Each population should be (approximately) normally distributed.
+
+--
+
+Are these assumptions satisfied?
+---
+# A parametric approach
+
+The t-test relies on our being able to construct a test statistic with a t-distribution. If our assumptions are met, then our test statistic should have the right distribution.
+
+```{r, echo = F}
+x <- seq(-3, 3, length.out = 1000)
+plot(x, dt(x, df = 18), xlab = "x", ylab = "density", main = "t-distribution")
+```
+---
+# Another approach?
+
+However, this is not the only hypothesis test we could use here. Consider that our data looks something like this:
+
+```{r, echo = F}
+dat <- data.frame(age = c("60", "71", "77", "..."),
+                  hand = c("L", "R", "R", "..."))
+dat %>% knitr::kable()
+```
+
+If our null hypothesis is true, there should be no relationship between age at death and handedness **in our sample**. We can sample from the null distribution by randomly assigning handedness to our data points and calculating the resulting sample statistic.
+
+---
+# An example with actual data
+
+```{r, eval = T, warning = F, message = F, fig.height = 4}
+library(ggplot2)
+# experiment comparing growing conditions' effect of growth
+data(PlantGrowth)
+
+ggplot(PlantGrowth, aes(x = weight, fill = group)) +
+  geom_histogram() + facet_wrap(~group) + theme_bw()
+```
+
+Is there a difference between Treatment 2 and Control?
+
+---
+# The t-test
+
+```{r, eval = T}
+t.test(x = PlantGrowth$weight[PlantGrowth$group == "ctrl"],
+       y = PlantGrowth$weight[PlantGrowth$group == "trt2"])
+```
+
+---
+# A permutation test
+
+```{r perm.1a, eval = T, cache = T}
+# remove treatment 1
+PlantGrowth <- PlantGrowth %>%
+  filter(group != "trt1")
+obs_diff <- mean(PlantGrowth$weight[PlantGrowth$group == "trt2"]) -
+    mean(PlantGrowth$weight[PlantGrowth$group == "ctrl"])
+obs_diff
+```
+
+Is this difference meaningful?
+
+---
+# A permutation test
+```{r perm.1b, eval = T, cache = T}
+# store permuted differences
+permuted_diff <- numeric()
+for (i in 1:10000) {
+  # for each iteration, scramble group variable
+  permuted_data <- PlantGrowth %>%
+    mutate(group = sample(group))
+  # compute difference
+  diff = mean(permuted_data$weight[permuted_data$group == "trt2"]) -
+    mean(permuted_data$weight[permuted_data$group == "ctrl"])
+  # store difference
+  permuted_diff[i] <- diff
+}
+```
+
+---
+# A permutation test
+```{r perm.1c, fig.height = 3.5}
+hist(permuted_diff)
+```
+
+How do we compute a p-value?
+--
+```{r perm.1d}
+# calculate p-value
+mean(abs(permuted_diff) > abs(obs_diff))
+```
+---
+
+# A permutation test for correlation
+
+Suppose we have two variables, `x` and `y`, and we want to test whether they are correlated. What should we do?
+
+--
+
+We could use some sort of parametric test, or ...
+
+---
+
+```{r perm.2a, eval = T, cache = T, fig.height= 3.5}
+set.seed(1111111)
+sim_data <- data.frame(x = rnorm(11),
+                       y = c(rnorm(11)))
+plot(sim_data)
+cor(sim_data$x, sim_data$y)
+```
+---
+  
+```{r perm.2b, eval = T, cache = T}
+# store correlations
+permuted_cor <- numeric()
+for (i in 1:10000) {
+  permuted_data <- 
+    data.frame(x = sim_data$x,
+               y = sample(sim_data$y))
+  permuted_cor[i] <- cor(permuted_data$x,
+                         permuted_data$y)
+}
+```
+
+---
+
+```{r perm.2c, fig.height= 3.5}
+hist(permuted_cor)
+```
+
+--
+
+```{r perm.2d}
+# calculate p-value
+mean(abs(permuted_cor) > abs(cor(sim_data$x, sim_data$y)))
+```
+---
+# A wonkier example
+  
+```{r perm.3a, eval = T, cache = T, fig.height= 3.5}
+set.seed(1111111)
+sim_data <- data.frame(x = rnorm(11),
+                       y = c(rnorm(10), 20))
+plot(sim_data)
+cor(sim_data$x, sim_data$y)
+```
+---
+# A wonkier example
+
+```{r perm.3b, eval = T, cache = T}
+# store correlations
+permuted_cor <- numeric()
+for (i in 1:10000) {
+  permuted_data <- 
+    data.frame(x = sim_data$x,
+               y = sample(sim_data$y))
+  permuted_cor[i] <- cor(permuted_data$x, permuted_data$y)
+}
+
+```
+
+---
+# A wonkier example
+
+```{r perm.3d, fig.height = 3.5}
+hist(permuted_cor)
+mean(abs(permuted_cor) > abs(cor(sim_data$x, sim_data$y)))
+```
+
+---
+# Bootstrap
+
+Suppose we sample 25 houses in Seattle and get their sale prices. How can we construct an interval estimate for the mean house price of all houses in Seattle?
+
+```{r, eval = T}
+library(moderndive)
+data("house_prices")
+
+# population mean price
+pop_mean <- mean(house_prices$price)
+
+set.seed(1234)
+sample_prices <- sample(house_prices$price, size = 25)
+(sample_mean <- mean(sample_prices))
+```
+
+---
+# Bootstrap
+
+Assuming independence and approximate normality, we can construct a t-interval:
+```{r, eval = T}
+t_res <- t.test(sample_prices)
+t_conf_int <- t_res$conf.int
+t_conf_int
+```
+--
+
+```{r, eval = T, fig.height = 3.4}
+hist(house_prices$price)
+```
+
+---
+
+# Bootstrap
+
+We can use resampling to construct what is called a bootstrap confidence interval. Essentially:
+
+1. Resample with replacement from our existing sample many times.
+2. For each resample, compute the resample mean. 
+3. Take the 2.5 and 97.5 quantiles of the resample means.
+
+```{r bs.1, eval = T, cache = T, fig.height = 3.5}
+bs_sample_prices <- as.data.frame(sample_prices) %>% 
+  rep_sample_n(size = 25, replace = TRUE, reps = 10000)
+bs_sample_means <- bs_sample_prices %>%
+  group_by(replicate) %>%
+  summarize(bs_mean = mean(sample_prices))
+bs_conf_int <- quantile(bs_sample_means$bs_mean, probs = c(.025, .975))
+```
+
+---
+# Bootstrap interval
+
+Below we plot a histogram of our bootstrap means.
+
+```{r, eval = T, cache = T, fig.height = 3.5}
+hist(bs_sample_means$bs_mean)
+bs_conf_int
+```
+
+---
+
+# Comparing bootstrap and t 
+
+```{r bs.sim, eval = T, cache = T}
+set.seed(1234)
+t_conf_ints <- matrix(ncol = 2, nrow = 1000)
+bs_conf_ints <- matrix(ncol = 2, nrow = 1000)
+for (i in 1:1000) {
+  # initial sample
+  sample_prices <- sample(house_prices$price, size = 15)
+  # t-interval
+  t_res <- t.test(sample_prices)
+  t_conf_ints[i, ] <- t_res$conf.int
+  # bootstrap interval
+  bs_sample_prices <- as.data.frame(sample_prices) %>% 
+    rep_sample_n(size = 15, replace = TRUE, reps = 10000)
+  bs_sample_means <- bs_sample_prices %>%
+    group_by(replicate) %>%
+    summarize(bs_mean = mean(sample_prices))
+  bs_conf_ints[i, ] <- quantile(bs_sample_means$bs_mean, probs = c(.025, .975))
+}
+```
+
+---
+
+# Comparing bootstrap and t 
+
+```{r bs.sim.res, eval = T, cache = T}
+mean(t_conf_ints[, 1] < pop_mean &
+       t_conf_ints[, 2] > pop_mean)
+mean(bs_conf_ints[, 1] < pop_mean &
+       bs_conf_ints[, 2] > pop_mean)
+```
+
+---
+# Recap: Why resample?
+
+--
+1. Existing parametric methods rely on assumptions
+2. Resampling methods can leverage computational power to help us avoid making inappropriate assumptions.

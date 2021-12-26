@@ -1,0 +1,59 @@
+---
+title: "Optional exercises: data manipulation"
+author: "INSERT YOUR NAME HERE"
+date: "Due Date Here"
+output: html_document
+---
+
+<!--- Begin styling code. --->
+<style type="text/css">
+/* Whole document: */
+body{
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-size: 12pt;
+}
+h1.title {
+  font-size: 38px;
+  text-align: center;
+}
+h4.author {
+  font-size: 18px;
+  text-align: center;
+}
+h4.date {
+  font-size: 18px;
+  text-align: center;
+}
+</style>
+<!--- End styling code. --->
+
+
+As usual, all code below should follow the style guidelines from the lecture slides.
+
+## Part 1. Data manipulation
+
+Use the code below to load the building permits data. You may have to install the required packages.
+
+
+```{r, results = F, message = F, warning = F}
+library(readr)
+library(dplyr)
+library(tidyr)
+permits <- read_csv("https://raw.githubusercontent.com/peteragao/STAT302-AUT2021/base/files/projects/01_data-visualization/Building_Permits_Clean.csv")
+```
+
+1. Use the ```filter``` function to create a new tibble with only permits issued in 2021.
+
+2. Use the ```filter``` function to create a new tibble with only permits issued in 2021 for projects that add at least 1 housing unit.
+
+3. Use the ```mutate``` function to create a new variable ```is_single_family``` that is ```TRUE``` if the permit is for a single family building.
+
+4. Use the ```mutate``` function and ```ifelse``` function to create a new variable ```north_of_cut``` that has the value `"north"` if the permit is for a location in council districts 4, 5, 6, and the value `"south"` otherwise.
+
+## Part 2. Summary statistics (split-apply-combine)
+
+5. Calculate the number of permits by year using the `group_by` and `summarize` functions.
+
+6. Calculate the number of housing units added by city council district. You may have to figure out what to do with `NA` values.
+
+7. Use the ```filter``` function to create a new tibble with only permits issued in 2021 for projects that add at least 1 housing unit. Using your new tibble, calculate the average number of housing units added (for projects that add at least 1 housing unit) by city council district.

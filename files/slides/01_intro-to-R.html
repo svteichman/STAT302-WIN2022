@@ -1,0 +1,2229 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STAT 302: Lecture 1</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Peter Gao (adapted from slides by Bryan Martin)" />
+    <script src="01_intro-to-R_files/header-attrs/header-attrs.js"></script>
+    <link href="01_intro-to-R_files/remark-css/default.css" rel="stylesheet" />
+    <script src="01_intro-to-R_files/kePrint/kePrint.js"></script>
+    <link href="01_intro-to-R_files/lightable/lightable.css" rel="stylesheet" />
+    <link rel="stylesheet" href="gao-theme.css" type="text/css" />
+    <link rel="stylesheet" href="gao-theme-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, title-slide
+
+# STAT 302: Lecture 1
+## Introduction to R
+### Peter Gao (adapted from slides by Bryan Martin)
+
+---
+
+
+
+# Before class
+
+What do you think the code below does? Check with your neighbor.
+
+
+```r
+is.na(NA)
+is.na("NA")
+is.na(NULL)
+is.na(Inf)
+
+# What about these two?
+round(4.5)
+round(3.5)
+```
+---
+# Before class
+
+
+```r
+is.na(NA)
+```
+
+```
+## [1] TRUE
+```
+
+```r
+is.na("NA")
+```
+
+```
+## [1] FALSE
+```
+
+```r
+is.na(NULL)
+```
+
+```
+## logical(0)
+```
+
+```r
+is.na(Inf)
+```
+
+```
+## [1] FALSE
+```
+---
+# Before class
+
+```r
+# What about these two?
+round(4.5)
+```
+
+```
+## [1] 4
+```
+
+```r
+round(3.5)
+```
+
+```
+## [1] 4
+```
+
+--
+
+From R Documentation: 
+
+*Note that for rounding off a 5, the IEC 60559 standard (see also ‘IEEE 754’) is expected to be used, ‘go to the even digit’. Therefore round(0.5) is 0 and round(-1.5) is -2. However, this is dependent on OS services and on representation error (since e.g. 0.15 is not represented exactly, the rounding rule applies to the represented number and not to the printed number, and so round(0.15, 1) could be either 0.1 or 0.2).*
+
+---
+
+# Before class
+
+Introduce yourself to your neighbor and discuss the following questions
+
+* Do you like to listen to music while working, and if so, what?
+* What does the following code do? Does it raise any errors? You can check the answer on the next slide.
+
+
+```r
+x &lt;- c("hello", "my", 30, NA, "students")
+x[is.na(x)] &lt;- "beloved"
+print(x)
+cat(x)
+```
+
+--
+
+
+```
+## [1] "hello"    "my"       "30"       "beloved"  "students"
+```
+
+```
+## hello my 30 beloved students
+```
+---
+
+# Outline
+
+1. Review
+2. Data Types
+3. R Coding Style
+4. Short Lab 1
+
+
+---
+layout: true
+# Review
+---
+
+1. R vs. R Studio vs. R Markdown
+2. R Basics
+---
+
+.large[*What is the difference between R and R Markdown?*]
+--
+
+.middler[.large[R Markdown files combine R code, results, plots, and text to produce presentations/websites/reports]]
+
+---
+
+
+
+```r
+# T or F?
+x &lt;- 5
+y &lt;- 6
+(x &gt; 2) &amp; (y &lt; 5)
+```
+
+
+--
+
+
+
+```
+## [1] FALSE
+```
+
+--
+
+
+```r
+# T or F?
+x + 2 &lt; y
+```
+
+
+--
+
+
+```
+## [1] FALSE
+```
+--
+
+
+```r
+# ???
+x + (2 &lt; y)
+```
+
+--
+
+
+```
+## [1] 6
+```
+
+---
+
+layout: false
+class: inverse
+
+.middler[.huge[Data Types]]
+
+---
+# Atomic vectors
+
+  
+
+* logical
+* integer
+* double
+* character
+
+---
+
+# Atomic vectors
+
+&lt;img src="https://d33wubrfki0l68.cloudfront.net/eb6730b841e32292d9ff36b33a590e24b6221f43/57192/diagrams/vectors/summary-tree-atomic.png" width="500" style="display: block; margin: auto;" /&gt;
+
+from *Advanced R*, Hadley Wickham.
+
+---
+
+# Atomic vectors
+
+
+```r
+x &lt;- "hello"
+y &lt;- T
+```
+
+--
+
+
+```r
+class(x)
+```
+
+```
+## [1] "character"
+```
+
+```r
+class(y)
+```
+
+```
+## [1] "logical"
+```
+
+--
+
+
+```r
+as.numeric(x)
+```
+
+```
+## Warning: NAs introduced by coercion
+```
+
+```
+## [1] NA
+```
+
+```r
+as.numeric(y)
+```
+
+```
+## [1] 1
+```
+
+---
+layout: true
+
+# Vectors
+---
+
+* A **vector** is a set of atomic vectors of the same type
+* We create vectors using the function `c()` 
+
+
+```r
+c(16, 3, 0, 7, -2)
+```
+
+```
+## [1] 16  3  0  7 -2
+```
+
+* We can shorthand vectors counting up (or down) using `:`
+
+
+```r
+1:5
+```
+
+```
+## [1] 1 2 3 4 5
+```
+
+
+---
+
+* We can also generate vectors using functions such as `rep()` and `seq()`
+
+
+```r
+# Sequence from 1 to 20, incrementing by 5
+seq(1, 20, by = 5)
+```
+
+```
+## [1]  1  6 11 16
+```
+
+```r
+# Repeat each element of a vector 3 times each
+rep(c(1, 2), each = 3)
+```
+
+```
+## [1] 1 1 1 2 2 2
+```
+
+```r
+# Repeat an entire vector 3 times
+rep(c(1, 2), 3)
+```
+
+```
+## [1] 1 2 1 2 1 2
+```
+
+---
+
+* We index vectors using `[index]` after the vector name
+
+
+```r
+x &lt;- 1:5
+x[3]
+```
+
+```
+## [1] 3
+```
+
+* If we use a negative index, we return the vector with that element removed
+
+
+```r
+x[-4]
+```
+
+```
+## [1] 1 2 3 5
+```
+
+---
+
+## Vector Arithmetic
+
+**Vectorization**, or applying functions across vectors/arrays, is one of R's most powerful capabilities 
+
+
+```r
+y &lt;- -5:-1
+y
+```
+
+```
+## [1] -5 -4 -3 -2 -1
+```
+
+```r
+x + y
+```
+
+```
+## [1] -4 -2  0  2  4
+```
+
+```r
+x * y
+```
+
+```
+## [1] -5 -8 -9 -8 -5
+```
+
+---
+
+Be careful! R **recycles**, repeating elements of shorter vectors to match longer vectors.
+This is incredibly useful when done on purpose, 
+but can also easily lead to hard-to-catch bugs in your code!
+
+
+```r
+2 * x
+```
+
+```
+## [1]  2  4  6  8 10
+```
+
+```r
+c(1, -1) * x
+```
+
+```
+## Warning in c(1, -1) * x: longer object length is not a multiple of shorter object length
+```
+
+```
+## [1]  1 -2  3 -4  5
+```
+
+```r
+c(1, -1) + x
+```
+
+```
+## Warning in c(1, -1) + x: longer object length is not a multiple of shorter object length
+```
+
+```
+## [1] 2 1 4 3 6
+```
+
+---
+
+We can apply many functions component-wise to vectors, including comparison operators.
+
+
+```r
+x &gt;= 3
+```
+
+```
+## [1] FALSE FALSE  TRUE  TRUE  TRUE
+```
+
+```r
+y &lt; -2
+```
+
+```
+## [1]  TRUE  TRUE  TRUE FALSE FALSE
+```
+
+```r
+(x &gt;= 3) &amp; (y &lt; -2)
+```
+
+```
+## [1] FALSE FALSE  TRUE FALSE FALSE
+```
+
+```r
+x == c(1, 3, 2, 4, 5)
+```
+
+```
+## [1]  TRUE FALSE FALSE  TRUE  TRUE
+```
+
+---
+
+## Boolean Vectors
+
+In code, entries that are `TRUE` or `FALSE` are called **booleans** (logicals in R). 
+These are incredibly important, because they can be used to give your computer conditions.
+What will the following code do?
+
+
+```r
+x[x &gt; 3] &lt;- 3
+x
+```
+
+
+--
+
+```
+## [1] 1 2 3 3 3
+```
+
+
+---
+
+## Boolean Vectors
+
+We can also do basic arithmetic with booleans. `TRUE` is encoded as `1` and `FALSE` is encoded as `0`.
+
+
+```r
+# First reset x
+x &lt;- 1:5
+sum(x &gt;= 3)
+```
+
+
+--
+
+```
+## [1] 3
+```
+
+
+--
+
+```r
+mean(x &gt;= 3)
+```
+
+
+--
+
+```
+## [1] 0.6
+```
+
+--
+What is this last quantity telling us?
+
+--
+
+By taking the mean, we are looking at the **proportion** of our vector that is `TRUE`!
+
+
+---
+
+We can also get more complicated with our indexing.
+
+
+```r
+# Return the second and third elements of 
+y[c(2, 3)]
+```
+
+```
+## [1] -4 -3
+```
+
+```r
+# Return the values of x greater than 3
+x[x &gt;= 3]
+```
+
+```
+## [1] 3 4 5
+```
+
+```r
+# Values of x that match the index of the values of y that are less than -2
+x[y &lt; -2]
+```
+
+```
+## [1] 1 2 3
+```
+
+```r
+# which() returns the index of entries that are TRUE
+which(y &lt; -2)
+```
+
+```
+## [1] 1 2 3
+```
+
+---
+
+We can compare entire vectors using `identical()`
+
+
+```r
+identical(x, -rev(y))
+```
+
+```
+## [1] TRUE
+```
+
+What do you think the function `rev()` is doing in the code above?
+
+*Hint:* Use `?rev` to read the help files for the function
+
+---
+
+## Vector Data Types
+
+Note that vectors can only have one type of data. So we can do
+
+
+```r
+c(1, 2, 3)
+```
+
+```
+## [1] 1 2 3
+```
+
+```r
+c("a", "b", "c")
+```
+
+```
+## [1] "a" "b" "c"
+```
+but when we try
+
+
+```r
+c(1, "b", 3)
+```
+
+```
+## [1] "1" "b" "3"
+```
+R will force the entries in our vector to be of the same type! This is a common source of bugs.
+
+
+---
+
+## Names
+
+We can assign names to the entries of our vectors using `names()`. This can be useful to label our data.
+Note that arithmetic doesn't change the names of our elements. 
+
+
+```r
+my_vec &lt;- c(1, 2, 3)
+names(my_vec) &lt;- c("a", "b", "c")
+my_vec
+```
+
+```
+## a b c 
+## 1 2 3
+```
+
+```r
+my_vec + 1
+```
+
+```
+## a b c 
+## 2 3 4
+```
+
+We can then access the names as their own vector by calling `names()` again.
+
+
+```r
+names(my_vec)
+```
+
+```
+## [1] "a" "b" "c"
+```
+
+
+---
+
+## Useful functions for vectors
+
+* `max()`, `min()`, `mean()`, `median()`, `sum()`, `sd()`, `var()` 
+* `length()` returns the number of elements in the vector
+* `head()` and `tail()` return the beginning and end vectors
+* `sort()` will sort
+* `summary()` returns a 5-number summary
+* `any()` and `all()` to check conditions on Boolean vectors
+* `hist()` will return a crude histogram (we'll learn how to make this nicer later)
+
+You will need some of these for Lab 1! 
+
+If you are unclear about what any of them do, use `?` before the function name to read the documentation. You should get in the habit of checking function documentation a lot!
+
+---
+layout: false
+layout: true
+
+# Matrices
+---
+
+* **Matrices** are two-dimensional extension of vectors, 
+they have **rows** and **columns**
+* We can create a matrix using the function `matrix()`
+
+
+```r
+my_matrix &lt;- matrix(c(x, y), nrow = 2, ncol = 5, byrow = TRUE)
+my_matrix
+```
+
+```
+##      [,1] [,2] [,3] [,4] [,5]
+## [1,]    1    2    3    4    5
+## [2,]   -5   -4   -3   -2   -1
+```
+
+```r
+# Note: byrow = FALSE is the default
+my_matrix2 &lt;- matrix(c(x, y), nrow = 2, ncol = 5)
+my_matrix2
+```
+
+```
+##      [,1] [,2] [,3] [,4] [,5]
+## [1,]    1    3    5   -4   -2
+## [2,]    2    4   -5   -3   -1
+```
+
+.center[*Warning:* be careful not to call your matrix `matrix`! Why not?]
+
+---
+
+We can also generate matrices by column binding (`cbind()`) and row binding (`rbind()`) vectors
+
+
+```r
+cbind(x, y)
+```
+
+```
+##      x  y
+## [1,] 1 -5
+## [2,] 2 -4
+## [3,] 3 -3
+## [4,] 4 -2
+## [5,] 5 -1
+```
+
+```r
+rbind(x, y)
+```
+
+```
+##   [,1] [,2] [,3] [,4] [,5]
+## x    1    2    3    4    5
+## y   -5   -4   -3   -2   -1
+```
+
+---
+
+## Indexing and Subsetting Matrices
+
+Indexing a matrix is similar to indexing a vector, except we must index both the row and column, in that order.
+
+
+```r
+my_matrix
+```
+
+```
+##      [,1] [,2] [,3] [,4] [,5]
+## [1,]    1    2    3    4    5
+## [2,]   -5   -4   -3   -2   -1
+```
+
+
+```r
+my_matrix[2, 3]
+```
+
+--
+
+```
+## [1] -3
+```
+
+--
+
+```r
+my_matrix[2, c(1, 3, 5)]
+```
+
+--
+
+```
+## [1] -5 -3 -1
+```
+
+---
+
+Also similarly to vectors, we can subset using a negative index.
+
+
+```r
+my_matrix
+```
+
+```
+##      [,1] [,2] [,3] [,4] [,5]
+## [1,]    1    2    3    4    5
+## [2,]   -5   -4   -3   -2   -1
+```
+
+```r
+my_matrix[-2, -4]
+```
+
+```
+## [1] 1 2 3 5
+```
+
+```r
+# Note: Leaving an index blank includes all indices
+my_matrix[, -c(1, 3, 4, 5)]
+```
+
+```
+## [1]  2 -4
+```
+
+---
+
+
+```r
+my_matrix[, -c(1, 3, 4, 5)]
+```
+
+```
+## [1]  2 -4
+```
+
+```r
+is.matrix(my_matrix[, -c(1, 3, 4, 5)])
+```
+
+```
+## [1] FALSE
+```
+
+What happened here? When subsetting a matrix reduces one dimension to length 1,
+R automatically coerces it into a vector. We can prevent this by including `drop = FALSE`.
+
+
+```r
+my_matrix[, -c(1, 3, 4, 5), drop = FALSE]
+```
+
+```
+##      [,1]
+## [1,]    2
+## [2,]   -4
+```
+
+```r
+is.matrix(my_matrix[, -c(1, 3, 4, 5), drop = FALSE])
+```
+
+```
+## [1] TRUE
+```
+
+---
+
+## Filling in a Matrix
+
+We can fill in a matrix using indices. This is commonly done in statistical computing.
+In R, you should always start by initializing an empty matrix of the right size.
+
+
+```r
+my_results &lt;- matrix(NA, nrow = 3, ncol = 3)
+my_results
+```
+
+```
+##      [,1] [,2] [,3]
+## [1,]   NA   NA   NA
+## [2,]   NA   NA   NA
+## [3,]   NA   NA   NA
+```
+
+
+---
+
+
+Then I can replace a single row (or column) using indices as follows.
+
+
+```r
+my_results[2, ] &lt;- c(2, 4, 3)
+my_results
+```
+
+```
+##      [,1] [,2] [,3]
+## [1,]   NA   NA   NA
+## [2,]    2    4    3
+## [3,]   NA   NA   NA
+```
+
+We can also fill in multiple rows (or columns) at once. (Likewise, we can also do subsets of  rows/columns, or unique entries). Note that **recycling** applies here.
+
+
+```r
+my_results[c(1, 3), ] &lt;- 7
+my_results
+```
+
+```
+##      [,1] [,2] [,3]
+## [1,]    7    7    7
+## [2,]    2    4    3
+## [3,]    7    7    7
+```
+
+---
+
+## Matrix Entry Types
+
+Matrices, like vectors, can only have entries of one type. 
+
+
+```r
+rbind(c(1, 2, 3), c("a", "b", "c"))
+```
+
+```
+##      [,1] [,2] [,3]
+## [1,] "1"  "2"  "3" 
+## [2,] "a"  "b"  "c"
+```
+
+
+---
+
+## Functions on Matrices
+
+Let's create 3 matrices for the purposes of demonstrating matrix functions.
+
+
+```r
+mat1 &lt;- matrix(1:6, nrow = 2, ncol = 3, byrow = TRUE)
+mat1
+```
+
+```
+##      [,1] [,2] [,3]
+## [1,]    1    2    3
+## [2,]    4    5    6
+```
+
+```r
+mat2 &lt;- matrix(1:6, nrow = 3, ncol = 2)
+mat2
+```
+
+```
+##      [,1] [,2]
+## [1,]    1    4
+## [2,]    2    5
+## [3,]    3    6
+```
+
+
+---
+
+
+
+```r
+mat3 &lt;- matrix(5:10, nrow = 2, ncol = 3, byrow = TRUE)
+mat3
+```
+
+```
+##      [,1] [,2] [,3]
+## [1,]    5    6    7
+## [2,]    8    9   10
+```
+
+---
+
+### Matrix Sums `+`
+
+
+```r
+mat1 + mat3
+```
+
+```
+##      [,1] [,2] [,3]
+## [1,]    6    8   10
+## [2,]   12   14   16
+```
+
+### Element-wise Matrix Multiplication `*`
+
+
+```r
+mat1 * mat3
+```
+
+```
+##      [,1] [,2] [,3]
+## [1,]    5   12   21
+## [2,]   32   45   60
+```
+
+---
+
+### Matrix Multiplication `%*%`
+
+
+```r
+mat_square &lt;- mat1 %*% mat2
+mat_square
+```
+
+```
+##      [,1] [,2]
+## [1,]   14   32
+## [2,]   32   77
+```
+
+
+### Column Bind Matrices `cbind()`
+
+
+```r
+cbind(mat1, mat3)
+```
+
+```
+##      [,1] [,2] [,3] [,4] [,5] [,6]
+## [1,]    1    2    3    5    6    7
+## [2,]    4    5    6    8    9   10
+```
+
+
+---
+
+
+### Transpose `t()`
+
+
+```r
+t(mat1)
+```
+
+```
+##      [,1] [,2]
+## [1,]    1    4
+## [2,]    2    5
+## [3,]    3    6
+```
+
+
+### Column Sums `colSums()`
+
+
+```r
+colSums(mat1)
+```
+
+```
+## [1] 5 7 9
+```
+
+### Row Sums `rowSums()`
+
+
+```r
+rowSums(mat1)
+```
+
+```
+## [1]  6 15
+```
+
+
+---
+
+
+### Column Means `colMeans()`
+
+
+```r
+colMeans(mat1)
+```
+
+```
+## [1] 2.5 3.5 4.5
+```
+
+### Row Means `rowMeans()`
+
+
+```r
+rowMeans(mat1)
+```
+
+```
+## [1] 2 5
+```
+
+### Dimensions `dim()`
+
+
+```r
+dim(mat1)
+```
+
+```
+## [1] 2 3
+```
+
+
+---
+
+
+### Determinant `det()`
+
+
+```r
+det(mat_square)
+```
+
+```
+## [1] 54
+```
+
+### Matrix Inverse `solve()`
+
+
+```r
+solve(mat_square)
+```
+
+```
+##            [,1]       [,2]
+## [1,]  1.4259259 -0.5925926
+## [2,] -0.5925926  0.2592593
+```
+
+### Matrix Diagonal `diag()`
+
+
+```r
+diag(mat_square)
+```
+
+```
+## [1] 14 77
+```
+
+
+---
+
+## A note on `diag()`
+
+`diag()` can also be used to generate diagonal matrices by supplying a vector
+
+
+```r
+diag(c(1, 2, 3))
+```
+
+```
+##      [,1] [,2] [,3]
+## [1,]    1    0    0
+## [2,]    0    2    0
+## [3,]    0    0    3
+```
+
+Supplying an integer will produce an identity matrix of that dimension
+
+
+```r
+diag(3)
+```
+
+```
+##      [,1] [,2] [,3]
+## [1,]    1    0    0
+## [2,]    0    1    0
+## [3,]    0    0    1
+```
+
+---
+
+## Names
+
+We can assign names to the rows and columns, using `rownames()` and `colnames()`, respectively.
+Similarly to `names()` for vectors, we then access them by calling the function again.
+
+
+```r
+colnames(mat1) &lt;- c("var1", "var2", "var3")
+rownames(mat1) &lt;- c("sample1", "sample2")
+mat1
+```
+
+```
+##         var1 var2 var3
+## sample1    1    2    3
+## sample2    4    5    6
+```
+
+```r
+mat1 * 2
+```
+
+```
+##         var1 var2 var3
+## sample1    2    4    6
+## sample2    8   10   12
+```
+
+---
+
+## Names
+
+We can assign names to the rows and columns, using `rownames()` and `colnames()`, respectively.
+Similarly to `names()` for vectors, we then access them by calling the function again.
+
+
+```r
+rownames(mat1)
+```
+
+```
+## [1] "sample1" "sample2"
+```
+
+```r
+colnames(mat1)
+```
+
+```
+## [1] "var1" "var2" "var3"
+```
+
+
+---
+
+## Tables in R Markdown
+
+It is easy to go from matrices to tables using R Markdown. There are several methods (check the cheatsheet link and Google for alternatives). I will present one easy method here, but what you use is up to you!
+
+
+```r
+# We need to load the knitr and kableExtra package
+library(knitr)
+library(kableExtra)
+```
+
+
+```r
+my_tab &lt;- data.frame(mat1)
+kable_styling(kable(mat1))
+```
+
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; var1 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; var2 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; var3 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; sample1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; sample2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+What happened with the row and column names?
+
+
+---
+layout: true
+
+# Lists
+
+---
+
+**Lists**, like vectors and matrices, are a class of objects in R.
+Lists are special because they can store multiple different types of data.
+
+
+```r
+my_list &lt;- list("some_numbers" = 1:5,
+                "some_characters" = c("a", "b", "c"),
+                "a_matrix" = diag(2))
+my_list
+```
+
+```
+## $some_numbers
+## [1] 1 2 3 4 5
+## 
+## $some_characters
+## [1] "a" "b" "c"
+## 
+## $a_matrix
+##      [,1] [,2]
+## [1,]    1    0
+## [2,]    0    1
+```
+
+Make sure to store items within a list using `=`, not `&lt;-`!
+
+---
+
+## Accessing List Elements
+
+There are three ways to access an item within a list
+
+* double brackets `[[]]` with its name in quotes
+* double brackets `[[]]` with its index as a number
+* dollar sign `$` followed by its name without quotes
+
+---
+
+* double brackets `[[]]` with its name in quotes
+* double brackets `[[]]` with its index as a number
+* dollar sign `$` followed by its name without quotes
+
+
+```r
+my_list[["some_numbers"]]
+```
+
+```
+## [1] 1 2 3 4 5
+```
+
+```r
+my_list[[1]]
+```
+
+```
+## [1] 1 2 3 4 5
+```
+
+```r
+my_list$some_numbers
+```
+
+```
+## [1] 1 2 3 4 5
+```
+
+---
+
+## Why double brackets?
+
+If you use a single bracket to index, like we do with matrices and vectors, you will return 
+a list with a single element.
+
+
+```r
+my_list[1]
+```
+
+```
+## $some_numbers
+## [1] 1 2 3 4 5
+```
+
+```r
+my_list[[1]]
+```
+
+```
+## [1] 1 2 3 4 5
+```
+
+Note that this means you can only return a single item in a list using double brackets or the dollar sign! (Why?) 
+
+---
+
+## Why double brackets?
+
+This is a subtle but important difference!
+
+
+```r
+my_list[1] + 1
+```
+
+```
+## Error in my_list[1] + 1: non-numeric argument to binary operator
+```
+
+
+```r
+my_list[[1]] + 1
+```
+
+```
+## [1] 2 3 4 5 6
+```
+
+
+---
+
+## Subsetting a list 
+
+You can subset a list similarly to vectors and matrices using single brackets.
+
+
+```r
+my_list[1:2]
+```
+
+```
+## $some_numbers
+## [1] 1 2 3 4 5
+## 
+## $some_characters
+## [1] "a" "b" "c"
+```
+
+```r
+my_list[-2]
+```
+
+```
+## $some_numbers
+## [1] 1 2 3 4 5
+## 
+## $a_matrix
+##      [,1] [,2]
+## [1,]    1    0
+## [2,]    0    1
+```
+
+---
+
+## Adding to a list
+
+We can use the same tools we used to access list elements to add to a list.
+However, if we use double brackets, we must use quotes, otherwise R will search for something that does not yet exist.
+
+
+```r
+my_list$a_boolean &lt;- FALSE
+my_list[["a_list"]] &lt;- list("recursive" = TRUE)
+```
+
+
+---
+
+
+
+```r
+my_list
+```
+
+```
+## $some_numbers
+## [1] 1 2 3 4 5
+## 
+## $some_characters
+## [1] "a" "b" "c"
+## 
+## $a_matrix
+##      [,1] [,2]
+## [1,]    1    0
+## [2,]    0    1
+## 
+## $a_boolean
+## [1] FALSE
+## 
+## $a_list
+## $a_list$recursive
+## [1] TRUE
+```
+
+---
+
+## Names of List Items
+
+Call `names()` to get a vector of list item names.
+
+
+```r
+names(my_list)
+```
+
+```
+## [1] "some_numbers"    "some_characters" "a_matrix"        "a_boolean"       "a_list"
+```
+
+---
+
+## Why bother?
+
+* Lists give us **key-value pairs**, also known as **dictionaries** or **associative arrays**
+* This means we can look up items in a list by name, rather than location
+* For example, if we know we are looking for `output` within a list, we can always search for it, regardless of how the list was created or what else it contains
+
+---
+layout: false
+layout: true
+
+# Data Frames
+
+---
+
+A **data frame** in R is essentially a special type of list, where each item is a vector of equal length.
+Typically, we say that data has `\(n\)` rows (one for each **observation**) and `\(p\)` columns (one for each **variable**)
+
+Unlike a matrix, columns can have different types.
+However, many column functions still apply! (such as `colSums`, `summary`, etc.)
+
+
+---
+
+## Creating a data frame
+
+An easy way to create a data frame is to use the function `data.frame()`. 
+
+Like lists, make sure you define the names using `=` and not `&lt;-`!
+
+
+```r
+my_data &lt;- data.frame("var1" = 1:3,
+                      "var2" = c("a", "b", "c"),
+                      "var3" = c(TRUE, FALSE, TRUE))
+my_data
+```
+
+```
+##   var1 var2  var3
+## 1    1    a  TRUE
+## 2    2    b FALSE
+## 3    3    c  TRUE
+```
+
+---
+
+## Creating a data frame
+
+If you import or create numeric data as a `matrix`, you can also convert it easily
+using `as.data.frame()`
+
+
+```r
+my_matrix &lt;- matrix(1:9, nrow = 3, ncol = 3)
+as.data.frame(my_matrix)
+```
+
+```
+##   V1 V2 V3
+## 1  1  4  7
+## 2  2  5  8
+## 3  3  6  9
+```
+
+
+---
+
+## Subsetting data frames
+
+We can subset data frames using most of the tools we've learned about subsetting so far. We can use keys or indices.
+
+
+```r
+my_data$var1
+```
+
+```
+## [1] 1 2 3
+```
+
+```r
+my_data["var1"]
+```
+
+```
+##   var1
+## 1    1
+## 2    2
+## 3    3
+```
+
+```r
+my_data[["var1"]]
+```
+
+```
+## [1] 1 2 3
+```
+
+---
+
+## Subsetting data frames
+
+
+```r
+my_data[1]
+```
+
+```
+##   var1
+## 1    1
+## 2    2
+## 3    3
+```
+
+```r
+my_data[[1]]
+```
+
+```
+## [1] 1 2 3
+```
+
+```r
+my_data[, 1]
+```
+
+```
+## [1] 1 2 3
+```
+
+```r
+my_data[1, ]
+```
+
+```
+##   var1 var2 var3
+## 1    1    a TRUE
+```
+
+
+---
+
+## Adding to a data frame
+
+We can add to a data frame using `rbind()` and `cbind()`, but be careful with type mismatches!
+We can also add columns using the column index methods.
+
+
+```r
+# These all do the same thing
+my_data &lt;- cbind(my_data, "var4" = c(3, 2, 1))
+my_data$var4 &lt;- c(3, 2, 1)
+my_data[, "var4"] &lt;- c(3, 2, 1)
+my_data[["var4"]] &lt;- c(3, 2, 1)
+my_data
+```
+
+```
+##   var1 var2  var3 var4
+## 1    1    a  TRUE    3
+## 2    2    b FALSE    2
+## 3    3    c  TRUE    1
+```
+
+---
+
+## Adding to a data frame
+
+
+```r
+rbind(my_data, c(1, 2, 3, 4))
+```
+
+```
+##   var1 var2 var3 var4
+## 1    1    a    1    3
+## 2    2    b    0    2
+## 3    3    c    1    1
+## 4    1    2    3    4
+```
+
+```r
+rbind(my_data, list(4, "d", FALSE, 0))
+```
+
+```
+##   var1 var2  var3 var4
+## 1    1    a  TRUE    3
+## 2    2    b FALSE    2
+## 3    3    c  TRUE    1
+## 4    4    d FALSE    0
+```
+
+
+---
+
+## Investigating a data frame
+
+We can use `str()` to see the structure of a data frame (or any other object!)
+
+
+```r
+my_data2 &lt;- rbind(my_data, c(1, 2, 3, 4))
+str(my_data2)
+```
+
+```
+## 'data.frame':	4 obs. of  4 variables:
+##  $ var1: num  1 2 3 1
+##  $ var2: chr  "a" "b" "c" "2"
+##  $ var3: num  1 0 1 3
+##  $ var4: num  3 2 1 4
+```
+
+```r
+my_data2 &lt;- rbind(my_data, list(4, "d", FALSE, 0))
+str(my_data2)
+```
+
+```
+## 'data.frame':	4 obs. of  4 variables:
+##  $ var1: num  1 2 3 4
+##  $ var2: chr  "a" "b" "c" "d"
+##  $ var3: logi  TRUE FALSE TRUE FALSE
+##  $ var4: num  3 2 1 0
+```
+
+
+---
+
+Most data frames will have column names describing the variables. 
+They can also include rownames, which we can add using `rownames()`.
+
+
+```r
+rownames(my_data2) &lt;- c("Obs1", "Obs2", "Obs3", "Obs4")
+my_data2
+```
+
+```
+##      var1 var2  var3 var4
+## Obs1    1    a  TRUE    3
+## Obs2    2    b FALSE    2
+## Obs3    3    c  TRUE    1
+## Obs4    4    d FALSE    0
+```
+---
+layout: false
+class: inverse
+
+.middler[.huge[R Coding Style Guide]]
+
+---
+layout:true
+# Commenting Code
+---
+
+## What is a comment?
+
+* Computers completely ignore comments (in R, any line preceded by `#`)
+* Comments do not impact the functionality of your code at all.
+
+--
+### So why do them...
+
+ 
+
+--
+* Commenting a code allows you to write notes for readers of your code only
+* Usually, that reader is you!
+* Coding without comments is ill-advised, bordering on impossible
+
+--
+* Sneak peak at functions...
+
+---
+
+
+```r
+#' Wald-type t test
+#' @param mod an object of class \code{bbdml}
+#' @return Matrix with wald test statistics and p-values. Univariate tests only.
+waldt &lt;- function(mod) {
+  # Covariance matrix
+  covMat &lt;- try(chol2inv(chol(hessian(mod))), silent = TRUE)
+  if (class(covMat) == "try-error") {
+    warning("Singular Hessian! Cannot calculate p-values in this setting.")
+    np &lt;- length(mod$param)
+    se &lt;- tvalue &lt;- pvalue &lt;- rep(NA, np)
+  } else {
+    # Standard errors
+    se &lt;- sqrt(diag(covMat))
+    # test statistic
+    tvalue &lt;- mod$param/se
+    # P-value
+    pvalue &lt;- 2*stats::pt(-abs(tvalue), mod$df.residual)
+  }
+  # make table
+  coef.table &lt;- cbind(mod$param, se, tvalue, pvalue)
+  dimnames(coef.table) &lt;- list(names(mod$param),
+                               c("Estimate", "Std. Error", "t value", "Pr(&gt;|t|)"))
+  return(coef.table)
+}
+```
+
+---
+
+## Comment Style Guide
+
+* When starting out, you should comment most lines
+* Frequent use of comments should allow most comments to be restricted to one line for 
+readability
+* A comment should go above its corresponding line, be indented equally with the next line, and use a single `#` to mark a comment
+* Use a string of `-` or `=` to break your code into easily noticeable chunks
+  * Example: `# Data Manipulation -----------`
+  * RStudio allows you to collapse chunks marked like this to help with clutter
+
+--
+* There are exceptions to every rule! Usually, comments are to help **you**!
+
+---
+
+## Example of breaking rules
+
+* Here's a snippet of a long mathematical function (lots of code omitted with ellipses for space).
+* Code is divided into major steps marked by easily visible comments
+
+---
+
+## Example of breaking rules
+
+
+```r
+objfun &lt;- function(theta, W, M, X, X_star, np, npstar, link, phi.link) {
+
+  ### STEP 1 - Negative Log-likelihood
+
+  # extract matrix of betas (np x 1), first np entries
+  b      &lt;- utils::head(theta, np)
+  # extract matrix of beta stars (npstar x 1), last npstar entries
+  b_star &lt;- utils::tail(theta, npstar)
+
+  ...
+
+  ### STEP 2 - Gradient
+
+  # define gam
+  gam &lt;- phi/(1 - phi)
+```
+
+---
+
+## A final plea
+
+* Being a successful programmer *requires* commenting your code
+* Want to understand code you wrote &gt;24 hours ago without comments?
+
+--
+.center[![small](images/confused.gif)]
+
+---
+
+## A final plea
+
+
+* If you still aren't convinced...
+
+--
+* Clear commenting is required for this course
+
+---
+
+## Who are you to tell me how to type?
+
+We will be using a mix of the [Tidyverse Style Guide](https://style.tidyverse.org/) by Hadley Wickham and the [Google Style Guide](https://google.github.io/styleguide/Rguide.html). Please see the links for details, but I will summarize some main points here and throughout the class as we learn more functionality, such as functions and packages.
+
+You will be graded on following good code style!
+
+---
+
+## Object Names
+
+Use either underscores (`_`) or big camel case (`BigCamelCase`) to separate words within an object name.
+Do not use dots `.` to separate words in R functions!
+
+
+```r
+# Good
+day_one
+day_1
+DayOne
+
+# Bad
+dayone
+```
+
+---
+
+## Object Names
+
+Names should be concise, meaningful, and (generally) nouns.
+
+
+```r
+# Good
+day_one
+
+# Bad
+first_day_of_the_month
+djm1
+```
+
+
+---
+
+## Object Names
+
+It is *very* important that object names do not write over common functions!
+
+
+```r
+# Very extra super bad
+c &lt;- 7
+t &lt;- 23
+T &lt;- FALSE
+mean &lt;- "something"
+```
+
+Note: `T` and `F` are R shorthand for `TRUE` and `FALSE`, respectively. In general, spell them 
+out to be as clear as possible.
+
+---
+
+## Spacing
+
+Put a space after every comma, just like in English writing.
+
+
+```r
+# Good
+x[, 1]
+
+# Bad
+x[,1]
+x[ ,1]
+x[ , 1]
+```
+
+Do not put spaces inside or outside parentheses for regular function calls.
+
+
+```r
+# Good
+mean(x, na.rm = TRUE)
+
+# Bad
+mean (x, na.rm = TRUE)
+mean( x, na.rm = TRUE )
+```
+
+
+---
+
+## Spacing with Operators
+
+Most of the time when you are doing math, conditionals, logicals, or assignment, your operators should be surrounded by spaces. (e.g. for `==`, `+`, `-`, `&lt;-`, etc.)
+
+
+```r
+# Good
+height &lt;- (feet * 12) + inches
+mean(x, na.rm = 10)
+
+# Bad
+height&lt;-feet*12+inches
+mean(x, na.rm=10)
+```
+
+There are some exceptions we will learn more about later, such as the power symbol `^`. 
+See the [Tidyverse Style Guide](https://style.tidyverse.org/) for more details!
+
+---
+
+## Extra Spacing
+
+Adding extra spaces ok if it improves alignment of `=` or `&lt;-`.
+
+
+```r
+# Good
+list(
+  total = a + b + c,
+  mean  = (a + b + c) / n
+)
+
+# Also fine
+list(
+  total = a + b + c,
+  mean = (a + b + c) / n
+)
+```
+
+
+---
+
+## Long Lines of Code
+
+Strive to limit your code to 80 characters per line. This fits comfortably on a printed page with a reasonably sized font. 
+
+If a function call is too long to fit on a single line, use one line each for the function name, each argument, and the closing `)`. This makes the code easier to read and to change later.
+
+
+
+```r
+# Good
+do_something_very_complicated(
+  something = "that",
+  requires = many,
+  arguments = "some of which may be long"
+)
+
+# Bad
+do_something_very_complicated("that", requires, many, arguments,
+                              "some of which may be long"
+                              )
+```
+
+*Tip! Try RStudio &gt; Preferences &gt; Code &gt; Display &gt; Show Margin with Margin column 
+80 to give yourself a visual cue!*
+
+---
+
+## Assignment
+
+We use `&lt;-` instead of `=` for assignment. 
+This is moderately controversial if you find yourself in the right (wrong?) communities.
+
+
+```r
+# Good
+x &lt;- 5
+
+# Bad
+x = 5
+```
+
+
+---
+
+## Semicolons
+
+In R, semi-colons (`;`) are used to execute pieces of R code on a single line.
+In general, this is bad practice and should be avoided. 
+Also, you never need to end lines of code with semi-colons!
+
+
+```r
+# Bad
+a &lt;- 2; b &lt;- 3
+
+# Also bad
+a &lt;- 2;
+b &lt;- 3;
+
+# Good
+a &lt;- 2
+b &lt;- 3
+```
+
+
+---
+
+## Quotes and Strings
+
+Use `"`, not `'`, for quoting text. The only exception is when the text already contains double quotes and no single quotes.
+
+
+```r
+# Bad
+'Text'
+'Text with "double" and \'single\' quotes'
+
+# Good
+"Text"
+'Text with "quotes"'
+'&lt;a href="http://style.tidyverse.org"&gt;A link&lt;/a&gt;'
+```
+
+
+---
+
+Phew! All done for now. Follow these rules and your code will be looking 
+
+.middler[![](images/spongebob.gif)]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "default",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

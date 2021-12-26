@@ -1,0 +1,24 @@
+---
+title: "Short Lab 5"
+author: "INSERT YOUR NAME HERE"
+date: "Due Date Here"
+output: html_document
+---
+
+1. Load the helium dataset using the code below. This dataset contains data from an experiment in which two identical footballs, one air filled with air and one filled with helium, were each kicked 39 times. The distances traveled were
+measured for each trial.
+
+    ```{r}
+    helium_data <- read.csv("https://www.openintro.org/data/csv/helium.csv")
+    ```
+
+2. Use the `t.test` function to test the null hypothesis that the mean distance traveled by the helium-filled ball is equal to the mean distance traveled by the air-filled ball. Use a one-sided hypothesis. What do you conclude?
+
+3. Write code to run a permutation test to test the same hypothesis as above. Your permutation test should follow these steps:
+    a. Compute a test statistic using the original unpermuted data.
+    b. Permute data by randomly splititng the 78 observations into two groups and compute a test statistic comparing the two groups.
+    c. Repeat the above step 1000 times, recording your test statistic each time.
+    d. Compare your test statistic from the original unpermuted data with your distribution of test statistics based on the repeatedly permuted data to compute a p-value.
+
+4. What is your conclusion from the permutation test?
+

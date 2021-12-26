@@ -1,0 +1,20 @@
+name: "STAT302-AUT2021"
+title: "STAT 302"
+description: |
+  STAT 302
+output_dir: "."
+
+theme: theme.css
+navbar:
+  right:
+    - text: "Syllabus"
+      href: syllabus.html
+    - text: "Lecture Slides"
+      href: slides.html
+    - text: "Labs"
+      href: labs.html
+    - text: "Short Labs"
+      href: short_labs.html
+    - text: "Projects"
+      href: projects.html
+output: distill::distill_article

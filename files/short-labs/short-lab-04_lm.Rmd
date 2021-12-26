@@ -1,0 +1,24 @@
+---
+title: "Short Lab 4"
+author: "INSERT YOUR NAME HERE"
+date: "Due Date Here"
+output: html_document
+---
+
+
+As usual, all code below should follow the style guidelines from the lecture slides.
+
+
+1. **Use the code below to read in data from a survey of 55 Duke University students about their study habits and grades. You can read more about this data at https://www.openintro.org/data/index.php?data=gpa.**
+
+```{r}
+grades_data <- read.csv("https://www.openintro.org/data/csv/gpa.csv")
+```
+
+2. **Create a scatter plot with GPA on the y-axis and and hours studied per week on the x-axis. What do you observe?**
+
+3. **Use the `lm` function to regress `gpa` upon `studyweek`. What are the estimated coefficients? What are their interpretations?**
+
+4. **Use the `lm` function to regress `gpa` upon `sleepnight` and `studyweek`. What are the estimated coefficients? What are their interpretations?**
+
+5. **We can write the model used in question 4 as \[\mathbf{Y}=\mathbf{X}\boldsymbol\beta+\boldsymbol\epsilon\]. What is $\mathbf{Y}$ here? What is $\mathbf{X}$ here. Create the matrix $X$ in your .Rmd file and print out the first six rows.**

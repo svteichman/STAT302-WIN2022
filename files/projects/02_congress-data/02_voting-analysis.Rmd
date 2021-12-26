@@ -1,0 +1,68 @@
+---
+title: "Project 2: SVD Analysis of Partisanship in U.S. Congress"
+author: "INSERT YOUR NAME(S) HERE"
+date: ""
+output: html_document
+---
+
+## Instructions
+
+For this project, you will be exploring U.S. Congress voting data from  [voteview.com](https://www.voteview.com).
+Your goal is to examine the partisanship of U.S. Congress using SVD analysis.
+Like Project 1, this project is intentionally open-ended!
+
+The target audience of your report is an educated reader who is uninformed about the details of the data, but is interested in learning more about partisanship in Congress. 
+
+You have the option to work with a partner for this project and submit a group report. 
+If you do so, you must both submit the same .Rmd, .html, and .Rproj files on Canvas with both of your names at the top of the .html.
+
+### Notes
+
+* If you use this .Rmd as your starting template, please remove all instructions, details, and requirements. I only want to receive your final written report. Final submissions must include .Rmd and .html files.
+* I **strongly** recommend saving a version of the unprocessed .csv files on your machine in a `Data` subfolder within your Project 2 folder so you will be able to work offline. The data are available at:
+  * [90th House of Representatives](https://raw.githubusercontent.com/peteragao/STAT302-AUT2021/base/files/projects/02_congress-data/house_90_raw.csv)
+  * [90th Senate](https://raw.githubusercontent.com/peteragao/STAT302-AUT2021/base/files/projects/02_congress-data/senate_90_raw.csv)
+  * [116th House of Representatives](https://raw.githubusercontent.com/peteragao/STAT302-AUT2021/base/files/projects/02_congress-data/house_116_raw.csv)
+  * [116th Senate](https://raw.githubusercontent.com/peteragao/STAT302-AUT2021/base/files/projects/02_congress-data/senate_116_raw.csv)
+* `rc` columns stand for roll calls. Each vote has it's own roll call. The code is as follows:
+  * `1`: "Yea" vote
+  * `-1`: "Nay" vote
+  * `0`: Present or not a member of chamber during roll call
+  * `NA`: Missing data for unknown reason
+* It would be reasonable for you to either remove `NA`'s, or set them all equal to `0`. Make sure you explain your decision.
+* At the end of your report, you should include a code appendix with all of your code, from downloading the data to generating the figures. This code should be well-commented and follow the style guidelines we learned in class. Use comments to label which blocks of code correspond to which visualizations. *You should have no code/messages/warnings in the main body of your report!* (Remember: you can use `echo = FALSE` to hide code.)
+
+## Part 1: Senate partisanship
+
+In the first part of this project, we will compare partisanship in the 90th Senate and the 116th Senate using principal component analysis.
+
+1. Read the Voting Patterns section of [this research article (Porter et al., 2005)](HouseOfRepresentatives.pdf). Based on their explanation, what do their left singular vectors represent? What do their right singular vectors represent?
+2. What interpretations do Porter et al. assign to their first two left singular vectors? Do you think these are reasonable interpretations? Why or why not?
+3. Load the 116th Senate data into R and use the `svd` function to perform singular value decomposition on the votes data. Plot a scatter plot using your first two left singular vectors, using color to indicate political party affiliation. What interpretations, if any, can you assign to the first two left singular vectors?
+4. What proportion of energy do your first two left singular vectors account for? What does this say about your PCA?
+5. Repeat this analysis for the 90th Senate data. Compare and contrast your results for the two datasets.
+
+## Part 2: Exploratory analysis
+
+The second part of this project is open-ended. Use principal component analysis (or another statistical method) to analyze the Congress voting data.
+
+### Requirements
+
+* The second part of your report should explore at least two research questions related to the data (**if you have three members in your group, please explore at least three questions**). For each question, explain what you would like to learn and use visualizations, statistical methods, or both to provide insight about your question.
+* The text of your report should briefly explain the methods you are using in your analysis. For example, if you conduct a PCA and plot your first two left singular vectors, make sure you explain how they were calculated and how they should be interpreted.
+
+### Suggestions
+
+* You can use [this research article (Porter et al., 2005)](HouseOfRepresentatives.pdf) for inspiration. In particular, pay attention to how they label their primary two "concepts". Note that the exact axes may not match up, but it can give you an idea of what to look for.
+
+* Exceptional projects will examine the data in multiple different ways in order to draw interesting conclusions. For example, you might examine:
+
+    * How does partisanship compare in the House of Representatives vs. the Senate?
+    * How does partisanship compare in the 90th Congress vs. the 116th Congress?
+    * Does partisanship vary by age? By state? By region?
+    * Who are the most "extreme" partisans in Congress?
+    * How does California compare to Alabama?
+
+* In your visualizations, consider using color/shape to distinguish between groups where appropriate, such as blue for Democrats and red for Republicans.
+
+* Good writeups will include a description of caveats and limitations for each of your analyses.

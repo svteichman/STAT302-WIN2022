@@ -1,0 +1,95 @@
+---
+title: "Short Lab 1"
+author: "INSERT YOUR NAME HERE"
+date: "Due Date Here"
+output: html_document
+---
+
+<!--- Begin styling code. --->
+<style type="text/css">
+/* Whole document: */
+body{
+  font-size: 12pt;
+}
+h1.title {
+  font-size: 38px;
+  text-align: center;
+}
+h4.author {
+  font-size: 18px;
+  text-align: center;
+}
+h4.date {
+  font-size: 18px;
+  text-align: center;
+}
+</style>
+<!--- End styling code. --->
+
+You should edit this .Rmd using RStudio, then click *Knit* in the menu bar of the Source window (above the text of this .Rmd).
+Remember, you must submit *both* your .Rmd and the compiled .html in order to receive full credit!
+
+### Collaborators
+
+INSERT NAMES OF ANY STUDENTS WORKED WITH
+
+## Part 1. Some group work
+
+Work with one or two other students, 
+
+**1.** In words, what does the following line of code do? 
+
+```{r, eval = T}
+sample(1:6, 1)
+```
+
+**2.** Run the line of code in RStudio. What do you get? What did your groupmates get? What happens to the result each time you knit the document?
+
+**3.** Below, we introduce the ```set.seed``` function. What do the two lines of code below do? What does the ```456``` mean? What happens to the result each time you knit the document?        
+
+```{r, eval = T}
+set.seed(456)
+sample(1:6, 1)
+```
+
+**4.** We can also use in-line R code in R Markdown to ensure that we don't have to edit our text each time we knit our file. Edit the text below using in-line code to print out your value of ```x```.
+
+```{r, eval = T}
+x <- sample(1:6, 1)
+```
+
+The value of ```x``` that I obtained is YOUR ANSWER HERE.
+
+## Part 2. Vectors and matrices
+
+**5.** Choose a seed and replace the seed used in the code below. Using the code below, we can simulate a vector of Uniform(0,1) random variables and two additional random variables ```y``` and ```z```. What is the difference between ```y``` and ```z```?
+
+```{r, eval = T}
+set.seed(456)
+x <- runif(2000)
+y <- mean(x < .5)
+z <- mean(x)
+```
+
+**6.** Construct a 3 by 3 matrix with 1s on the main diagonal and 3s in all other entries. Print the resulting matrix.
+
+```{r, eval = T}
+# YOUR CODE HERE
+```
+
+## Part 3. Some real data
+
+**7.** First, run ```install.packages("moderndive")``` and then the following code. This loads the ```house_prices``` dataset, which contains house sale data for King Country. What time period are these house prices from?
+
+```{r}
+library(moderndive)
+data("house_prices")
+```
+
+**8.** The ```house_prices$bedrooms``` vector contains information on the number of bedrooms in each house. What is the median value? What is the most common value?
+
+```{r}
+# Your code here
+```
+
+**9.** (Optional) The ```house_prices$bedrooms``` vector contains information on the number of bedrooms in each house. What is the maximum value? Is this realistic? Can you figure out what happened here?

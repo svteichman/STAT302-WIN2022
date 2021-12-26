@@ -1,0 +1,51 @@
+---
+title: "Short Lab 3"
+author: "INSERT YOUR NAME HERE"
+date: "Due Date Here"
+output: html_document
+---
+
+
+As usual, all code below should follow the style guidelines from the lecture slides.
+
+## Part 1. Read in text data
+
+For this short lab, we will be using Project Gutenberg’s The Complete Works of William Shakespeare. 
+Use the command `read_lines()` from the `readr` package to read the text available at
+"https://www.gutenberg.org/files/100/100-0.txt".
+Make sure to store the text as a variable. Use the `skip` argument to discard the first 23 lines of extra info.
+
+**1a.** Print the first 5 lines.
+
+**1b.** Print the total number of lines.
+
+**1c.** Remove all empty lines, then print the total number of lines.
+
+(*Hint: to remove empty elements from a string vector x, you could use* `x <- x[x != ""]`)
+
+## Part 2. String Manipulation
+
+**2a.** Use `str_c()` to collapse the Shakespeare string vector into one large string. (Don't try to print it!)
+
+**2b.** Use `str_split()` to separate your string into words.
+
+(*Hint: you might get a list of length 1 that you have to convert to a vector. You could do this by using something like* `x <- unlist(x)` *or* `x <- x[[1]]`)
+
+**2c.** Use a combination of `table()` and `sort(..., decreasing = TRUE)` argument to get a count of the unique words in Shakespeare's complete works and print out the 10 most common words.
+
+## Part 3. Factors
+
+**3a.** Use the code below to load the `movies` data, courtesy of `the-numbers.com`. Turn the `genre` and `mpaa_rating` variables into factors.
+
+```{r, message = F, warning = F}
+movies <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-10-23/movie_profit.csv")
+```
+**3b.** Collapse the `Drama` and `Horror` levels of `genre` into one `Drama_Horror` level.
+
+**3c.** Create a new factor variable in the movies tibble, `audience`, that takes the value `"all ages"` for G and PG movies, `"Teens and adults"` for PG-13 movies, and `"Adults only"` for R movies.
+
+## Part 4. Dates
+
+**4a.** Convert the `release_date` variable into a column of `Date` objects using an appropriate function.
+
+**4b.** Create a new column for `year` that extracts the year of release for each movie.

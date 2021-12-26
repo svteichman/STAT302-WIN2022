@@ -1,0 +1,153 @@
+---
+title: "Lab 1 Grading Guidelines"
+author: "STAT 302"
+date: "Due Date Here"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Instructions (5 points)
+
+This lab will be worth 20 points, of which 5 can be earned by following instructions. Each item below is worth 1 point.
+
+* You must upload this file as a compressed file (such as `.zip`) of your *entire* STAT302 folder. The organization and file names should follow the guidelines outlined in the Lecture Slides 1. This means that the actual .Rmd and .html files for Lab 1 should be included in a Lab 1 subfolder within a Labs folder.
+* Your code should be commented so that it is easy for us to follow.
+* Your code should follow the style guidelines from Lecture Slides 1.
+* Any reference to code results in text should be done using in-line R code. You should not be typing the actual numbers. Similarly, any values you are asked to calculate must be done using code. They should not be calculated by hand.
+* Your document should look nice and be easy to read. Figures should be appropriately sized, headers and subheaders should be used, etc.
+
+**In general, if students have made some effort to comment their code and follow reasonable style guidelines, they should receive credit. Students do not necessarily need to comment every line or to have followed the style guidelines from the slides perfectly. Please leave suggestions on how to improve commenting/styling as you feel is appropriate. You can see below for examples of where I thought commenting was necessary for clarity.**
+
+## Part 1. Vectors (8 points)
+
+**Each question below is worth one point, feel free to give half-points as appropriate**.
+
+**1a.** Create and store a vector of 100,000 simulations from a Normal distribution with mean 3 and standard deviation 5 (sometimes written as $N(3, 5^2)$). Print out only the first 5 elements of your vector using ```head()```.
+    
+```{r}
+normal_sims <- rnorm(100000, mean = 3, sd = 5)
+head(normal_sims, n = 5)
+```
+
+**1b.** Generate 4 histograms. The histograms should include the first 50, 500, 5000, and 50000 elements of your simulations, respectively. Be sure to change the title of your histograms to write what they display in plain text. What do you notice about the histograms? Explain why you think this is.
+
+**Students should observe that as we obtain more samples, the observed distribution becomes more symmetric and Gaussian.**
+
+```{r}
+par(mfrow = c(2, 2)) # formats plots into 2x2 grid; not necessary for students to do this.
+hist(normal_sims[1:50], main = "First 50 samples") 
+hist(normal_sims[1:500], main = "First 500 samples")
+hist(normal_sims[1:5000], main = "First 500 samples")
+hist(normal_sims[1:50000], main = "First 5000 samples")
+```
+
+**1c.** In order to standardize vectors, we take each element and subtract the *observed* mean and then divide by the *observed* standard deviation. Create and store a new vector that is the standardization of your simulations from part (a). Create a histogram for these standardized simulations (don't forget to change the title again!). What do you notice? Include references to the mean and standard deviation of your new data, using in-line R code.
+
+```{r}
+std_normal_sims <- normal_sims - mean(normal_sims) # subtract observed mean
+std_normal_sims <- std_normal_sims / sd(std_normal_sims) # divide by observed sd
+hist(std_normal_sims, main = "Normal samples, standardized") 
+```
+
+**The new mean of the standardized samples is `r round(mean(std_normal_sims), digits = 3)` and the standard deviation is `r round(sd(std_normal_sims), digits = 3)`. If students do not round they may have some extremely small decimal deviations--this is okay.**
+
+**1d.** Calculate (using an R function) the percent of simulations from a $N(0, 1)$ that you *expect* to be above 1.644854. How does this compare to the observed proportion of your standardized simulations that are above 1.644854?
+
+**The expected proportion above 1.644854 is `r round(pnorm(1.644854, lower.tail = F), digits = 3)`, whereas the observed proportion is `r round(mean(std_normal_sims > 1.644854), digits = 3)`.**
+
+**1e.** How does the quantity from part d compare to to the observed proportion of your first 10 standardized simulations that are above 1.644854? Repeat this for your first 100, 1000, and 10,000 standardized simulations. 
+What do you notice?
+
+**The observed proportion for the first 10 simulations is `r round(mean(std_normal_sims[1:10] > 1.644854), digits = 3)`. The observed proportion for the first 100 simulations is `r round(mean(std_normal_sims[1:100] > 1.644854), digits = 3)`. The observed proportion for the first 1000 simulations is `r round(mean(std_normal_sims[1:1000] > 1.644854), digits = 3)`. The observed proportion for the first 10000 simulations is `r round(mean(std_normal_sims[1:10000] > 1.644854), digits = 3)`**
+
+**1f.** I simulated from an unknown distribution and obtained a sample value of 3.15. What is the percentile of my simulation in the *observed* distribution of your simulations? If you standardize my simulation (using the same mean and standard deviation as in part c!), what is the percentile of my simulation in the distribution of your standardized simulations? What do you notice about these two quantities?
+
+**The percentile in the observed distribution is `r round(mean(normal_sims < 3.15) * 100, digits = 0)`. The percentile in the standardized simulation will be the same--be careful as students should subtract the observed mean/divide by observed sd, not 3 and 5.**
+
+**1g.** What percent of simulations from a $N(0, 1)$ would you *expect* to be more "extreme" than my standardized simulation? Here, "extreme" means further from the mean in either direction.
+
+**The  expected percentage of more extreme simulations is `r round(pnorm(.15/5, lower.tail = F) * 2, digits = 3)`.**
+
+**1h.** Can you tell if my sample value was drawn from the same distribution as your simulations? Why or why not?
+
+**Any reasonable attempt to answer this should receive credit; we will discuss in class.**
+
+## Part 2. Matrices (7 points)
+
+A Binomial distribution with $n$ trials and probability of success $p$, sometimes shorthanded $Bin(n, p)$, represents the number of success out of $n$ independent trials, each with probability of success $p$. 
+For this part, we will be using the Binomial distribution equivalent of the functions we used in part 1.
+These are `rbinom()`, `pbinom()`, and `dbinom()`.
+
+**2a.** Initialize two empty matrices. One should have 10 rows and 4 columns, the other should have 10,000 rows and 4 columns. Be sure to give them informative names that follow style guidelines.
+
+**Any reasonable names should receive credit--even ones like those below.**
+
+```{r}
+small_mat <- matrix(NA, nrow = 10, ncol = 4)
+big_mat <- matrix(NA, nrow = 10000, ncol = 4)
+```
+
+
+**2b.** Separately fill the first column of each matrix with independent draws from a Binomial distribution with probability $0.2$ and $n=5$. Repeat this process for the second through fourth columns using probabilities of $0.4$, $0.6$, and $0.8$, respectively. Print out the first five rows of each matrix.
+
+**Any reasonable names should receive credit--even ones like those below.**
+
+```{r}
+# fill columns of small matrix
+small_mat[, 1] <- rbinom(n = 10, size = 5, prob = .2)
+small_mat[, 2] <- rbinom(n = 10, size = 5, prob = .4)
+small_mat[, 3] <- rbinom(n = 10, size = 5, prob = .6)
+small_mat[, 4] <- rbinom(n = 10, size = 5, prob = .8)
+
+# fill columns of big matrix
+big_mat[, 1] <- rbinom(n = 10000, size = 5, prob = .2)
+big_mat[, 2] <- rbinom(n = 10000, size = 5, prob = .4)
+big_mat[, 3] <- rbinom(n = 10000, size = 5, prob = .6)
+big_mat[, 4] <- rbinom(n = 10000, size = 5, prob = .8)
+
+head(small_mat, n= 5)
+head(big_mat, n= 5)
+```
+
+**2c.** Use four well-labeled histograms to plot the values of each column. Set the `breaks` parameter to a reasonable integer value for these data. Discuss what you see.
+
+```{r}
+par(mfrow = c(2, 2)) # formats plots into 2x2 grid; not necessary for students to do this.
+hist(small_mat[, 1], main = "10 binomial(5, .2) samples", breaks = 6) 
+hist(small_mat[, 2], main = "10 binomial(5, .4) samples", breaks = 6)
+hist(small_mat[, 3], main = "10 binomial(5, .6) samples", breaks = 6)
+hist(small_mat[, 4], main = "10 binomial(5, .8) samples", breaks = 6)
+
+par(mfrow = c(2, 2)) # formats plots into 2x2 grid; not necessary for students to do this.
+hist(big_mat[, 1], main = "10000 binomial(5, .2) samples", breaks = 6) 
+hist(big_mat[, 2], main = "10000 binomial(5, .4) samples", breaks = 6)
+hist(big_mat[, 3], main = "10000 binomial(5, .6) samples", breaks = 6)
+hist(big_mat[, 4], main = "10000 binomial(5, .8) samples", breaks = 6)
+```
+
+**Any reasonable description should receive credit.**
+
+**2d.** Calculate the column means of both matrices and present these results in a single table. The rows and columns of your tables should be easy to read and interpret.
+
+```{r}
+colmeans_df <- data.frame(p = c(.2, .4, .6, .8),
+                          mat_10 = colMeans(small_mat),
+                          mat_10000 = colMeans(big_mat))
+knitr::kable(colmeans_df)
+```
+
+**Table doesn't have to be fancy, but students should make some effort.**
+
+**2e.** What is the *expected* column mean for each column? Which matrix has observed column means that are closer to this expectation? Why do you think that is?
+
+**Expected column means should be $(1, 2, 3, 4)$. 
+
+**2f.** What is the theoretical variance for the values in each column? Which matrix has observed column sample variances that are closer to this value? Why do you think that is?
+
+**Expected column variances should be $(0.8, 1.2, 1.2, 0.8)$. 
+
+

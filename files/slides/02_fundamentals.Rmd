@@ -1,0 +1,1379 @@
+---
+title: "STAT 302, Lecture Slides 2"
+subtitle: "Programming Fundamentals"
+author: "Peter Gao (adapted from slides by Bryan Martin)"
+date: ""
+output:
+  xaringan::moon_reader:
+    css: ["default", "gao-theme.css", "gao-theme-fonts.css"]
+    nature:
+      highlightStyle: default
+      highlightLines: true
+      countIncrementalSlides: false
+      titleSlideClass: ["center"]
+---
+
+```{r setup, include=FALSE, purl=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(comment = "##")
+library(kableExtra)
+```
+# Before class
+
+Discuss with your neighbor:
+
+```{r, eval = FALSE}
+to_do_list <- 
+  list(saturday = c("sleep", "cook noodles", "eat noodles"),
+       sunday = c("wake up", "homework", "course prep"))
+# what are each of the following?
+to_do_list[1]
+to_do_list[1]
+to_do_list[1][1]
+to_do_list[[1]]
+to_do_list[1][[1]]
+to_do_list[[1]][2]
+```
+
+--
+
+```{r, echo = F, error = T}
+to_do_list <- list(saturday = c("sleep", "cook noodles", "eat noodles"),
+                   sunday = c("wake up", "homework", "course prep"))
+# what are each of the following?
+to_do_list[1]
+to_do_list[1]
+to_do_list[1][1]
+```
+
+---
+
+# Before class
+
+```{r, error = T}
+to_do_list <- list(saturday = c("sleep", "cook noodles", "eat noodles"),
+                   sunday = c("wake up", "homework", "course prep"))
+# what are each of the following?
+to_do_list[[1]]
+to_do_list[1][[1]]
+to_do_list[[1]][2]
+```
+
+---
+# Before class
+
+How could I write a function that takes in a whole number `x` and outputs all of its factors?
+
+```{r, error = T, eval = F}
+get_factors <- function(x) {
+  ...
+}
+```
+
+---
+# Before class
+
+How could I write a function that takes in a whole number `x` and outputs all of its factors?
+
+```{r, error = T, eval = T}
+get_factors <- function(x) {
+  factors <- numeric()
+  i <- 1
+  while(i <= x) {
+    if (x %% i == 0) {
+      factors <- c(factors, i)
+    }
+    i <- i + 1
+  }
+  return(factors)
+}
+
+```
+
+---
+# Before class
+
+How could I write a function that takes in a whole number `x` and outputs all of its factors?
+
+```{r, error = T, eval = T}
+get_factors(10)
+
+```
+
+---
+
+
+# Outline
+
+1. Control flow: `if`, `else`, `while`
+2. Loops: `for` and `while`
+3. Functions
+4. Packages
+5. Data
+6. Managing Data
+
+.middler[**Goal:** Use R's programming capabilities to build efficient functions and workflows.]
+
+---
+class: inverse
+
+.sectionhead[Part 1: Control Flow]
+---
+layout: true
+
+# Control Flow
+---
+
+## `if` statements
+
+* `if` statement give our computer conditions for chunks of code
+* If our condition is `TRUE`, then the chunk evaluates
+* If our condition is `FALSE`, then it does not
+* We must give our condition as a single Boolean
+
+---
+
+## `if` statements
+
+```{r, eval = F}
+x <- 1
+# Conditions go in parenthesis after if
+if (x > 0) {
+  # code chunks get surrounded by curly brackets
+  print(paste0("x is equal to ", x, ", a positive number!"))
+}
+```
+
+--
+```{r, echo = F}
+x <- 1
+# Conditions go in parenthesis after if
+if (x > 0) {
+  # code chunks get surrounded by curly brackets
+  print(paste0("x is equal to ", x, ", a positive number!"))
+}
+```
+
+---
+
+## `if` statements
+```{r}
+x <- -1
+# Conditions go in parenthesis after if
+if (x > 0) {
+  # code chunks get surrounded by curly brackets
+  print(paste0("x is equal to ", x, ", a positive number!"))
+}
+```
+
+---
+
+## `else` statements
+
+* We can use `else` to specify what we want to happen when our condition is `FALSE`
+
+```{r, eval = F}
+x <- 1
+if (x > 0) {
+  print(paste0("x is equal to ", x, ", a positive number!"))
+} else {
+  print(paste0("x is equal to ", x, ", a negative number!"))
+}
+```
+
+--
+
+```{r, echo = F}
+x <- 1
+if (x > 0) {
+  print(paste0("x is equal to ", x, ", a positive number!"))
+} else {
+  print(paste0("x is equal to ", x, ", a negative number!"))
+}
+```
+
+---
+
+## `else` statements
+
+* We can use `else` to specify what we want to happen when our condition is `FALSE`
+
+```{r}
+x <- -1
+if (x > 0) {
+  print(paste0("x is equal to ", x, ", a positive number!"))
+} else {
+  print(paste0("x is equal to ", x, ", a negative number!"))
+}
+```
+
+---
+
+## `else if`
+
+* Use `else if` to set a sequence of conditions
+* The final `else` will evaluate anything left
+
+```{r}
+x <- 1
+if (x > 0) {
+  paste0("x is equal to ", x, ", a positive number!")
+} else if (x < 0) {
+  paste0("x is equal to ", x, ", a negative number!")
+} else {
+  paste0("x is equal to ", x, "!")
+}
+```
+
+---
+
+## `else if`
+
+```{r}
+x <- -1
+if (x > 0) {
+  paste0("x is equal to ", x, ", a positive number!")
+} else if (x < 0) {
+  paste0("x is equal to ", x, ", a negative number!")
+} else {
+  paste0("x is equal to ", x, "!")
+}
+```
+
+---
+
+## `else if`
+
+```{r}
+x <- 0
+if (x > 0) {
+  paste0("x is equal to ", x, ", a positive number!")
+} else if (x < 0) {
+  paste0("x is equal to ", x, ", a negative number!")
+} else {
+  paste0("x is equal to ", x, "!")
+}
+```
+
+---
+layout: false
+layout: true
+
+# Control Flow: Examples
+---
+
+## Divisibility
+
+Suppose we want to check if `x` is divisible by 5 and print out the answer. What should `CONDITION` be?
+
+```{r, eval = F}
+x <- 5
+if (CONDITION) {
+  IF TRUE, DO THIS
+} else {
+  ELSE, DO THIS
+}
+```
+---
+
+## Divisibility
+
+Suppose we want to check if `x` is divisible by 5 and print out the answer. What should `CONDITION` be?
+
+```{r, eval = F}
+x <- 5
+# modulo operator
+if (x %% 5 == 0) {
+  print("divisible by 5")
+} else {
+  print("not divisible by 5")
+}
+```
+
+--
+```{r, echo = F}
+x <- 5
+# modulo operator
+if (x %% 5 == 0) {
+  print("divisible by 5")
+} else {
+  print("not divisible by 5")
+}
+```
+
+---
+
+## Check length of strings
+
+Note: We will need the `stringr` package for this 
+```{r}
+# Run this if you have never installed stringr before!
+# install.packages("stringr")
+library(stringr)
+```
+
+```{r}
+x <- "cat"
+if (str_length(x) <= 10) {
+  cat("x is a pretty short string!")
+} else {
+  cat("x is a pretty long string!")
+}
+```
+
+---
+
+
+```{r}
+x <- "A big fluffy cat with orange fur and stripes"
+if (str_length(x) <= 10) {
+  cat("x is a pretty short string!")
+} else {
+  cat("x is a pretty long string!")
+}
+```
+
+---
+
+## Check class
+
+```{r}
+x <- 5
+if (is.numeric(x)) {
+  cat("x is a numeric!")
+} else if (is.character(x)) {
+  cat("x is a character!")
+} else {
+  cat("x is some class I didn't check for in my code!")
+}
+```
+
+---
+
+## Check class
+
+```{r}
+x <- list()
+if (is.numeric(x)) {
+  cat("x is a numeric!")
+} else if (is.character(x)) {
+  cat("x is a character!")
+} else {
+  cat("x is some class I didn't check for in my code!")
+}
+```
+
+---
+layout: false
+class: inverse
+
+.sectionhead[Part 2: for loops]
+---
+layout: true
+
+# Loops
+
+---
+
+## `for` loops
+
+`for` loops iterate along an input vector, 
+stores the current value of the vector as a variable,
+and repeatedly evaluates a code chunk until the vector is exhausted
+
+```{r}
+for (i in 1:8) {
+  print(i)
+}
+```
+
+---
+
+## `while` loops
+
+`while` loops continuously evaluate the inner code chunk until the condition is `FALSE`.
+
+
+Be careful here! It is possible to get stuck in an infinite loop!
+
+```{r}
+x <- 0
+while (x < 5) {
+  cat("x is currently", x, ". Let's increase it by 1!")
+  x <- x + 1
+}
+```
+
+---
+
+## `while` loops
+
+Let's see if we can clean up that output. Add `"\n"` to a string to force a line break. 
+
+```{r}
+x <- 0
+while (x < 5) {
+  cat("x is currently ", x, ". Let's increase it by 1! \n", sep = "")
+  x <- x + 1
+}
+```
+
+---
+layout: false
+layout: true
+
+# Loops: Examples
+---
+
+## String Input
+
+```{r}
+string_vector <- c("a", "b", "c", "d", "e")
+for (mystring in string_vector) {
+  print(mystring)
+}
+```
+
+---
+
+## Nested Loops
+
+```{r}
+counter <- 0
+for (i in 1:3) {
+  for (j in 1:2) {
+    counter <- counter + 1
+    cat("i = ", i, ", j = ", j, ", counter = ", counter, "\n", sep = "")
+  }
+}
+```
+
+---
+
+## Nested Loops
+
+```{r}
+for (i in 1:3) {
+  for (j in 1:2) {
+    print(i * j)
+  }
+}
+```
+
+---
+
+## Filling in a vector
+
+Note: Usually, this is an inefficient way to do this! Try to vectorize code wherever possible!
+
+```{r}
+# Inefficient
+x <- rep(NA, 5)
+for (i in 1:5) {
+  x[i] <- i * 2
+}
+x
+
+# Much better
+x <- seq(2, 10, by = 2)
+x
+```
+
+---
+
+## Filling in a vector
+
+```{r}
+library(stringr)
+x <- rep(NA, 5)
+my_strings <- c("a", "a ", "a c", "a ca", "a cat")
+for (i in 1:5) {
+  x[i] <- str_length(my_strings[i])
+  print(x)
+}
+```
+
+---
+
+## Filling in a matrix
+
+Note: Usually, this is an inefficient way to do this! Try to vectorize code wherever possible!
+
+```{r}
+x <- matrix(NA, nrow = 4, ncol = 3)
+for (i in 1:4) {
+  for (j in 1:3) {
+    x[i, j] <- i * j
+  }
+}
+x
+```
+
+---
+
+## Continue until positive sample
+
+```{r}
+set.seed(3)
+x <- -1
+while (x < 0) {
+  x <- rnorm(1)
+  print(x)
+}
+x
+```
+
+---
+layout: false
+class: inverse
+
+.sectionhead[Part 3: Functions]
+---
+layout: true
+
+# Functions
+---
+
+We've already seen and used several functions, but you can also create your own!
+This is incredibly useful when:
+
+* You use the same code chunk repeatedly
+* You want to generalize your workflow to multiple inputs
+* You want others to be able to use your code
+* You want to complete your assignments for STAT 302
+
+---
+
+## Anatomy of a function
+
+```{r}
+function_name <- function(param1, param2 = "default") {
+  # Body of the function
+  return(output)
+}
+```
+
+* `function_name`: the name you want to give your function, what you will use to call it
+* `function()`: call this to define a function
+* `param1`, `param2`: function parameters, what the user inputs. You can assign default values by setting them equal to something in the function definition
+* **Body**: the actual code that is executed
+* `return()`: is what your function will return to the user
+
+---
+layout: false
+layout: true
+
+# Functions: Examples
+---
+
+## Square a number, add 2
+
+```{r}
+square_plus_2 <- function(x) {
+  y <- x^2 + 2
+  return(y)
+}
+
+square_plus_2(4)
+square_plus_2(10)
+square_plus_2(1:5)
+```
+
+---
+
+```{r, error = TRUE}
+square_plus_2("some string")
+```
+
+What happened here? We wrote a function for numerics only but didn't check the input!
+ 
+---
+
+Let's try making our function more robust by adding a `stop`
+
+```{r, error = TRUE}
+square_plus_2 <- function(x) {
+  if (!is.numeric(x)) {
+    stop("x must be numeric!")
+  } else {
+    y <- x^2 + 2
+    return(y)
+  }
+}
+
+square_plus_2("some string")
+```
+
+
+---
+
+## Check if the input is positive
+
+```{r}
+check_pos <- function(x) {
+  if (x > 0) {
+    return(TRUE)
+  } else if (x < 0) {
+    return(FALSE)
+  } else {
+    return(paste0("x is equal to ", x, "!"))
+  }
+}
+
+check_pos(-3)
+store_output <- check_pos(0)
+store_output
+```
+
+---
+
+## Make a table
+
+We'll use `str_c` from the `stringr` package for this function.
+
+```{r}
+library(stringr)
+my_summary <- function(input, percentiles = c(.05, .5, .95)) {
+  if (!is.numeric(input) | !is.numeric(percentiles)) {
+    stop("The input and percentiles must be numeric!")
+  }
+  if (max(percentiles) > 1 | min(percentiles) < 0) {
+    stop("Percentiles must all be in [0, 1]")
+  }
+  # Convert percentiles to character percent, append " Percentile" to each
+  labels <- str_c(percentiles * 100, " Percentile")
+  output <- quantile(input, probs = percentiles)
+  names(output) <- labels
+  return(output)
+}
+```
+
+---
+
+## Make a table
+
+```{r, error = TRUE}
+x <- rnorm(100)
+my_summary(x)
+my_summary(x, percentiles = c(.07, .5, .63, .91))
+```
+
+---
+
+## Make a table
+
+```{r, error = TRUE}
+my_summary(c("string1", "string2"))
+my_summary(x, percentiles = c(-7, .5, 1.3))
+```
+
+
+---
+
+## Function with iteration
+
+```{r}
+my_sum <- function(x) {
+  total <- 0
+  for (i in 1:length(x)) {
+    total <- total + x[i]
+  }
+  return(total)
+}
+my_sum(1:5)
+```
+
+
+---
+layout: false
+class: inverse
+
+.sectionhead[Style guide!]
+---
+layout: true
+
+# Style guide!
+---
+
+.middler[Once again, we will using a mix of the [Tidyverse style guide](https://style.tidyverse.org/) and the [Google style guide](https://google.github.io/styleguide/Rguide.html).]
+
+---
+
+## Function Names
+
+Strive to have function names based on verbs. 
+Otherwise, standard variable name style guidelines apply!
+
+```{r, eval = FALSE}
+# Good
+add_row()
+permute()
+
+# Bad
+row_adder()
+permutation()
+```
+
+
+---
+
+## Spacing
+
+Place a space before and after `()` when used with `if`, `for`, or `while`.
+
+```{r, eval = FALSE}
+# Good
+if (condition) {
+  x + 2
+}
+
+# Bad
+if(condition){
+  x + 2
+}
+```
+
+
+---
+
+## Spacing
+
+Place a space after `()` used for function arguments.
+
+```{r, eval = FALSE}
+# Good
+if (debug) {
+  show(x)
+}
+
+# Bad
+if(debug){
+  show(x)
+}
+```
+
+
+---
+
+
+## Code Blocks
+
+* `{` should be the last character on the line. Related code (e.g., an `if` clause, a function declaration, a trailing comma, ...) must be on the same line as the opening brace. It should be preceded by a single space.
+* The contents within code blocks should be indented by two spaces from where it started
+* `}` should be the first character on the line.
+
+---
+
+## Code Blocks
+
+```{r, eval = FALSE}
+# Good
+if (y < 0) {
+  message("y is negative")
+}
+
+if (y == 0) {
+  if (x > 0) {
+    log(x)
+  } else {
+    message("x is negative or zero")
+  }
+} else {
+  y^x
+}
+```
+
+---
+
+## Code Blocks
+
+```{r, eval = FALSE}
+# Bad
+if (y<0){
+message("Y is negative")
+}
+
+if (y == 0)
+{
+    if (x > 0) {
+      log(x)
+    } else {
+  message("x is negative or zero")
+    }
+} else { y ^ x }
+```
+
+---
+
+## In-line Statments
+
+In general, it's ok to drop the curly braces for very simple statements that fit on one line. However, function calls that affect control flow (`return`, `stop`, etc.) should always go in their own `{}` block:
+
+
+```{r, eval = FALSE}
+# Good
+y <- 10
+x <- if (y < 20) "Too low" else "Too high"
+
+if (y < 0) {
+  stop("Y is negative")
+}
+
+find_abs <- function(x) {
+  if (x > 0) {
+    return(x)
+  }
+  x * -1
+}
+```
+
+
+---
+
+
+## In-line Statements
+
+In general, it's ok to drop the curly braces for very simple statements that fit on one line. However, function calls that affect control flow (`return`, `stop`, etc.) should always go in their own `{}` block:
+
+```{r, eval = FALSE}
+# Bad
+if (y < 0) stop("Y is negative")
+
+if (y < 0)
+  stop("Y is negative")
+
+find_abs <- function(x) {
+  if (x > 0) return(x)
+  x * -1
+}
+```
+
+
+---
+
+
+## Long lines in functions
+
+If a function definition runs over multiple lines, indent the second line to where the definition starts.
+
+```{r, eval = FALSE}
+# Good
+long_function_name <- function(a = "a long argument",
+                               b = "another argument",
+                               c = "another long argument") {
+  # As usual code is indented by two spaces.
+}
+
+# Bad
+long_function_name <- function(a = "a long argument",
+  b = "another argument",
+  c = "another long argument") {
+  # Here it's hard to spot where the definition ends and the
+  # code begins
+}
+```
+
+---
+
+## `return`
+
+Strictly speaking, `return` is not necessary in a function definition.
+The function will output the last line of executable R code. 
+The following function definitions will output the same results!
+
+```{r}
+Add_Values <- function(x, y) {
+  return(x + y)
+}
+
+Add_Values <- function(x, y) {
+  x + y
+}
+```
+
+
+Note that our two guides disagree on which of these is preferable. 
+
+Personally, I always make my `return` statements explicit, so I prefer the former.
+
+---
+
+## Commenting functions
+
+For now, when commenting functions, include (at least) 3 lines of comments:
+
+* a comment describing the purpose of a function
+* a comment describing each input
+* a comment describing the output
+
+The function body should be commented as usual!
+
+---
+
+
+```{r, eval = FALSE}
+# Good ----
+# Function: square_plus_2, squares a number and then adds 2
+# Input: x, must be numeric
+# Output: numeric equal to x^2 + 2
+square_plus_2 <- function(x) {
+  # check that x is numeric
+  if (!is.numeric(x)) {
+    stop("x must be numeric!")
+  } else {
+    # if numeric, then square and add 2
+    y <- x^2 + 2
+    return(y)
+  }
+}
+```
+
+---
+
+```{r, eval = FALSE}
+# Bad ----
+# Function for problem 2c
+square_plus_2 <- function(x) {
+  if (!is.numeric(x)) {
+    stop("x must be numeric!")
+  } else {
+    y <- x^2 + 2
+    return(y)
+  }
+}
+```
+
+
+---
+layout: false
+
+# Summary
+
+* Use `if` and `else` to set conditions
+* Use `for` and `while` to write loops
+* Functions include a input parameters, a body of code, and an output
+* Functions are essential for a good workflow!
+
+
+---
+class: inverse 
+
+.sectionhead[Part 4: Packages]
+
+---
+layout: true
+
+# Packages
+
+---
+
+## What is an R package?
+
+* Packages bundle together code, data, and documentation in an easy to share way.
+* They come with functions that others have written for you to make your life easier, 
+and greatly improve the power of R! 
+* Packages are the reason we are learning about R in this course.
+* Packages can range from graphical software, to web scraping tools, statistical models for spatio-temporal data, microbial data analysis tools, and more!
+
+
+---
+
+## Where are packages?
+
+* The most popular package repository is the Comprehensive R Archive Network, or [CRAN](https://cran.r-project.org/)
+* As of making this slide, it includes over 16,000 packages 
+* Other popular repositories include [Bioconductor](https://www.bioconductor.org/) and [Github](https://github.com/)
+
+---
+
+## How do I install packages?
+
+If a package is available on CRAN, like most packages we will use for this course,
+you can install it using `install.packages()`:
+
+```{r, eval = FALSE}
+install.packages("PACKAGE_NAME_IN_QUOTES")
+```
+
+You can also install by clicking *Install* in the *Packages* tab through RStudio.
+
+For the most part, after you install a package, it is saved on your computer until you update R, and you will not need to re-install it. 
+Thus, you should **never** include a call to `install.packages()` in any `.R` or `.Rmd` file!
+
+
+---
+
+## How do I use a package?
+
+After a package is installed, you can load it into your current R session using `library()`:
+
+```{r, eval = FALSE}
+library(PACKAGE_NAME)
+# or 
+library("PACKAGE_NAME")
+```
+
+Note that unlike `install.packages()`, you do not need to include the package name in quotes.
+
+---
+
+## How do I use a package?
+
+Loading a package must be done with each new R session, so you should put calls to `library()` in your `.R` and `.Rmd` files.
+
+Usually, I do that in the opening code chunk. If it is a `.Rmd`, I set the parameter
+`include = FALSE` to hide the messages and code, because they are usually unnecessary to the reader
+of my HTML. 
+
+    `r ''````{r, include = FALSE}
+    library(ggplot2)
+    ```
+    
+---
+layout: false
+class: inverse
+
+.sectionhead[Part 5: Data]
+
+---
+
+
+# Tibbles
+
+`tibbles` are a special Tidyverse data frame from the `tibble` package. 
+You can convert data frames to tibbles using `as_tibble()`, or you can create them similarly 
+to data frames using `tibble()`. 
+The biggest benefit of tibbles is that they display nicer in your R console, automatically
+truncating output and including variable type to print nicely.
+
+Tidyverse has (rightfully) decided rownames are obsolete, and so they do not include rownames 
+by default. However, we can include our rownames as a variable using the parameter `rownames` in 
+`as_tibble()`.
+
+---
+
+
+# Tibbles
+
+
+```{r}
+library(tibble)
+my_data <- data.frame("var1" = 1:3,
+                      "var2" = c("a", "b", "c"),
+                      "var3" = c(TRUE, FALSE, TRUE))
+my_tibble <- as_tibble(my_data, rownames = "Observation")
+my_tibble
+```
+
+---
+layout: true 
+
+# Tidy Data Principles
+
+---
+
+There are three rules required for data to be considered tidy
+
+* Each variable must have its own column
+* Each observation must have its own row
+* Each value must have its own cell
+
+---
+
+Seems simple, but can sometimes be tricky!
+
+What's untidy about the following data?
+
+```{r, echo = FALSE}
+library(kableExtra)
+untidy_dat <- data.frame("Hospital" = c("A", "B", "C", "D"),
+                         "Diseased" = c(10, 15, 12, 5),
+                         "Healthy"  = c(14, 18, 13, 16))
+kable_styling(kable(untidy_dat))
+```
+
+--
+
+* **Observations:** the number of individuals at a given hospital and of a given disease status
+* **Variables:** the hospital, the disease status, the counts
+* **Values:** Hospital A, Hospital B, Hospital C, Hospital D, individual count values, *Disease Status Healthy*, *Disease Status Diseased*
+
+---
+
+Problem: column headers are values, not variables!
+
+How can we tidy it up?
+
+--
+
+```{r, echo = FALSE}
+tidy_dat <- data.frame("Hospital" = rep(c("A", "B", "C", "D"), each = 2),
+                       "Status"   = rep(c("Diseased", "Healthy"), 4),
+                       "Count"    = c(10, 14, 15, 18, 12, 13, 5, 16))
+kable_styling(kable(tidy_dat))
+```
+
+---
+
+Another example:
+
+```{r, echo = FALSE}
+untidy_dat2 <- data.frame("Country" = c("A", "B"),
+                          "Year"  = rep(2018, 2),
+                          "m1624" = c(49, 34),
+                          "m2534" = c(55, 33),
+                          "f1624" = c(47, 50),
+                          "f2534" = c(41, 43))
+kable_styling(kable(untidy_dat2))
+```
+
+--
+
+* **Observations:** the number of individuals in a given country, in a given year, of a given gender, and in a given age group
+* **Variables:** Country, year, gender, age group, counts
+* **Values:** Country A, Country B, Year 2018, Gender "m", Gender "f", Age Group "1624", Age Group "2534", individual counts
+
+---
+
+```{r, echo = FALSE}
+tidy_dat2 <- data.frame("Country"   = rep(c("A", "B"), each = 4),
+                        "Year"      = rep(2018, 8),
+                        "Gender"    = rep(c("m", "m", "f", "f"), 2),
+                        "Age_Group" = rep(c("16-24", "25-34"), 4),
+                        "Counts"    = c(49, 55, 47, 41, 34, 33, 50, 43))
+kable_styling(kable(tidy_dat2))
+```
+
+
+---
+
+
+## How to tidy data?
+
+1. Identify the observations, variables, and values
+2. Ensure that each observation has its own row
+  * Be careful for individual observations spread over multiple tables/Excel files/etc, or multiple types of observations within a single table (this would result in many empty cells)
+3. Ensure that each variable has its own column
+  * Be careful for variables spread over two columns, multiple variables within a single column, variables as rows
+4. Ensure that each value has its own cell
+  * Be careful for values as column headers
+  
+---
+
+## Why tidy data?
+
+* Easier to read data
+* Easier to analyze and plot using standard software (required for `ggplot2`)
+* Easier to understand what the data represents
+* Fewer issues with missing values
+
+---
+
+## Using R to tidy data
+
+```{r, echo = FALSE}
+library(dplyr)
+library(tidyr)
+data("relig_income")
+relig_income
+```
+
+
+---
+## Using R to tidy data
+
+```{r, echo = FALSE}
+pivot_longer(relig_income, cols = -religion, names_to = "income", values_to = "frequency")
+```
+
+
+---
+
+## A final reference
+
+Hadley Wickham is the ultimate resource on tidy data principles. 
+[Here is a fantastic reference going through all these principles in more detail and with more examples.](https://vita.had.co.nz/papers/tidy-data.pdf)
+
+---
+layout: false
+class: inverse
+
+.sectionhead[Part 6: Managing Data]
+
+---
+layout: true
+
+# Working Directory
+
+---
+
+## Seeing your working directory
+
+A **working directory** is the filepath R uses to save and look for data. 
+You can check for your current working directory using `getwd()`
+
+```{r}
+getwd()
+```
+
+This location is where R will look by default!
+
+---
+
+## Changing your working directory
+
+You can change your working directory using `setwd()`. 
+
+```{r, eval = FALSE}
+setwd("/Users/Peter/Desktop/STAT302")
+```
+
+You can use the shorthand `..` to reference a parent directory relative to where you are now.
+
+```{r}
+setwd("..")
+getwd()
+```
+
+---
+
+## Changing your working directory
+
+
+We can also reference the current directory using the shorthand `.`.
+```{r, eval = FALSE}
+setwd("./STAT302/Slides")
+```
+
+```{r}
+getwd()
+```
+
+---
+
+## Working directories and R Markdown
+
+Do not change your working directory inside R Markdown files! 
+By default, R Markdown sets the filepath they are in as the working directory. 
+
+Changing this can (will) mess up your analysis, and make your work less reproducible.
+
+---
+
+## Saving Data
+
+You can save single R objects as `.rds` files using `saveRDS()`, 
+multiple R objects as `.RData` or `.rda` files using `save()`, 
+and your entire workspace as `.RData` using `save.image()`.
+
+```{r, eval = FALSE}
+object1 <- 1:5
+object2 <- c("a", "b", "c")
+# save only object1
+saveRDS(object1, file = "object1_only.rds")
+# save object1 and object2
+save(object1, object2, file = "both_objects.RData")
+# save my entire workspace
+save.image(file = "entire_workspace.RData")
+```
+---
+
+## Saving Data
+
+In general, I recommend using `.RData` for multiple objects, and I recommend against using `save.image()`, basically ever.
+
+`save.image()` should never be a part of your workflow. Personally, I only use it if I need to quickly close R and want to come back to exactly where I was later. (For example, a coffee shop I was working at closed). I will always delete the file later so it does not mess with my workflow.
+
+---
+
+## Loading Data 
+
+You can load `.rds` files using `readRDS()` and `.Rdata` and `.rda` files using `load()`.
+
+```{r, eval = FALSE}
+# load only object1
+readRDS("object1_only.rds")
+# load object1 and object2
+load("both_objects.RData")
+# load my entire workspace
+load("entire_workspace.RData")
+```
+
+
+---
+
+## Notes on Saving and Loading R Data
+
+The values in quotes are all filepaths, and by default, R will search for these objects in your current working directory.
+
+You can change where R searches for images by adjusting this filepath. For example, if you save your data in a `Data` subfolder within your working directory, you might try
+
+```{r, eval = FALSE}
+load("./Data/my_data.RData")
+```
+
+---
+
+## Other types of data
+
+Often, you will read and write files as **c**omma **s**eparated **v**alues, or `.csv`. 
+You can do this by navigating *File > Import Dataset* in the menu bar, but generally I recommend doing it manually using the `readr` package. You will need to do so if loading data is part of your work flow, such as if it is required for an R Markdown writeup.
+
+```{r, eval = FALSE}
+library(readr)
+# read a .csv file in a "Data" subfolder
+read_csv("./Data/file.csv")
+# save a .csv file in a "Data" subfolder
+write_csv("./Data/data_output.csv")
+```
+
+
+`readr` can also handle many more types of data! See more details about `readr` using the fantastic cheat sheet available [here.](https://rstudio.com/resources/cheatsheets/)
+
+---
+
+## Working Directories Summary
+
+* Working directories are the default filepaths R uses to save and load files
+* When working in a `.Rmd`, your default filepath is wherever the `.Rmd` is stored, and you should leave it there
+* You can change your working directory with `setwd()`. 
+* You can reference your current working directory using `.` and the parent directory of your current working directory using `..` 
+
+For larger analysis projects, I recommend using R projects to automatically manage 
+your working directory for you!
+
+---
+layout: false
+layout: true
+
+# Projects
+
+---
+
+Good file organization requires you to keep all your input data, R scripts, 
+output data and results, and figures together. 
+You can do this using **Projects**.
+
+You can create a project by going to *File > New Project*. 
+If you want your project in a folder you have already created, select *Existing Directory*.
+If you want RStudio to automatically make you a new folder with a project, select *New Directory*.
+
+Then select *Empty Project* to create a standard project.
+This will create a `.Rproj` file on your computer.
+
+When working with a project, save and manage your work as usual. 
+When you close and re-open R, *do so by double-clicking on your `.Rproj` file!*
+This will automatically open everything as you left it, except your environment will be fresh, 
+helping with reproducibility.
+
+---
+
+## Benefits of Projects
+
+* Automatically manages your working directory, even if you move the project file
+* Remembers your working directory and command history, all the files you were working on are still open.
+* Helps with reproducibility. You can share R project files and the project will load on other computer exactly as it does on yours.
+* Helps keep your separate analyses separate. For example, you won't need to worry if you defined a variable `x` in multiple different analyses
+* Easy to integrate with version control such as git (more on this later!)
+
+

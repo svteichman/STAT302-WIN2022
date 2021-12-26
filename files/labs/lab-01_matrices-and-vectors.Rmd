@@ -1,0 +1,103 @@
+---
+title: "Lab 1"
+author: "STAT 302"
+date: "Due Date Here"
+output: html_document
+---
+
+<!--- Begin styling code. --->
+<style type="text/css">
+/* Whole document: */
+body{
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-size: 12pt;
+}
+h1.title {
+  font-size: 38px;
+  text-align: center;
+}
+h4.author {
+  font-size: 18px;
+  text-align: center;
+}
+h4.date {
+  font-size: 18px;
+  text-align: center;
+}
+</style>
+<!--- End styling code. --->
+
+### Collaborators
+
+INSERT NAMES OF ANY STUDENTS WORKED WITH
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Instructions (5 points)
+
+This lab will be worth 20 points, of which 5 can be earned by following instructions. Each item below is worth 1 point.
+
+* You must upload this file as a compressed file (such as `.zip`) of your *entire* STAT302 folder. The organization and file names should follow the guidelines outlined in the Lecture Slides 1. This means that the actual .Rmd and .html files for Lab 1 should be included in a Lab 1 subfolder within a Labs folder.
+* Your code should be commented so that it is easy for us to follow.
+* Your code should follow the style guidelines from Lecture Slides 1.
+* Any reference to code results in text should be done using in-line R code. You should not be typing the actual numbers. Similarly, any values you are asked to calculate must be done using code. They should not be calculated by hand.
+* Your document should look nice and be easy to read. Figures should be appropriately sized, headers and subheaders should be used, etc.
+
+When generating data, I recommend viewing and exploring your data to get a sense of what it looks like using both R commands and the Editor tab in RStudio. 
+This will help you confirm that what you generated is what you intended. 
+It will also give you a sense of what the data look like, which can help decide how you want to present it.
+
+*If you collaborated with anyone, you must include "Collaborated with: FIRSTNAME LASTNAME" at the top of your lab!*
+
+## Part 1. Vectors (8 points)
+
+Let's jump right in and start working with large simulations. You will need the functions `rnorm()` for Normally distributed simulations, `pnorm()` for the percentiles of the Normal distribution, and `dnorm()` for the density of the Normal distribution. This is all I am going to tell you about these functions, so you will need to use the documentation to help you with these questions! 
+
+(*Hint: pay attention to the parameter `lower.tail`*)
+
+**1a.** Create and store a vector of 100,000 simulations from a Normal distribution with mean 3 and standard deviation 5 (sometimes written as $N(3, 5^2)$). Print out only the first 5 elements of your vector using `head()`.
+
+**1b.** Generate 4 histograms. The histograms should include the first 50, 500, 5000, and 50000 elements of your simulations, respectively. Be sure to change the title of your histograms to write what they display in plain text. What do you notice about the histograms? Explain why you think this is.
+
+(*Hint: use the parameter `main` to change the title of your histogram*)
+
+**1c.** In order to standardize vectors, we take each element and subtract the *observed* mean and then divide by the *observed* standard deviation. Create and store a new vector that is the standardization of your simulations from part (a). Create a histogram for these standardized simulations (don't forget to change the title again!). What do you notice? Include references to the mean and standard deviation of your new data, using in-line R code.
+
+(*Hint: don't use exactly 3 and 5 for the mean and standard deviation when standardizing. As a sanity check, after you standardize your vector, the mean should be exactly 0!*)
+
+**1d.** Calculate (using an R function) the percent of simulations from a $N(0, 1)$ that you *expect* to be above 1.644854. How does this compare to the observed proportion of your standardized simulations that are above 1.644854?
+
+**1e.** How does the quantity from part d compare to to the observed proportion of your first 10 standardized simulations that are above 1.644854? Repeat this for your first 100, 1000, and 10,000 standardized simulations. 
+What do you notice?
+
+**1f.** I simulated from an unknown distribution and obtained a sample value of 3.15. What is the percentile of my simulation in the *observed* distribution of your simulations? If you standardize my simulation (using the same mean and standard deviation as in part c!), what is the percentile of my simulation in the distribution of your standardized simulations? What do you notice about these two quantities?
+
+**1g.** What percent of simulations from a $N(0, 1)$ would you *expect* to be more "extreme" than my standardized simulation? Here, "extreme" means further from the mean in either direction.
+
+**1h.** Can you tell if my sample value was drawn from the same distribution as your simulations? Why or why not?
+
+## Part 2. Matrices (7 points)
+
+A Binomial distribution with $n$ trials and probability of success $p$, sometimes shorthanded $Bin(n, p)$, represents the number of success out of $n$ independent trials, each with probability of success $p$. 
+For this part, we will be using the Binomial distribution equivalent of the functions we used in part 1.
+These are `rbinom()`, `pbinom()`, and `dbinom()`.
+
+**2a.** Initialize two empty matrices. One should have 10 rows and 4 columns, the other should have 10,000 rows and 4 columns. Be sure to give them informative names that follow style guidelines.
+
+**2b.** Separately fill the first column of each matrix with independent draws from a Binomial distribution with probability $0.2$ and $n=5$. Repeat this process for the second through fourth columns using probabilities of $0.4$, $0.6$, and $0.8$, respectively. Print out the first five rows of each matrix.
+
+(*Hint: the $n$ in $Bin(n,p)$ notation is not necessarily the same as the `n` in the `rbinom()` function. Read the documentation carefully!*)
+
+**2c.** Use four well-labeled histograms to plot the values of each column. Set the `breaks` parameter to a reasonable integer value for these data. Discuss what you see.
+
+**2d.** Calculate the column means of both matrices and present these results in a single table. The rows and columns of your tables should be easy to read and interpret.
+
+**2e.** What is the *expected* column mean for each column? Which matrix has observed column means that are closer to this expectation? Why do you think that is?
+
+(*Hint: the expected value of a draw from a $Bin(n,p)$ distribution is $n\times p$*)
+
+**2f.** What is the theoretical variance for the values in each column? Which matrix has observed column sample variances that are closer to this value? Why do you think that is?
+
+
