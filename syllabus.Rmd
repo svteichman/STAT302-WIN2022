@@ -126,7 +126,7 @@ If you do not have a personal computer, you can borrow one for free from UW thro
   The UW Libraries have a useful guide for students at http://www.lib.washington.edu/teaching/plagiarism Students found to have engaged in academic misconduct may receive a zero on the assignment (or other possible outcome).
 
 ### Conduct
-The University of Washington Student Conduct Code (WAC 478-121) defines prohibited academic and behavioral conduct and describes how the University holds students accountable as they pursue their academic goals. Allegations of misconduct by students may be referred to the appropriate campus office for investigation and resolution. More information can be found online at https://www.washington.edu/studentconduct/}{\color{PineGreen}https://www.washington.edu/studentconduct/
+The University of Washington Student Conduct Code (WAC 478-121) defines prohibited academic and behavioral conduct and describes how the University holds students accountable as they pursue their academic goals. Allegations of misconduct by students may be referred to the appropriate campus office for investigation and resolution. More information can be found online at https://www.washington.edu/studentconduct/.
 
 ### Disability Resources
 Your experience in this class is important to me. It is the policy and practice of the University of Washington to create inclusive and accessible learning environments consistent with federal and state law. If you have already established accommodations with Disability Resources for Students (DRS), please activate your accommodations via myDRS so we can discuss how they will be implemented in this course.
