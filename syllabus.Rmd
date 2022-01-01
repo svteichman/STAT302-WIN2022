@@ -1,5 +1,9 @@
 ---
 title: "Syllabus"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
 ---
 
 *This syllabus is subject to change.*
@@ -10,7 +14,7 @@ title: "Syllabus"
 
 **Time**: Mondays and Wednesdays, 3:30 - 4:50pm
 
-**Location**: SAV 155
+**Location**: SAV 155, on Zoom for the first two class meetings
 
 **Office hours**: T 3-4, F 1:30-3:30 via Zoom [(meeting link)](https://washington.zoom.us/j/3955335000)
 
@@ -77,16 +81,19 @@ Your final grade will be calculated as follows:
   * 10%: Minimum grade from Project 1 and Project 2
   * 20%: Maximum grade from Project 1 and Project 2
   * 30%: Project 3
-  * 2% (extra credit): Piazza discussion participation. Both questions and answers will be considered.
+  * 2% (extra credit): Discussion board participation. Both questions and answers will be considered.
   
 Final grades will be curved, but only to help you. Consistent and excellent work will always be rewarded with an excellent grade,
 regardless of the performance of the rest of the class.
 
 # Returning to in-person learning
 
+### Winter 2022
+  Due to the recent surge in COVID cases, most UW courses will be online for the first week of the quarter, including this one. Zoom links to the first two courses can be found in the 'Zoom' tab on Canvas. After the first week we will transition to in-person learning, unless the guidance from the university changes. 
+
 ### Expectations
   The COVID-19 pandemic has and will continue to present many of us with unforeseen difficulties.  I encourage all of you to prioritize the health and safety of yourselves and those around you and would be happy to make accommodations that help you to do so.
-In addition, I hope that we can be patient with one another as we begin transitioning back to in-person learning, as it is likely that not everything will go to plan. Please feel free to reach out to me via email at any point to discuss any concerns you may have about the course.
+In addition, I hope that we can be patient with one another as we continue transitioning back to in-person learning, as it is likely that not everything will go to plan. Please feel free to reach out to me via email at any point to discuss any concerns you may have about the course.
 
 ### Keeping each other safe
   I am thrilled to be teaching in person and I hope you are excited to be back on campus as well. As we return to physical classrooms, please be respectful of your classmates' boundaries and precautions--we are all readjusting to in-person learning. In addition, I hope we will all make every effort to keep ourselves and our classmates safe. If you test positive or are exposed to possible infection, I encourage you to err on the side of caution with regards to attending classes and would be happy to make accomodations that allow you to do so. I will make high-quality recordings of lecture and additional office hours available to students that are absent due to quarantine.
@@ -106,8 +113,8 @@ If you do not have a personal computer, you can borrow one for free from UW thro
 ### Collaboration
   On most assignments, collaboration is allowed and encouraged. You may discuss problems, approaches, and solutions with your classmates. Acceptable collaboration is limited to your classmates in this course and you must clearly include on any collaborative work the name(s) of anyone with whom you worked. Additionally, all submitted work must be your own; you should not submit code or answers copied from any resource including your classmates. Plagiarism and cheating is easy for us to detect and can lead to serious negative consequences for you (see Academic Integrity below). If you have any questions regarding this policy, please ask for clarification.
 
-### Piazza Discussion
-  You are encouraged to participate on the Piazza discussion forum by posting questions about assignments and answering questions from other students. Posts may not include substantial amounts of code that can be used for a solution to any problem, but may include code snippets within reason. Participation, in the form of both questions and answers, can earn you up to 2% extra credit for your final grade. Posts will be evaluated based on how substantive and helpful they are to the class.
+### Discussion board
+  You are encouraged to participate on the discussion board by posting questions about assignments and answering questions from other students. Posts may not include substantial amounts of code that can be used for a solution to any problem, but may include code snippets within reason. Participation, in the form of both questions and answers, can earn you up to 2% extra credit for your final grade. Posts will be evaluated based on how substantive and helpful they are to the class.
 
 ### Academic misconduct
   Academic integrity is essential to this course and to your learning. On certain assignments, collaboration is allowed and encouraged when following the collaboration policy outlined above. Violations of the academic integrity policy include but are not limited to: copying from a peer, collaborating where it is not allowed, copying from an online resource, using a solutions manual, and using resources from a previous iteration of the course. Anything found in violation of this policy will be automatically given a score of 0 with no exceptions. If the situation merits, it will also be reported to the UW Student Conduct Office, at which point it will be out of my hands. If you have any questions about this policy, please do not hesitate to reach out and ask.
@@ -141,7 +148,7 @@ Sharing recordings and other class materials outside of class that include perso
 
 # Links and other resources
 
-* [Canvas Page](https://canvas.uw.edu/courses/1483089)
+* [Canvas Page](https://canvas.uw.edu/courses/1519530)
 
 * [Install R](https://cran.r-project.org/)
 
