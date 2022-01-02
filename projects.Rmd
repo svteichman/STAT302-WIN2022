@@ -7,11 +7,13 @@ description: ""
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+\begin{comment}
+
 # Project 1: Data Visualization
 
 ![](https://upload.wikimedia.org/wikipedia/commons/2/29/Minard.png)
 
-**due date: 10/27**
+**due date: 01/31**
 
 * Instructions [[.html](files/projects/01_data-visualization/01_dataviz.html)] [[.Rmd](https://raw.githubusercontent.com/peteragao/STAT302-AUT2021/base/files/projects/01_data-visualization/01_dataviz.Rmd)]
 * Data [[.csv](https://raw.githubusercontent.com/peteragao/STAT302-AUT2021/base/files/projects/01_data-visualization/Building_Permits_Clean.csv)]
@@ -20,14 +22,16 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ![](https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Capitol_%28PSF%29.jpg/640px-Capitol_%28PSF%29.jpg)
 
-**due date: 11/22**
+**due date: 02/21**
 
 * Instructions [[.html](files/projects/02_congress-data/02_voting-analysis.html)] [[.Rmd](https://raw.githubusercontent.com/peteragao/STAT302-AUT2021/base/files/projects/02_congress-data/02_voting-analysis.Rmd)]
 
-# Project 3: R Package Development 
+# Project 3: ????????
 
 ![](https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Cat_using_computer.jpg/640px-Cat_using_computer.jpg)
 
-*due date: 12/13*
+*due date: 12/06*
 
 * Instructions [[.html](files/projects/03_vignettes/03_vignettes.html)] [[.Rmd](https://raw.githubusercontent.com/peteragao/STAT302-AUT2021/base/files/projects/03_vignettes/03_vignettes.Rmd)]
+
+\end{comment}
