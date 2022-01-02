@@ -1,9 +1,6 @@
 ---
 title: "Syllabus"
-output:
-  html_document:
-    df_print: paged
-  pdf_document: default
+description: ''
 ---
 
 *This syllabus is subject to change.*
