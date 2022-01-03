@@ -34,23 +34,17 @@ Replace this text with your answer.
 
 Replace this text with your answer.
 
-**5.** Explain the grading scale of Short Labs in this course.
+
+**5.** What is the penalty if you submit an assignment 32 hours late?
 
 Replace this text with your answer.
 
-**6.** What is the penalty if you submit an assignment 32 hours late?
+
+**6.** Do my current proposed office hour times work for you? If not, please provide some general availability.
 
 Replace this text with your answer.
 
-**7.** What percent extra credit is possible in this course, and how do you earn it?
-
-Replace this text with your answer.
-
-**8.** Do my current proposed office hour times work for you? If not, please provide some general availability.
-
-Replace this text with your answer.
-
-**9.** Is there anything else I should know that might help you succeed in this course? 
+**7.** Is there anything else I should know that might help you succeed in this course? 
 
 Replace this text with your answer.
 
@@ -59,17 +53,15 @@ Replace this text with your answer.
 
 ## Part 2. R, RStudio, and RMarkdown
 
-**10.** What is the relationship between R and RStudio?
+**8.** What is the relationship between R and RStudio?
 
-**11.** What is the difference between R and R Markdown?
-
-**12.** Edit the code chunk below to assign the value ```5``` to the variable ```x```.
+**9.** Edit the code chunk below to assign the value ```5``` to the variable ```x```.
 
 ```{r}
 # Your code here
 ```
 
-**13.** Explain in words what the following code does. (*Optional: Why does ```print(y)``` produce 5 and not 6?*)
+**10.** Explain in words what the following code does. (*Optional: Why does ```print(y)``` produce 5 and not 6?*)
 
 ```{r}
 y <- 5
@@ -79,7 +71,7 @@ print(y)
 print(z)
 ```
 
-**14.** If you have not done so already, install the package palmerpenguins in your by running the command `install_packages("palmerpenguins")` in your console. Run the following code. 
+**11.** If you have not done so already, install the package palmerpenguins in your by running the command `install_packages("palmerpenguins")` in your console. Run the following code. 
 
 ```{r}
 library(palmerpenguins)
@@ -88,7 +80,7 @@ data(penguins)
 
 How many observations are in the `penguins` object? 
 
-**15.** *Optional: What does the function defined below do? What mathematical function is this? Try running the code chunk below and then running ```h(t)``` for different values of ```t```*
+**12.** *Optional: What does the function defined below do? What mathematical function is this? Try running the code chunk below and then running ```h(t)``` for different values of ```t```*
 
 ```{r}
 h <- function(x) {
