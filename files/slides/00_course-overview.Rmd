@@ -1,7 +1,7 @@
 ---
 title: "STAT 302: Lecture 0"
 subtitle: "Course Overview"
-author: "Peter Gao (adapted from slides by Bryan Martin)"
+author: "Sarah Teichman (adapted from slides by Bryan Martin and Peter Gao)"
 date: ""
 output:
   xaringan::moon_reader:
@@ -25,41 +25,42 @@ library(kableExtra)
 1. Course Overview
 2. Introductions
 3. What is R? What is statistical computing?
-4. R Basics
-5. Short Lab 0
+4. Download R, RStudio, RMarkdown
+5. R Basics
+6. Short Lab 0
 
 
 ---
 
-# Syllabus
+# Course Website 
 
 .middler[.large[
-[Link to syllabus](https://peteragao.github.io/STAT302-AUT2021/syllabus.html)
+[Link to website](https://svteichman.github.io/STAT302-WIN2022)
 ]]
 ---
 
 # Introductions
 
-* What should we call you?
+* What should we call you? (name & pronouns)
 * Why are you taking this class?
-* One goal for the school year
+* One goal for this quarter
 
 ---
 
-# Collaboration
-
-* You may discuss problems, approaches, and solutions with your **classmates**.
-* You must credit anyone with whom you worked on each assignment.
-* All submitted work must be your own; you should not submit code or answers copied from any resource including your classmates.
-
----
-
-# Piazza Discussion
+# Discussion Board
 
 * Worth up to 2% extra credit on your final grade!
 * Substantive and helpful questions and answers
+* What discussion board option have you liked using in the past? 
+  * Canvas 
+  * Piazza 
+  * Slack 
+  * Other?? 
 
---
+---
+
+# Discussion Board
+
 
 .pull-left[
 ### Bad questions:
@@ -80,10 +81,7 @@ library(kableExtra)
 
 ---
 
-# Piazza Discussion
-
-* Worth up to 2% extra credit on your final grade!
-* Substantive and helpful questions and answers
+# Discussion Board
 
 .pull-left[
 ### Bad answers:
@@ -164,12 +162,143 @@ RStudio is an integrated development environment (IDE) designed to make your lif
 * Creates HTML, PDF, slides (like these!), webpages, ...
 --
 
-* Required for your labs!
+* Required for your assignments!
 
 ---
 class: inverse
 
-.middler[.huge[Part 1: Introduction to R Utilities]]
+.middler[.huge[Part 1: Installing R]]
+
+---
+
+# Installing R, RStudio 
+
+* [install R](https://cran.r-project.org/)
+* [Install RStudio](https://www.rstudio.com/products/rstudio/download/#download)
+
+---
+
+# Installing RMarkdown
+
+* [install RMarkdown](https://bookdown.org/yihui/rmarkdown/installation.html#installation)
+
+---
+class: inverse
+
+.middler[.huge[Brief Intermission: File Organization]]
+---
+layout:true
+
+# File Names Matter
+
+---
+
+
+.pull-left[
+## Bad
+
+* `newfinal2actualFINALnew.docx`
+* `asdfasdf.R`
+* `analy$i$ functions!.R`
+* `stuff.R`
+
+
+* Cluttered
+* Uninformative
+* Spaces
+* Special characters other than `_` and `-`
+]
+
+.pull-right[
+## Good
+* `stat302_lab1.Rmd`
+* `analysis_functions.R`
+* `analysisFunctions.R`
+* `2020-01-08_labWriteup.Rmd`
+
+
+* Meaningful
+* Concise
+* camelCase or using `_` to distinguish words
+* Machine sortable
+]
+
+---
+
+## Summary
+
+* Machine readable
+* Human readable
+* Plays well with default ordering
+
+--
+  * `01_draft.Rmd`, `02_draft.Rmd` , ... , `11_draft.Rmd`
+  * `2018-05-05_resume.docx`, `2019-02-17_resume.docx`, `2020-01-08_resume.docx`
+
+---
+layout: false
+layout: true
+
+# File Organization Matters
+
+---
+
+
+Easier to start with best practice rather than fix things later!
+
+.middler[![](images/psyduck.gif)]
+
+---
+
+1. Somewhere on your computer, create the folder `STAT302`
+2. Within that folder, create the subfolders `short_labs`<sup>1</sup>, `labs`, `projects`
+3. Go to course webpage and Short Labs tab, and download the `.Rmd` file for Short Lab 0 and save it in your `short_labs` folder.
+
+.footnote[[1] or `shortLabs`, `ShortLabs`, `Short_Labs`, ... (just follow the rules for file names!)
+
+[2] or `shortLab1`, `short_lab1`, ...
+]
+
+--
+.pushdown[May seem excessive for now, but this will come in handy when labs start 
+including extra files such as data and figures!]
+
+
+
+---
+layout: false
+
+# All done! For now...
+
+.middler[![](images/files.gif)]
+
+---
+layout:false
+class: inverse
+
+.middler[.huge[Part 2: Using RStudio and R Markdown]]
+---
+
+
+# RStudio Interface
+
+By default...
+
+* *Top left*: Editor pane. Browse and edit scripts and data with tabs
+* *Top right*: List of objects in your Environment (recall `ls()`), code History
+* *Bottom left*: Console for running R code line-by-line (`>` prompt)
+* *Bottom right*: Files, plots, packages, help files
+
+---
+
+# Console
+
+
+* The quick and easy way to run individual lines of code
+* Nothing you do here is saved as part of your workflow!
+
+--
+* Useful for debugging, testing code, iterating a plot until you like it ...
 
 ---
 
@@ -340,6 +469,44 @@ as.numeric("7") + 3 == 10
 ```
 
 
+
+
+---
+
+# Incomplete Code
+
+What if we start a command, but do not finish it?
+
+```{r, eval = FALSE}
+> 5 -
++ 
+```
+
+Two options:
+  * Press `Esc` to exit and *not* execute the line
+  * Complete the command
+
+---
+
+# Editor
+
+* Your workflow should be contained here (**not** your console)
+* Primarily used for writing and editing .R scripts
+* **Never** manipulate your data in the console. 
+Your workflow should always be **reproducible!** and contained in a script in your editor.
+
+--
+ 
+  
+  
+* Try opening a file now using *File > New File > R Script*, write two lines of simple code
+* Click `Run` in the bar above your script. What happens?
+* Click on one of the lines of code. Press `Ctrl`/`⌘` + `Enter`. What happens?
+
+--
+
+.center[**Important:** Every part of your R workflow belongs in this window!]
+
 ---
 
 # Assigning Variables
@@ -354,6 +521,19 @@ y <- 3
 x + y
 ```
 
+---
+
+# Environment
+
+* If you didn't already, define a variable in your R Script and run it
+* What happens in your Environment tab?
+
+--
+* Type `install.packages("palmerpenguins")` in your Console.
+* Now add `library(palmerpenguins)` and `data(penguins)` to your script and run it.
+* What happens if you click on this in your Environment tab?
+  * Note: We will delve deeper into data later!
+  
 
 ---
 
@@ -370,69 +550,7 @@ x
 
 
 ---
-
-# Workspaces
-
-```{r}
-x <- 7
-ls()
-# Use with caution! This erases everything!
-rm(list = ls())
-ls()
-```
-
----
-layout:false
-class: inverse
-
-.middler[.huge[Part 2: Using RStudio and R Markdown]]
----
-
-# RStudio Interface
-
-By default...
-
-* *Top left*: Editor pane. Browse and edit scripts and data with tabs
-* *Top right*: List of objects in your Environment (recall `ls()`), code History
-* *Bottom left*: Console for running R code line-by-line (`>` prompt)
-* *Bottom right*: Files, plots, packages, help files
-
----
-
-# Editor
-
-* Your workflow should be contained here (**not** your console)
-* Primarily used for writing and editing .R scripts
-
---
- 
-  
-  
-* Try opening a file now using *File > New File > R Script*, write two lines of simple code
-* Click `Run` in the bar above your script. What happens?
-* Click on one of the lines of code. Press `Ctrl`/`⌘` + `Enter`. What happens?
-
---
-
-.center[**Important:** Every part of your R workflow belongs in this window!]
-
----
-layout: true
-# Environment & History
-
-* If you didn't already, define a variable in your R Script and run it
-* What happens in your Environment tab?
-
---
-* Type `install.packages("palmerpenguins")` in your Console.
-* Now add `library(palmerpenguins)` and `data(penguins)` to your script and run it.
-* What happens if you click on this in your Environment tab?
-  * Note: We will delve deeper into data later!
-  
---
-* Remove one of your variables and see what happens.
-
----
+# History
 
 * Click on the History tab to see what it contains. Try searching!
 
@@ -447,38 +565,10 @@ layout: true
 
 .pushdown[.center[**Summary:** Useful to quickly browse what you have defined in your environment]]
 
----
-layout: false
-layout: true
-# Console
----
 
-* The quick and easy way to run individual lines of code
-* Nothing you do here is saved as part of your workflow!
 
---
-* Useful for debugging, testing code, iterating a plot until you like it ...
-* Once you get what you were looking for, add it to your script files!
-* **Never** manipulate your data in the console. 
-Your workflow should always be **reproducible!**
 
 ---
-
-## Incomplete Code
-
-What if we start a command, but do not finish it?
-
-```{r, eval = FALSE}
-> 5 -
-+ 
-```
-
-Two options:
-  * Press `Esc` to exit and *not* execute the line
-  * Complete the command
-
----
-layout: false
 
 # Files, Plots, Packages, Help
 
@@ -490,97 +580,6 @@ layout: false
 * Help is used to browse help files of functions. You can explore these by preceding a function name with `?`. Try `?sqrt` to see.
 * Packages shows all the packages you currently have installed (we will get more into this later!)
 
----
-class: inverse
-
-.middler[.huge[Brief Intermission: File Organization]]
----
-layout:true
-
-# File Names Matter
-
----
-
-
-.pull-left[
-## Bad
-
-* `newfinal2actualFINALnew.docx`
-* `asdfasdf.R`
-* `analy$i$ functions!.R`
-* `stuff.R`
-
-
-* Cluttered
-* Uninformative
-* Spaces
-* Special characters other than `_` and `-`
-]
-
-.pull-right[
-## Good
-* `stat302_lab1.Rmd`
-* `analysis_functions.R`
-* `analysisFunctions.R`
-* `2020-01-08_labWriteup.Rmd`
-
-
-* Meaningful
-* Concise
-* camelCase or using `_` to distinguish words
-* Machine sortable
-]
-
----
-
-## Summary
-
-* Machine readable
-* Human readable
-* Plays well with default ordering
-
---
-  * `01_draft.Rmd`, `02_draft.Rmd` , ... , `11_draft.Rmd`
-  * `2018-05-05_resume.docx`, `2019-02-17_resume.docx`, `2020-01-08_resume.docx`
-
----
-layout: false
-layout: true
-
-# File Organization Matters
-
----
-
-
-Easier to start with best practice rather than fix things later!
-
-.middler[![](images/psyduck.gif)]
-
----
-
-1. Somewhere on your computer, create the folder `STAT302`
-2. Within that folder, create the subfolders `short_labs`<sup>1</sup>, `labs`, `projects`
-3. Within your Short Labs folder, create a subfolder `short_lab_1`<sup>2</sup>
-4. Put your both of short lab files from Monday into that folder
-5. Within your Labs folder, create a folder for Lab 1 that follows the filename guide
-
-.footnote[[1] or `shortLabs`, `ShortLabs`, `Short_Labs`, ... (just follow the rules for file names!)
-
-[2] or `shortLab1`, `short_lab1`, ...
-]
-
---
-.pushdown[May seem excessive for now, but this will come in handy when labs start 
-including extra files such as data and figures!]
-
-
-
----
-layout: false
-
-# All done! For now...
-
-.middler[![](images/files.gif)]
 
 ---
 layout: true
@@ -591,8 +590,7 @@ Let's try making an R Markdown file:
 
 1. Choose *File > New File > R Markdown...*
 2. Make sure *HTML Output* is selected and click OK
-3. Save the file in your new folder, call it `stat302_Lab1.Rmd`
-  * *Hint:* Follow along, because this will become your Lab 1 submission!
+3. Save the file in your `STAT302` folder, call it `practiceLab1.Rmd`
 4. Click the *Knit HTML* button
   * After it is done, browse to the file location using the `Files` tab. What do you notice?
   * Click *Open in Browser* to view the full HTML
@@ -603,14 +601,10 @@ Let's try making an R Markdown file:
 
 The header of .Rmd files is YAML (YAML Ain't Markup Language) code
 
-5. Change `title` to "Lab 1"
+5. Change `title` to "Practice Lab"
 6. Change `author` to your name in quotes
-7. Change `date` to the due date in quotes
+7. Change `date` to the today's date in quotes
 
---
-
-
-Congrats! You have a functional .Rmd that will soon be your Lab 1 submissions!
 
 ---
 
@@ -751,7 +745,7 @@ Or a block of code:
 
 ## R Code within R Markdown
 
-As you saw in Short Lab 1, we can run and execute R code within R Markdown. 
+We can also run and execute R code within R Markdown. 
 To do so encase your code as follows.
 
 

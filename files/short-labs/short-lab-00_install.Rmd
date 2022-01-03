@@ -79,7 +79,16 @@ print(y)
 print(z)
 ```
 
-**14.** *Optional: What does the function defined below do? What mathematical function is this? Try running the code chunk below and then running ```h(t)``` for different values of ```t```*
+**14.** If you have not done so already, install the package palmerpenguins in your by running the command `install_packages("palmerpenguins")` in your console. Run the following code. 
+
+```{r}
+library(palmerpenguins)
+data(penguins)
+```
+
+How many observations are in the `penguins` object? 
+
+**15.** *Optional: What does the function defined below do? What mathematical function is this? Try running the code chunk below and then running ```h(t)``` for different values of ```t```*
 
 ```{r}
 h <- function(x) {

@@ -396,7 +396,11 @@ print(y)</code></pre>
 <pre><code>## [1] 5</code></pre>
 <pre class="r"><code>print(z)</code></pre>
 <pre><code>## [1] 6</code></pre>
-<p><strong>14.</strong> <em>Optional: What does the function defined below do? What mathematical function is this? Try running the code chunk below and then running <code>h(t)</code> for different values of <code>t</code></em></p>
+<p><strong>14.</strong> If you have not done so already, install the package palmerpenguins in your by running the command <code>install_packages(&quot;palmerpenguins&quot;)</code> in your console. Run the following code.</p>
+<pre class="r"><code>library(palmerpenguins)
+data(penguins)</code></pre>
+<p>How many observations are in the <code>penguins</code> object?</p>
+<p><strong>15.</strong> <em>Optional: What does the function defined below do? What mathematical function is this? Try running the code chunk below and then running <code>h(t)</code> for different values of <code>t</code></em></p>
 <pre class="r"><code>h &lt;- function(x) {
   if (x &gt; 1) {
     return(x * h(x - 1))
