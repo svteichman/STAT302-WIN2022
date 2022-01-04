@@ -1,7 +1,7 @@
 ---
 title: "STAT 302: Lecture 1"
 subtitle: "Introduction to R"
-author: "Peter Gao (adapted from slides by Bryan Martin)"
+author: "Sarah Teichman (adapted from slides by Bryan Martin and Peter Gao)"
 date: ""
 output:
   xaringan::moon_reader:
@@ -59,10 +59,7 @@ From R Documentation:
 
 # Before class
 
-Introduce yourself to your neighbor and discuss the following questions
-
-* Do you like to listen to music while working, and if so, what?
-* What does the following code do? Does it raise any errors? You can check the answer on the next slide.
+What does the following code do? Does it raise any errors? 
 
 ```{r, eval = FALSE}
 x <- c("hello", "my", 30, NA, "students")
@@ -958,10 +955,18 @@ We can use `str()` to see the structure of a data frame (or any other object!)
 ```{r}
 my_data2 <- rbind(my_data, c(1, 2, 3, 4))
 str(my_data2)
+```
+
+---
+
+## Investigating a data frame
+
+We can use `str()` to see the structure of a data frame (or any other object!)
+
+```{r}
 my_data2 <- rbind(my_data, list(4, "d", FALSE, 0))
 str(my_data2)
 ```
-
 
 ---
 
@@ -1239,8 +1244,7 @@ do_something_very_complicated(
 
 # Bad
 do_something_very_complicated("that", requires, many, arguments,
-                              "some of which may be long"
-                              )
+                              "some of which may be long")
 ```
 
 *Tip! Try RStudio > Preferences > Code > Display > Show Margin with Margin column 
