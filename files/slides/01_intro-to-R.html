@@ -21,16 +21,22 @@ class: center, title-slide
 
 
 
+
+# Today's pet picture 
+
+
+&lt;img src="../../files/images/pets/pet_01-05.jpg" width="450px" style="display: block; margin: auto;" /&gt;
+
+---
+
 # Before class
 
-What do you think the code below does? Check with your neighbor.
+What do you think the code below does? 
 
 
 ```r
 is.na(NA)
 is.na("NA")
-is.na(NULL)
-is.na(Inf)
 
 # What about these two?
 round(4.5)
@@ -50,22 +56,6 @@ is.na(NA)
 
 ```r
 is.na("NA")
-```
-
-```
-## [1] FALSE
-```
-
-```r
-is.na(NULL)
-```
-
-```
-## logical(0)
-```
-
-```r
-is.na(Inf)
 ```
 
 ```
@@ -134,17 +124,6 @@ cat(x)
 ---
 layout: true
 # Review
----
-
-1. R vs. R Studio vs. R Markdown
-2. R Basics
----
-
-.large[*What is the difference between R and R Markdown?*]
---
-
-.middler[.large[R Markdown files combine R code, results, plots, and text to produce presentations/websites/reports]]
-
 ---
 
 
@@ -363,7 +342,7 @@ x[-4]
 
 ## Vector Arithmetic
 
-**Vectorization**, or applying functions across vectors/arrays, is one of R's most powerful capabilities 
+**Vectorization**, or applying functions across vectors, is one of R's most powerful capabilities 
 
 
 ```r
@@ -486,6 +465,19 @@ x
 
 --
 
+```r
+x &gt; 3
+```
+
+```
+## [1] FALSE FALSE FALSE  TRUE  TRUE
+```
+
+```r
+x[x &gt; 3] &lt;- 3
+x
+```
+
 ```
 ## [1] 1 2 3 3 3
 ```
@@ -545,15 +537,6 @@ y[c(2, 3)]
 
 ```
 ## [1] -4 -3
-```
-
-```r
-# Return the values of x greater than 3
-x[x &gt;= 3]
-```
-
-```
-## [1] 3 4 5
 ```
 
 ```r
@@ -674,7 +657,7 @@ names(my_vec)
 * `length()` returns the number of elements in the vector
 * `head()` and `tail()` return the beginning and end vectors
 * `sort()` will sort
-* `summary()` returns a 5-number summary
+* `summary()` returns a 6-number summary
 * `any()` and `all()` to check conditions on Boolean vectors
 * `hist()` will return a crude histogram (we'll learn how to make this nicer later)
 
@@ -1898,7 +1881,7 @@ objfun &lt;- function(theta, W, M, X, X_star, np, npstar, link, phi.link) {
 * Want to understand code you wrote &gt;24 hours ago without comments?
 
 --
-.center[![small](images/confused.gif)]
+.center[![small](../../files/images/confused-meme.gif)]
 
 ---
 

@@ -18,15 +18,23 @@ options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(comment = "##")
 library(kableExtra)
 ```
+
+# Today's pet picture 
+
+
+```{r, echo = FALSE, out.width = "450px", fig.align = "center"}
+knitr::include_graphics("../../files/images/pets/pet_01-05.jpg")
+```
+
+---
+
 # Before class
 
-What do you think the code below does? Check with your neighbor.
+What do you think the code below does? 
 
 ```{r, eval = FALSE}
 is.na(NA)
 is.na("NA")
-is.na(NULL)
-is.na(Inf)
 
 # What about these two?
 round(4.5)
@@ -38,8 +46,6 @@ round(3.5)
 ```{r, eval = T}
 is.na(NA)
 is.na("NA")
-is.na(NULL)
-is.na(Inf)
 ```
 ---
 # Before class
@@ -89,17 +95,6 @@ cat(x)
 ---
 layout: true
 # Review
----
-
-1. R vs. R Studio vs. R Markdown
-2. R Basics
----
-
-.large[*What is the difference between R and R Markdown?*]
---
-
-.middler[.large[R Markdown files combine R code, results, plots, and text to produce presentations/websites/reports]]
-
 ---
 
 
@@ -250,7 +245,7 @@ x[-4]
 
 ## Vector Arithmetic
 
-**Vectorization**, or applying functions across vectors/arrays, is one of R's most powerful capabilities 
+**Vectorization**, or applying functions across vectors, is one of R's most powerful capabilities 
 
 ```{r}
 y <- -5:-1
@@ -297,7 +292,8 @@ x
 
 
 --
-```{r, echo = FALSE}
+```{r}
+x > 3
 x[x > 3] <- 3
 x
 ```
@@ -350,8 +346,6 @@ We can also get more complicated with our indexing.
 ```{r}
 # Return the second and third elements of 
 y[c(2, 3)]
-# Return the values of x greater than 3
-x[x >= 3]
 # Values of x that match the index of the values of y that are less than -2
 x[y < -2]
 # which() returns the index of entries that are TRUE
@@ -417,7 +411,7 @@ names(my_vec)
 * `length()` returns the number of elements in the vector
 * `head()` and `tail()` return the beginning and end vectors
 * `sort()` will sort
-* `summary()` returns a 5-number summary
+* `summary()` returns a 6-number summary
 * `any()` and `all()` to check conditions on Boolean vectors
 * `hist()` will return a crude histogram (we'll learn how to make this nicer later)
 
@@ -1087,7 +1081,7 @@ objfun <- function(theta, W, M, X, X_star, np, npstar, link, phi.link) {
 * Want to understand code you wrote >24 hours ago without comments?
 
 --
-.center[![small](images/confused.gif)]
+.center[![small](../../files/images/confused-meme.gif)]
 
 ---
 
