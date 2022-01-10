@@ -61,13 +61,13 @@ Let's jump right in and start working with large simulations. You will need the 
 
 **1b.** Generate 4 histograms. The histograms should include the first 50, 500, 5000, and 50000 elements of your simulations, respectively. Be sure to change the title of your histograms to write what they display in plain text. What do you notice about the histograms? Explain why you think this is.
 
-(*Hint: use the parameter `main` to change the title of your histogram*)
+(*Hint: look into the function `hist` to make a histogram and use the parameter `main` to change the title of your histogram*)
 
 **1c.** In order to standardize vectors, we take each element and subtract the *observed* mean and then divide by the *observed* standard deviation. Create and store a new vector that is the standardization of your simulations from part (a). Create a histogram for these standardized simulations (don't forget to change the title again!). What do you notice? Include references to the mean and standard deviation of your new data, using in-line R code.
 
 (*Hint: don't use exactly 3 and 5 for the mean and standard deviation when standardizing. As a sanity check, after you standardize your vector, the mean should be exactly 0!*)
 
-**1d.** Calculate (using an R function) the percent of simulations from a $N(0, 1)$ that you *expect* to be above 1.644854. How does this compare to the observed proportion of your standardized simulations that are above 1.644854?
+**1d.** Calculate (using an R function, if you don't know which one look into the help files for the Normal distribution by searching "Normal") the percent of simulations from a $N(0, 1)$ that you *expect* to be above 1.644854. How does this compare to the observed proportion of your standardized simulations that are above 1.644854?
 
 **1e.** How does the quantity from part d compare to to the observed proportion of your first 10 standardized simulations that are above 1.644854? Repeat this for your first 100, 1000, and 10,000 standardized simulations. 
 What do you notice?

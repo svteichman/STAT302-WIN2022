@@ -544,6 +544,16 @@ Matrices, like vectors, can only have entries of one type.
 rbind(c(1, 2, 3), c("a", "b", "c"))
 ```
 
+---
+
+## Today's pet picture 
+
+
+```{r, echo = FALSE, out.width = "550px", fig.align = "center"}
+knitr::include_graphics("../../files/images/pets/joey_lacey_pets_01-10.jpg")
+```
+
+Thanks Max! 
 
 ---
 

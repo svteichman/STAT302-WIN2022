@@ -17,7 +17,6 @@ Materials for this course were originally developed by [Bryan Martin](https://br
 * **M 01/03**: Short Lab 0 assigned
 * **W 01/05**: Short Lab 0 due before class; Short lab 1 assigned
 
-\begin{comment}
 ### Week Two
 
 * **M 01/10**: Short Lab 1 due before class; Lab 1 assigned 
@@ -67,7 +66,6 @@ Materials for this course were originally developed by [Bryan Martin](https://br
 
 * **M 12/06**: Project 3 due Monday at 11:59
 
-\end{comment}
 
 
 ```{r setup, include=FALSE}
