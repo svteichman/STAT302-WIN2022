@@ -611,13 +611,6 @@ cbind(mat1, mat3)
 ---
 
 
-### Transpose `t()`
-
-```{r}
-t(mat1)
-```
-
-
 ### Column Sums `colSums()`
 
 ```{r}
@@ -628,44 +621,6 @@ colSums(mat1)
 
 ```{r}
 rowSums(mat1)
-```
-
-
----
-
-
-### Column Means `colMeans()`
-
-```{r}
-colMeans(mat1)
-```
-
-### Row Means `rowMeans()`
-
-```{r}
-rowMeans(mat1)
-```
-
-### Dimensions `dim()`
-
-```{r}
-dim(mat1)
-```
-
-
----
-
-
-### Determinant `det()`
-
-```{r}
-det(mat_square)
-```
-
-### Matrix Inverse `solve()`
-
-```{r}
-solve(mat_square)
 ```
 
 ### Matrix Diagonal `diag()`
@@ -690,6 +645,18 @@ Supplying an integer will produce an identity matrix of that dimension
 ```{r}
 diag(3)
 ```
+
+
+---
+
+## Other functions for matrices 
+
+* `colMeans()`
+* `rowMeans()`
+* `dim()` to get dimensions of the matrix
+* `t()` to transpose a matrix
+* `det()` to calculate the determinant of a square matrix
+* `solve()` to calculate the inverse of a square matrix
 
 ---
 
@@ -731,7 +698,6 @@ library(kableExtra)
 ```
 
 ```{r}
-my_tab <- data.frame(mat1)
 kable_styling(kable(mat1))
 ```
 
@@ -791,7 +757,6 @@ my_list[1]
 my_list[[1]]
 ```
 
-Note that this means you can only return a single item in a list using double brackets or the dollar sign! (Why?) 
 
 ---
 
@@ -807,6 +772,7 @@ my_list[1] + 1
 my_list[[1]] + 1
 ```
 
+Note that this means you can only return a single item in a list using double brackets or the dollar sign! (Why?) 
 
 ---
 
@@ -957,7 +923,7 @@ rbind(my_data, list(4, "d", FALSE, 0))
 We can use `str()` to see the structure of a data frame (or any other object!)
 
 ```{r}
-my_data2 <- rbind(my_data, c(1, 2, 3, 4))
+my_data2 <- rbind(my_data, list(4, "d", FALSE, 0))
 str(my_data2)
 ```
 
@@ -968,8 +934,13 @@ str(my_data2)
 We can use `str()` to see the structure of a data frame (or any other object!)
 
 ```{r}
-my_data2 <- rbind(my_data, list(4, "d", FALSE, 0))
-str(my_data2)
+my_data3 <- data.frame("var1" = 1:3,
+                      "var2" = c("a", "b", "c"),
+                      "var3" = c(TRUE, FALSE, TRUE),
+                      "var4" = c(3, 2, 1),
+                      stringsAsFactors = FALSE)
+my_data4 <- rbind(my_data3, list(4, as.factor("d"), FALSE, 0))
+str(my_data4)
 ```
 
 ---
@@ -1044,46 +1015,13 @@ waldt <- function(mod) {
 ## Comment Style Guide
 
 * When starting out, you should comment most lines
-* Frequent use of comments should allow most comments to be restricted to one line for 
-readability
 * A comment should go above its corresponding line, be indented equally with the next line, and use a single `#` to mark a comment
 * Use a string of `-` or `=` to break your code into easily noticeable chunks
   * Example: `# Data Manipulation -----------`
   * RStudio allows you to collapse chunks marked like this to help with clutter
 
---
-* There are exceptions to every rule! Usually, comments are to help **you**!
-
 ---
 
-## Example of breaking rules
-
-* Here's a snippet of a long mathematical function (lots of code omitted with ellipses for space).
-* Code is divided into major steps marked by easily visible comments
-
----
-
-## Example of breaking rules
-
-```{r, eval = FALSE}
-objfun <- function(theta, W, M, X, X_star, np, npstar, link, phi.link) {
-
-  ### STEP 1 - Negative Log-likelihood
-
-  # extract matrix of betas (np x 1), first np entries
-  b      <- utils::head(theta, np)
-  # extract matrix of beta stars (npstar x 1), last npstar entries
-  b_star <- utils::tail(theta, npstar)
-
-  ...
-
-  ### STEP 2 - Gradient
-
-  # define gam
-  gam <- phi/(1 - phi)
-```
-
----
 
 ## A final plea
 
@@ -1210,26 +1148,6 @@ See the [Tidyverse Style Guide](https://style.tidyverse.org/) for more details!
 
 ---
 
-## Extra Spacing
-
-Adding extra spaces ok if it improves alignment of `=` or `<-`.
-
-```{r, eval = FALSE}
-# Good
-list(
-  total = a + b + c,
-  mean  = (a + b + c) / n
-)
-
-# Also fine
-list(
-  total = a + b + c,
-  mean = (a + b + c) / n
-)
-```
-
-
----
 
 ## Long Lines of Code
 
