@@ -15,8 +15,8 @@ knitr::opts_chunk$set(echo = FALSE)
 
 **due date: 01/31**
 
-* Instructions [[.html](files/projects/01_data-visualization/01_dataviz.html)] [[.Rmd](https://raw.githubusercontent.com/peteragao/STAT302-AUT2021/base/files/projects/01_data-visualization/01_dataviz.Rmd)]
-* Data [[.csv](https://raw.githubusercontent.com/peteragao/STAT302-AUT2021/base/files/projects/01_data-visualization/Building_Permits_Clean.csv)]
+* Instructions [[.html](files/projects/01_data-visualization/01_dataviz.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/projects/01_data-visualization/01_dataviz.Rmd)]
+* Data [[.csv](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/projects/01_data-visualization/Building_Permits_Clean.csv)]
 
 # Project 2: Data Analysis
 
@@ -24,7 +24,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 **due date: 02/21**
 
-* Instructions [[.html](files/projects/02_congress-data/02_voting-analysis.html)] [[.Rmd](https://raw.githubusercontent.com/peteragao/STAT302-AUT2021/base/files/projects/02_congress-data/02_voting-analysis.Rmd)]
+* Instructions [[.html](files/projects/02_congress-data/02_voting-analysis.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/projects/02_congress-data/02_voting-analysis.Rmd)]
 
 # Project 3: ????????
 
@@ -32,6 +32,6 @@ knitr::opts_chunk$set(echo = FALSE)
 
 *due date: 12/06*
 
-* Instructions [[.html](files/projects/03_vignettes/03_vignettes.html)] [[.Rmd](https://raw.githubusercontent.com/peteragao/STAT302-AUT2021/base/files/projects/03_vignettes/03_vignettes.Rmd)]
+* Instructions [[.html](files/projects/03_vignettes/03_vignettes.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/projects/03_vignettes/03_vignettes.Rmd)]
 
 \end{comment}

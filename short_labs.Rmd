@@ -7,23 +7,23 @@ description: ""
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-### Short Lab 0: Course Overview [[.html](files/short-labs/short-lab-00_install.html)] [[.Rmd](https://raw.githubusercontent.com/peteragao/STAT302-AUT2021/base/files/short-labs/short-lab-00_install.Rmd)]
+### Short Lab 0: Course Overview [[.html](files/short-labs/short-lab-00_install.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/short-labs/short-lab-00_install.Rmd)]
 
-### Short Lab 1: Introduction to R [[.html](files/short-labs/short-lab-01_intro-to-R.html)] [[.Rmd](https://raw.githubusercontent.com/peteragao/STAT302-AUT2021/base/files/short-labs/short-lab-01_intro-to-R.Rmd)]
+### Short Lab 1: Introduction to R [[.html](files/short-labs/short-lab-01_intro-to-R.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/short-labs/short-lab-01_intro-to-R.Rmd)]
 
 \begin{comment}
 
-### Short Lab 2: Functions and Loops [[.html](files/short-labs/short-lab-02_fundamentals.html)] [[.Rmd](https://raw.githubusercontent.com/peteragao/STAT302-AUT2021/base/files/short-labs/short-lab-02_fundamentals.Rmd)]
+### Short Lab 2: Functions and Loops [[.html](files/short-labs/short-lab-02_fundamentals.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/short-labs/short-lab-02_fundamentals.Rmd)]
 
-### Short Lab 3: Strings, Factors, and Dates [[.html](files/short-labs/short-lab-03_strings.html)] [[.Rmd](https://raw.githubusercontent.com/peteragao/STAT302-AUT2021/base/files/short-labs/short-lab-03_strings.Rmd)]
+### Short Lab 3: Strings, Factors, and Dates [[.html](files/short-labs/short-lab-03_strings.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/short-labs/short-lab-03_strings.Rmd)]
 
-### Short Lab 4: Setting up GitHub [[.html](files/short-labs/short-lab-04_github.html)] [[.Rmd](https://raw.githubusercontent.com/peteragao/STAT302-AUT2021/base/files/short-labs/short-lab-04_github.Rmd)]
+### Short Lab 4: Setting up GitHub [[.html](files/short-labs/short-lab-04_github.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/short-labs/short-lab-04_github.Rmd)]
 
-### Short Lab 5: Resampling [[.html](files/short-labs/short-lab-05_resampling.html)] [[.Rmd](https://raw.githubusercontent.com/peteragao/STAT302-AUT2021/base/files/short-labs/short-lab-05_resampling.Rmd)]
+### Short Lab 5: Resampling [[.html](files/short-labs/short-lab-05_resampling.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/short-labs/short-lab-05_resampling.Rmd)]
 
-### Short Lab: Principal components analysis [[.html](files/short-labs/short-lab_pca.html)] [[.Rmd](https://raw.githubusercontent.com/peteragao/STAT302-AUT2021/base/files/short-labs/short-lab_pca.Rmd)]
+### Short Lab: Principal components analysis [[.html](files/short-labs/short-lab_pca.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/short-labs/short-lab_pca.Rmd)]
 
-### Optional exercises: Linear regression [[.html](files/short-labs/short-lab-04_lm.html)] [[.Rmd](https://raw.githubusercontent.com/peteragao/STAT302-AUT2021/base/files/short-labs/short-lab-04_lm.Rmd)]
+### Optional exercises: Linear regression [[.html](files/short-labs/short-lab-04_lm.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/short-labs/short-lab-04_lm.Rmd)]
 
 
 ### Optional exercises: Data Cleaning [[.html](files/short-labs/optional_data-cleaning.html)] [[.Rmd](https://raw.githubusercontent.com/peteragao/STAT302-AUT2021/base/files/short-labs/optional_data-cleaning.Rmd)]

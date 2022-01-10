@@ -21,8 +21,8 @@
       "title": "Labs",
       "description": "",
       "author": [],
-      "contents": "\n\n\n\n\n",
-      "last_modified": "2022-01-02T13:54:00-08:00"
+      "contents": "\nLab 1: Working with vectors and matrices [.html] [.Rmd]\n\n\n\n\n",
+      "last_modified": "2022-01-09T18:45:55-08:00"
     },
     {
       "path": "projects.html",
@@ -30,7 +30,7 @@
       "description": "",
       "author": [],
       "contents": "\n\n\n\n\n",
-      "last_modified": "2022-01-02T13:56:51-08:00"
+      "last_modified": "2022-01-09T18:48:59-08:00"
     },
     {
       "path": "short_labs.html",
@@ -38,14 +38,14 @@
       "description": "",
       "author": [],
       "contents": "\nShort Lab 0: Course Overview [.html] [.Rmd]\nShort Lab 1: Introduction to R [.html] [.Rmd]\n\n\n\n\n",
-      "last_modified": "2022-01-02T13:53:38-08:00"
+      "last_modified": "2022-01-09T18:45:13-08:00"
     },
     {
       "path": "slides.html",
       "title": "Lecture Slides",
       "author": [],
       "contents": "\nLecture 00: Course Overview [.html] [.Rmd]\nLecture 01: Introduction to R [.html] [.Rmd]\n\n\n\n",
-      "last_modified": "2022-01-02T13:59:19-08:00"
+      "last_modified": "2022-01-09T18:48:32-08:00"
     },
     {
       "path": "syllabus.html",

@@ -7,14 +7,14 @@ description: ""
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+### Lab 1: Working with vectors and matrices [[.html](files/labs/lab-01_matrices-and-vectors.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/labs/lab-01_matrices-and-vectors.Rmd)]
+
 \begin{comment}
 
-### Lab 1: Working with vectors and matrices [[.html](files/labs/lab-01_matrices-and-vectors.html)] [[.Rmd](https://raw.githubusercontent.com/peteragao/STAT302-AUT2021/base/files/labs/lab-01_matrices-and-vectors.Rmd)]
+### Lab 2: Functions, lists, and data [[.html](files/labs/lab-02_controlflow.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/labs/lab-02_controlflow.Rmd)]
 
-### Lab 2: Functions, lists, and data [[.html](files/labs/lab-02_controlflow.html)] [[.Rmd](https://raw.githubusercontent.com/peteragao/STAT302-AUT2021/base/files/labs/lab-02_controlflow.Rmd)]
+### Lab 3: t-tests and linear models [[.html](files/labs/lab-03_inference.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/labs/lab-03_inference.Rmd)]
 
-### Lab 3: t-tests and linear models [[.html](files/labs/lab-03_inference.html)] [[.Rmd](https://raw.githubusercontent.com/peteragao/STAT302-AUT2021/base/files/labs/lab-03_inference.Rmd)]
-
-### Lab 4: Prediction and error [[.html](files/labs/lab-04_train-test-cv.html)] [[.Rmd](https://raw.githubusercontent.com/peteragao/STAT302-AUT2021/base/files/labs/lab-04_train-test-cv.Rmd)]
+### Lab 4: Prediction and error [[.html](files/labs/lab-04_train-test-cv.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/labs/lab-04_train-test-cv.Rmd)]
 
 \end{comment}
