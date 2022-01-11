@@ -36,6 +36,8 @@ As usual, all code below should follow the style guidelines from the lecture sli
 
 **1b.** Evaluate your function with even integer input.
 
+*Hint: in R, if you assign a variable to any number, such as `x <- 4`, R will save this variable as a double. In order to make it an integer type, use the integer number you want followed by an L, such as `x <- 4L`.* 
+
 **1c.** Evaluate your function with odd numeric input.
 
 **1d.** Trigger your custom error message. Note: You will need to add the parameter 
@@ -43,9 +45,11 @@ As usual, all code below should follow the style guidelines from the lecture sli
 
 ## Part 2. Loops
 
-**2.** Define and demonstrate the use of a function that loops through through a numeric input vector and returns a numeric vector of the same length, where the $i$th element of the output is equal to the sum of the first $i$ elements of the input. (Hint: The first element of the output should match the first element of the input. The last element of the output should match the sum of the elements of the input.)
+**2.** Define a function that loops through through a numeric input vector and returns a numeric vector of the same length, where the $i$th element of the output is equal to the sum of the first $i$ elements of the input. (Hint: The first element of the output should match the first element of the input. The last element of the output should match the sum of the elements of the input.) Demonstrate the use of this function on a vector. 
 
-**3.** Define and demonstrate the use of a function that loops through each element of a matrix and replaces each element with the row index minus the column index. (Hint: use `ncol()` and `nrow()`)
+**3.** Define a function that loops through each element of a matrix and replaces each element with the row index minus the column index. Demonstrate the use of this function on a matrix.
 
-**4.** Define and demonstrate the use of a function takes an integer $n$ as input and produces an $n\times n$ matrix where each entry above the main diagonal is the column index, but the main diagonal and all the entries below the main diagonal are zero.
+*Hint: use `ncol()` and `nrow()`*
+
+**4.** Define a function takes an integer $n$ as input and produces an $n\times n$ matrix where each entry above the main diagonal is the column index, but the main diagonal and all the entries below the main diagonal are zero. Demonstrate the use of this function with an integer. 
 
