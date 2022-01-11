@@ -11,9 +11,9 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ### Short Lab 1: Introduction to R [[.html](files/short-labs/short-lab-01_intro-to-R.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/short-labs/short-lab-01_intro-to-R.Rmd)]
 
-\begin{comment}
-
 ### Short Lab 2: Functions and Loops [[.html](files/short-labs/short-lab-02_fundamentals.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/short-labs/short-lab-02_fundamentals.Rmd)]
+
+\begin{comment}
 
 ### Short Lab 3: Strings, Factors, and Dates [[.html](files/short-labs/short-lab-03_strings.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/short-labs/short-lab-03_strings.Rmd)]
 

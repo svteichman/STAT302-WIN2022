@@ -10,9 +10,9 @@ knitr::opts_chunk$set(echo = FALSE)
 
 * Lecture 01: Introduction to R [[.html](files/slides/01_intro-to-R.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/slides/01_intro-to-R.Rmd)]
 
-\begin{comment}
-
 * Lecture 02: R Fundamentals [[.html](files/slides/02_fundamentals.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/slides/02_fundamentals.Rmd)]
+
+\begin{comment}
 
 * Lecture 03: Data Visualization and Manipulation [[.html](files/slides/03_datavizmanip.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/slides/03_datavizmanip.Rmd)]
 
