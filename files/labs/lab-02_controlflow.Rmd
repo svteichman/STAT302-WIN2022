@@ -40,6 +40,7 @@ knitr::opts_chunk$set(echo = TRUE)
 $$f_\lambda(x) = \begin{cases} x & |x| \geq \lambda\\ 0 & |x| < \lambda \end{cases}$$
 Write an R function that takes two parameters, numeric input `x` and a threshold `lambda`.
 Your function should return the value of $f_\lambda(x)$ and work for vector input `x` of any length.
+Remember to follow the style guide for functions (see Lecture 2 for specifics).
 
 **1b.** (1 point) Set $\lambda = 4$, demonstrate your function on the vector `c(-5, -3, 0, 3, 5)`.
 
@@ -58,7 +59,7 @@ Your function should return the value of $g_\lambda(x)$ and work for vector inpu
 
 **2c.** (1 point) Set $\lambda = 2$, demonstrate your function on the vector `c(-7, -5, -3, 0, 3, 5, 7)`.
 
-## Part 2. Lists (6 points)
+## Part 2. Lists (5 points)
 
 Many popular functions in R output lists in order to return multiple objects of different types and lengths. Here we will look at the function `lm`, which performs linear regression. 
 
@@ -68,18 +69,18 @@ First, run the following code to create an object of class `lm`.
 linearMod <- lm(dist ~ speed, data = cars) 
 ```
 
-**3a.** (2 points) What are the names of the items in the list `linearMod`?
+**3a.** (1 point) What are the names of the items in the list `linearMod`?
 
-**3b.** (4 points) Store the `coefficients` within `linearMod` as a new variable. What are the coefficients and their interpretations?
+**3b.** (4 points) Store the `coefficients` within `linearMod` as a new variable. What are the coefficients and their interpretations? (Use in-line R code when referencing the coefficients outside of the code chunk).
 
-## Part 3. Data (4 points)
+## Part 3. Data (5 points)
 
 For problem 5, we will use an adapted version of the weather data from Tidyverse.
 
 ```{r}
 library(kableExtra)
 weather <- data.frame("station" = rep(c("A", "B", "C"), each = 4),
-                      "element" = rep(c("temp_min", "temp_max"), 2),
+                      "element" = rep(c("temp_min", "temp_max"), 6),
                       "month1"  = c(11.4, 25.6, NA, NA, 17.7, 28.0,
                                     NA, NA, 20.0, 24.9, NA, NA),
                       "month2"  = c(NA, NA, 16.8, 28.7, NA, NA,
@@ -87,5 +88,5 @@ weather <- data.frame("station" = rep(c("A", "B", "C"), each = 4),
 kable_styling(kable(weather))
 ```
 
-**4.** (4 points) Use `kable()` to present a tidied up version of this data, without any NA values. Do you prefer the tidied version? Why or why not? (Hint: My table has 4 variables, 6 observations, and no `NA` values. I only kept one of the variables unchanged.)
+**4.** (5 points) Use `kable()` to present a tidied up version of this data, without any NA values. Do you prefer the tidied version? Why or why not? (Hint: My table has 4 variables, 6 observations, and no `NA` values. I only kept one of the variables unchanged.)
 
