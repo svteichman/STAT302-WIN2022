@@ -1303,6 +1303,18 @@ library(tibble)
 my_data &lt;- data.frame("var1" = 1:3,
                       "var2" = c("a", "b", "c"),
                       "var3" = c(TRUE, FALSE, TRUE))
+rownames(my_data) &lt;- c("obs1", "obs2", "obs3")
+my_data
+```
+
+```
+##      var1 var2  var3
+## obs1    1    a  TRUE
+## obs2    2    b FALSE
+## obs3    3    c  TRUE
+```
+
+```r
 my_tibble &lt;- as_tibble(my_data, rownames = "Observation")
 my_tibble
 ```
@@ -1311,9 +1323,9 @@ my_tibble
 ## # A tibble: 3 × 4
 ##   Observation  var1 var2  var3 
 ##   &lt;chr&gt;       &lt;int&gt; &lt;fct&gt; &lt;lgl&gt;
-## 1 1               1 a     TRUE 
-## 2 2               2 b     FALSE
-## 3 3               3 c     TRUE
+## 1 obs1            1 a     TRUE 
+## 2 obs2            2 b     FALSE
+## 3 obs3            3 c     TRUE
 ```
 
 ---
@@ -1367,7 +1379,44 @@ What's untidy about the following data?
 &lt;/tbody&gt;
 &lt;/table&gt;
 
---
+Remember, 
+* Each variable must have its own column
+* Each observation must have its own row
+* Each value must have its own cell
+
+---
+
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Hospital &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Diseased &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Healthy &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; C &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; D &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
 * **Observations:** the number of individuals at a given hospital and of a given disease status
 * **Variables:** the hospital, the disease status, the counts

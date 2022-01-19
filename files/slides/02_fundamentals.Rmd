@@ -1052,6 +1052,8 @@ library(tibble)
 my_data <- data.frame("var1" = 1:3,
                       "var2" = c("a", "b", "c"),
                       "var3" = c(TRUE, FALSE, TRUE))
+rownames(my_data) <- c("obs1", "obs2", "obs3")
+my_data
 my_tibble <- as_tibble(my_data, rownames = "Observation")
 my_tibble
 ```
@@ -1083,7 +1085,20 @@ untidy_dat <- data.frame("Hospital" = c("A", "B", "C", "D"),
 kable_styling(kable(untidy_dat))
 ```
 
---
+Remember, 
+* Each variable must have its own column
+* Each observation must have its own row
+* Each value must have its own cell
+
+---
+
+```{r, echo = FALSE}
+library(kableExtra)
+untidy_dat <- data.frame("Hospital" = c("A", "B", "C", "D"),
+                         "Diseased" = c(10, 15, 12, 5),
+                         "Healthy"  = c(14, 18, 13, 16))
+kable_styling(kable(untidy_dat))
+```
 
 * **Observations:** the number of individuals at a given hospital and of a given disease status
 * **Variables:** the hospital, the disease status, the counts
