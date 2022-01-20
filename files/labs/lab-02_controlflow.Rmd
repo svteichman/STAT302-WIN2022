@@ -75,7 +75,7 @@ linearMod <- lm(dist ~ speed, data = cars)
 
 ## Part 3. Data (5 points)
 
-For problem 5, we will use an adapted version of the weather data from Tidyverse.
+For problem 4, we will use an adapted version of the weather data from Tidyverse.
 
 ```{r}
 library(kableExtra)
