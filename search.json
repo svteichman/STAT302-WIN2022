@@ -44,8 +44,8 @@
       "path": "slides.html",
       "title": "Lecture Slides",
       "author": [],
-      "contents": "\nLecture 00: Course Overview [.html] [.Rmd]\nLecture 01: Introduction to R [.html] [.Rmd]\nLecture 02: R Fundamentals [.html] [.Rmd]\n\n\n\n",
-      "last_modified": "2022-01-11T13:13:43-08:00"
+      "contents": "\nLecture 00: Course Overview [.html] [.Rmd]\nLecture 01: Introduction to R [.html] [.Rmd]\nLecture 02: R Fundamentals [.html] [.Rmd]\nLecture 03: Data Visualization and Manipulation [.html] [.Rmd]\n\n\n\n",
+      "last_modified": "2022-01-23T14:55:18-08:00"
     },
     {
       "path": "syllabus.html",

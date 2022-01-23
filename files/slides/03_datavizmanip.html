@@ -3,8 +3,7 @@
   <head>
     <title>STAT 302, Lecture Slides 3</title>
     <meta charset="utf-8" />
-    <meta name="author" content="Peter Gao (adapted from slides by Bryan Martin)" />
-    <script src="03_datavizmanip_files/header-attrs/header-attrs.js"></script>
+    <meta name="author" content="Sarah Teichman (adapted from slides by Bryan Martin and Peter Gao)" />
     <link href="03_datavizmanip_files/remark-css/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="gao-theme.css" type="text/css" />
     <link rel="stylesheet" href="gao-theme-fonts.css" type="text/css" />
@@ -15,7 +14,7 @@ class: center, title-slide
 
 # STAT 302, Lecture Slides 3
 ## Data Visualization and Manipulation
-### Peter Gao (adapted from slides by Bryan Martin)
+### Sarah Teichman (adapted from slides by Bryan Martin and Peter Gao)
 
 ---
 
@@ -24,58 +23,10 @@ class: center, title-slide
 
 
 
-# Before class
-
-**1a.** (3 points) The hard-threshold function is defined as 
-`$$f_\lambda(x) = \begin{cases} x &amp; |x| \geq \lambda\\ 0 &amp; |x| &lt; \lambda \end{cases}$$`
-Write an R function that takes two parameters, numeric input `x` and a threshold `lambda`.
-Your function should return the value of `\(f_\lambda(x)\)` and work for vector input `x` of any length.
+# Today's pet picture 
 
 
-```r
-hard_threshold &lt;- function(x, lambda) {
-  # YOUR CODE HERE
-  return(YOUR_OUTPUT_HERE)
-}
-```
-
----
-
-# Before class
-
-**1b.** (1 point) Set `\(\lambda = 4\)`, demonstrate your function on the vector `c(-5, -3, 0, 3, 5)`.
-
-
-
-```r
-answer_1b &lt;- hard_threshold(x = c(-5, -3, 0, 3, 5), lambda = 4)
-```
-
----
-
-# Before class
-
-**1b.** (1 point) Set `\(\lambda = 4\)`, demonstrate your function on the vector `c(-5, -3, 0, 3, 5)`.
-
-
-
-```r
-answer_1b &lt;- hard_threshold(x = c(-5, -3, 0, 3, 5), lambda = 4)
-answer_1b # MAKE SURE TO PRINT OUT YOUR ANSWER
-```
-
-```
-## [1] -5  0  0  0  5
-```
-
-
----
-
-# Grading notes
-
-1. Your grade is primarily based on your **knitted** .html file. All your answers and solutions should be in your .html file; look through this file before you submit!
-2. Make sure you print out all answers/results. They should appear in your .html file.
-3. Explanations and written responses are not optional--you will lose points for missing answers even if all your code is correct.
+&lt;img src="../../files/images/pets/pig.png" width="400px" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -140,13 +91,24 @@ You can (and should) hide this in your R Markdown files by adding the parameter
 `message=FALSE` or `include=FALSE` to your code chunk when you load packages.
 
 ---
+
+## Conflicts?
+
+If you want to use a function from a certain package you can use the syntax `package::function()`, for example `readr::read_csv`. This can be useful if:
+
+* You want to use a function that is masked by a function in another package
+* You want to reader of your code to know what package a function is from
+
+---
 layout: false
 layout: true
 
 # Pipes
 ---
 
-.sectionhead[![pipe](pipe.png)]
+&lt;img src="../../files/images/pipe.jpeg" width="600px" style="display: block; margin: auto;" /&gt;
+
+
 
 ---
 
@@ -159,6 +121,7 @@ Load the package `gapminder` (after installing) and the corresponding data.
 
 
 ```r
+# install.packages("gapminder")
 library(gapminder)
 data(gapminder)
 ```
@@ -169,11 +132,11 @@ Let's preview the data.
 
 
 ```r
-gapminder
+head(gapminder, 10)
 ```
 
 ```
-## # A tibble: 1,704 x 6
+## # A tibble: 10 × 6
 ##    country     continent  year lifeExp      pop gdpPercap
 ##    &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
 ##  1 Afghanistan Asia       1952    28.8  8425333      779.
@@ -186,7 +149,6 @@ gapminder
 ##  8 Afghanistan Asia       1987    40.8 13867957      852.
 ##  9 Afghanistan Asia       1992    41.7 16317921      649.
 ## 10 Afghanistan Asia       1997    41.8 22227415      635.
-## # … with 1,694 more rows
 ```
 
 
@@ -212,9 +174,9 @@ str(gapminder)
 **factors** are categorical data that use integer representation.
 
 This can be efficient to store character vectors, because each string is only entered once. 
-Because of this, creating data frames (but not tibbles!) in R often default to set strings as factors. 
+Because of this, data frames (but not tibbles!) in R default to setting strings as factors. 
 However, it can also get annoying! 
-Factors limit the categories, or `levels`, of the vector, which is often not appropriate.
+Factors limit the categories, or `levels`, of the vector, which can cause problems.
 ---
 
 ## Functions in Functions
@@ -261,6 +223,14 @@ For example, what if we are only interested in data from China since 1970?
 
 
 ```r
+head(gapminder$country == "China" &amp; gapminder$year &gt;= 1970)
+```
+
+```
+## [1] FALSE FALSE FALSE FALSE FALSE FALSE
+```
+
+```r
 china_1980 &lt;- gapminder %&gt;% 
   filter(country == "China" &amp;
            year &gt;= 1970)
@@ -268,7 +238,7 @@ china_1980
 ```
 
 ```
-## # A tibble: 8 x 6
+## # A tibble: 8 × 6
 ##   country continent  year lifeExp        pop gdpPercap
 ##   &lt;fct&gt;   &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;      &lt;int&gt;     &lt;dbl&gt;
 ## 1 China   Asia       1972    63.1  862030000      677.
@@ -316,7 +286,7 @@ First, let's initialize a plot. Use the `data` parameter to tell `ggplot` what d
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -334,7 +304,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -354,7 +324,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -371,7 +341,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -388,7 +358,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -406,7 +376,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -430,7 +400,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -458,7 +428,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-29-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -486,7 +456,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-31-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -518,7 +488,7 @@ ggplot(data = gapminder,
 ---
 
 .middler[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-33-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-30-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -549,7 +519,7 @@ ggplot(data = gapminder,
 ---
 
 .middler[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-35-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-32-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -575,7 +545,7 @@ ggplot(data = gapminder,
 ---
 
 .middler[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-37-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-34-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -604,7 +574,7 @@ ggplot(data = gapminder,
 ---
 
 .middler[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-39-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-36-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -631,7 +601,7 @@ ggplot(data = gapminder,
 ---
 
 .middler[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-41-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-38-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -662,7 +632,7 @@ ggplot(data = gapminder,
 ---
 
 .middler[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-43-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-40-1.png)&lt;!-- --&gt;
 ]
 
 
@@ -692,7 +662,7 @@ ggplot(data = gapminder,
 ---
 
 .middler[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-45-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-42-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -721,7 +691,7 @@ ggplot(data = gapminder,
 ---
 
 .middler[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-47-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-44-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -757,7 +727,7 @@ lifeExp_plot
 ```
 
 .center[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-50-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-47-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -801,7 +771,7 @@ They will be lower quality and non-reproducible!]
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-53-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-50-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -823,7 +793,7 @@ ggplot(data = gapminder,
 ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-![](03_datavizmanip_files/figure-html/unnamed-chunk-55-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-52-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -840,7 +810,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-57-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-54-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -859,7 +829,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-59-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-56-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -879,7 +849,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-61-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-58-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -901,7 +871,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-63-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-60-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -917,7 +887,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-65-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-62-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -934,7 +904,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-67-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-64-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -951,7 +921,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-69-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-66-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -969,7 +939,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-71-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-68-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -990,7 +960,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-73-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-70-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -1013,7 +983,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-75-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-72-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -1037,7 +1007,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-77-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-74-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -1074,14 +1044,14 @@ layout: true
 
 --
 
-**No-no:** Pie charts! Eugh! The proportions are completely off!
+**No-no:** Pie charts! These proportions are completely off!
 ---
 
 .center[&lt;img src="images/bad2.jpg" alt="" height="300"/&gt;]
 
 --
 
-**No-no:** Pie charts! Eugh! Percents don't add up!
+**No-no:** Pie charts! These percents don't add up!
 
 ---
 
@@ -1174,11 +1144,9 @@ Install the `gapminder` package:
 install.packages("gapminder")
 ```
 
-1. Try to reproduce the plot below.
+Try to reproduce the plot below.
 
-2. Create your own visualization and submit to Piazza.
-
-![](03_datavizmanip_files/figure-html/unnamed-chunk-79-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-76-1.png)&lt;!-- --&gt;
 
 ---
 class: inverse
@@ -1201,7 +1169,7 @@ gapminder %&gt;%
 ```
 
 ```
-## # A tibble: 1,704 x 2
+## # A tibble: 1,704 × 2
 ##    lifeExp gdpPercap
 ##      &lt;dbl&gt;     &lt;dbl&gt;
 ##  1    28.8      779.
@@ -1228,7 +1196,7 @@ gapminder %&gt;%
 ```
 
 ```
-## # A tibble: 1,704 x 4
+## # A tibble: 1,704 × 4
 ##    country     continent  year      pop
 ##    &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;    &lt;int&gt;
 ##  1 Afghanistan Asia       1952  8425333
@@ -1261,7 +1229,7 @@ gapminder %&gt;%
 ```
 
 ```
-## # A tibble: 6 x 2
+## # A tibble: 6 × 2
 ##   country     continent
 ##   &lt;fct&gt;       &lt;fct&gt;    
 ## 1 Afghanistan Asia     
@@ -1290,7 +1258,7 @@ gapminder %&gt;%
 ```
 
 ```
-## # A tibble: 6 x 3
+## # A tibble: 6 × 3
 ##   lifeExp      pop gdpPercap
 ##     &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
 ## 1    28.8  8425333      779.
@@ -1319,7 +1287,7 @@ gapminder %&gt;%
 ```
 
 ```
-## # A tibble: 6 x 1
+## # A tibble: 6 × 1
 ##   gdpPercap
 ##       &lt;dbl&gt;
 ## 1      779.
@@ -1363,7 +1331,7 @@ gapminder %&gt;%
 ```
 
 ```
-## # A tibble: 6 x 7
+## # A tibble: 6 × 7
 ##   country     continent  year lifeExp      pop gdpPercap          gdp
 ##   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;        &lt;dbl&gt;
 ## 1 Afghanistan Asia       1952    28.8  8425333      779.  6567086330.
@@ -1387,7 +1355,7 @@ gapminder %&gt;%
 ```
 
 ```
-## # A tibble: 6 x 8
+## # A tibble: 6 × 8
 ##   country     continent  year lifeExp      pop gdpPercap          gdp logGDP
 ##   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;        &lt;dbl&gt;  &lt;dbl&gt;
 ## 1 Afghanistan Asia       1952    28.8  8425333      779.  6567086330.   22.6
@@ -1416,11 +1384,20 @@ layout: true
 
 ```r
 demo &lt;- -2:2
+demo &gt; 0
+```
+
+```
+## [1] FALSE FALSE FALSE  TRUE  TRUE
+```
+
+```r
 ifelse(demo &gt; 0, "strictly positive", "not strictly positive")
 ```
 
 ```
-## [1] "not strictly positive" "not strictly positive" "not strictly positive" "strictly positive"     "strictly positive"
+## [1] "not strictly positive" "not strictly positive" "not strictly positive"
+## [4] "strictly positive"     "strictly positive"
 ```
 
 ---
@@ -1441,7 +1418,7 @@ gapminder %&gt;%
 ```
 
 ```
-## # A tibble: 6 x 4
+## # A tibble: 6 × 4
 ##   country             country_clean       lifeExp gdpPercap
 ##   &lt;fct&gt;               &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;
 ## 1 Peru                Peru                   71.4     7409.
@@ -1528,7 +1505,7 @@ gapminder %&gt;%
 ```
 
 ```
-## # A tibble: 6 x 6
+## # A tibble: 6 × 6
 ##   country   continent  year lifeExp      pop gdpPercap
 ##   &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
 ## 1 Albania   Europe     2002    75.7  3508512     4604.
@@ -1567,25 +1544,18 @@ class(grouped_gap)
 ```
 
 ```r
-grouped_gap
+head(grouped_gap, 4)
 ```
 
 ```
-## # A tibble: 1,704 x 6
-## # Groups:   continent [5]
-##    country     continent  year lifeExp      pop gdpPercap
-##    &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
-##  1 Afghanistan Asia       1952    28.8  8425333      779.
-##  2 Afghanistan Asia       1957    30.3  9240934      821.
-##  3 Afghanistan Asia       1962    32.0 10267083      853.
-##  4 Afghanistan Asia       1967    34.0 11537966      836.
-##  5 Afghanistan Asia       1972    36.1 13079460      740.
-##  6 Afghanistan Asia       1977    38.4 14880372      786.
-##  7 Afghanistan Asia       1982    39.9 12881816      978.
-##  8 Afghanistan Asia       1987    40.8 13867957      852.
-##  9 Afghanistan Asia       1992    41.7 16317921      649.
-## 10 Afghanistan Asia       1997    41.8 22227415      635.
-## # … with 1,694 more rows
+## # A tibble: 4 × 6
+## # Groups:   continent [1]
+##   country     continent  year lifeExp      pop gdpPercap
+##   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+## 1 Afghanistan Asia       1952    28.8  8425333      779.
+## 2 Afghanistan Asia       1957    30.3  9240934      821.
+## 3 Afghanistan Asia       1962    32.0 10267083      853.
+## 4 Afghanistan Asia       1967    34.0 11537966      836.
 ```
 
 ---
@@ -1606,24 +1576,19 @@ class(ungrouped_gap)
 ```
 
 ```r
-ungrouped_gap
+head(ungrouped_gap)
 ```
 
 ```
-## # A tibble: 1,704 x 6
-##    country     continent  year lifeExp      pop gdpPercap
-##    &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
-##  1 Afghanistan Asia       1952    28.8  8425333      779.
-##  2 Afghanistan Asia       1957    30.3  9240934      821.
-##  3 Afghanistan Asia       1962    32.0 10267083      853.
-##  4 Afghanistan Asia       1967    34.0 11537966      836.
-##  5 Afghanistan Asia       1972    36.1 13079460      740.
-##  6 Afghanistan Asia       1977    38.4 14880372      786.
-##  7 Afghanistan Asia       1982    39.9 12881816      978.
-##  8 Afghanistan Asia       1987    40.8 13867957      852.
-##  9 Afghanistan Asia       1992    41.7 16317921      649.
-## 10 Afghanistan Asia       1997    41.8 22227415      635.
-## # … with 1,694 more rows
+## # A tibble: 6 × 6
+##   country     continent  year lifeExp      pop gdpPercap
+##   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+## 1 Afghanistan Asia       1952    28.8  8425333      779.
+## 2 Afghanistan Asia       1957    30.3  9240934      821.
+## 3 Afghanistan Asia       1962    32.0 10267083      853.
+## 4 Afghanistan Asia       1967    34.0 11537966      836.
+## 5 Afghanistan Asia       1972    36.1 13079460      740.
+## 6 Afghanistan Asia       1977    38.4 14880372      786.
 ```
 
 ---
@@ -1641,7 +1606,7 @@ gapminder %&gt;%
 ```
 
 ```
-## # A tibble: 5 x 3
+## # A tibble: 5 × 3
 ##   continent mean_lifeExp max_gdp
 ##   &lt;fct&gt;            &lt;dbl&gt;   &lt;dbl&gt;
 ## 1 Africa            48.9  21951.
@@ -1669,7 +1634,7 @@ gapminder %&gt;%
 ```
 
 ```
-## # A tibble: 5 x 3
+## # A tibble: 5 × 3
 ##   continent mean_lifeExp max_gdp
 ##   &lt;fct&gt;            &lt;dbl&gt;   &lt;dbl&gt;
 ## 1 Africa            48.9  21951.
@@ -1695,7 +1660,7 @@ gapminder %&gt;%
 ```
 
 ```
-## # A tibble: 5 x 3
+## # A tibble: 5 × 3
 ##   continent mean_lifeExp max_gdp
 ##   &lt;fct&gt;            &lt;dbl&gt;   &lt;dbl&gt;
 ## 1 Oceania           74.3  34435.
@@ -1720,7 +1685,7 @@ gapminder %&gt;%
 ```
 
 ```
-## # A tibble: 5 x 2
+## # A tibble: 5 × 2
 ##   continent count
 ##   &lt;fct&gt;     &lt;int&gt;
 ## 1 Africa      624
@@ -1743,7 +1708,7 @@ gapminder %&gt;%
 ```
 
 ```
-## # A tibble: 5 x 2
+## # A tibble: 5 × 2
 ##   continent     n
 ##   &lt;fct&gt;     &lt;int&gt;
 ## 1 Africa      624
@@ -1766,7 +1731,7 @@ gapminder %&gt;%
 ```
 
 ```
-## # A tibble: 142 x 3
+## # A tibble: 142 × 3
 ##    continent country                      n
 ##    &lt;fct&gt;     &lt;fct&gt;                    &lt;int&gt;
 ##  1 Africa    Algeria                     12
@@ -1796,7 +1761,7 @@ gapminder %&gt;%
 ```
 
 ```
-## # A tibble: 142 x 3
+## # A tibble: 142 × 3
 ##    continent country         n
 ##    &lt;fct&gt;     &lt;fct&gt;       &lt;int&gt;
 ##  1 Asia      Afghanistan    12
@@ -1828,7 +1793,7 @@ gapminder %&gt;%
 ```
 
 ```
-## # A tibble: 4 x 1
+## # A tibble: 4 × 1
 ##   lifeExp
 ##     &lt;dbl&gt;
 ## 1    28.8
@@ -1861,7 +1826,7 @@ gapminder %&gt;%
 ```
 
 ```
-## # A tibble: 1,704 x 6
+## # A tibble: 1,704 × 6
 ##    country     continent  year life_exp      pop gdpPercap
 ##    &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;    &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
 ##  1 Afghanistan Asia       1952     28.8  8425333      779.
@@ -1896,15 +1861,17 @@ head(relig_income)
 ```
 
 ```
-## # A tibble: 6 x 11
-##   religion           `&lt;$10k` `$10-20k` `$20-30k` `$30-40k` `$40-50k` `$50-75k` `$75-100k` `$100-150k` `&gt;150k` `Don't know/refused`
-##   &lt;chr&gt;                &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;                &lt;dbl&gt;
-## 1 Agnostic                27        34        60        81        76       137        122         109      84                   96
-## 2 Atheist                 12        27        37        52        35        70         73          59      74                   76
-## 3 Buddhist                27        21        30        34        33        58         62          39      53                   54
-## 4 Catholic               418       617       732       670       638      1116        949         792     633                 1489
-## 5 Don’t know/refused      15        14        15        11        10        35         21          17      18                  116
-## 6 Evangelical Prot       575       869      1064       982       881      1486        949         723     414                 1529
+## # A tibble: 6 × 11
+##   religion  `&lt;$10k` `$10-20k` `$20-30k` `$30-40k` `$40-50k` `$50-75k` `$75-100k`
+##   &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+## 1 Agnostic       27        34        60        81        76       137        122
+## 2 Atheist        12        27        37        52        35        70         73
+## 3 Buddhist       27        21        30        34        33        58         62
+## 4 Catholic      418       617       732       670       638      1116        949
+## 5 Don’t kn…      15        14        15        11        10        35         21
+## 6 Evangeli…     575       869      1064       982       881      1486        949
+## # … with 3 more variables: $100-150k &lt;dbl&gt;, &gt;150k &lt;dbl&gt;,
+## #   Don't know/refused &lt;dbl&gt;
 ```
 
 ---
@@ -1916,11 +1883,13 @@ We can use `pivot_longer()` to go from data in "wide" form to data in "long" for
 
 ```r
 relig_income %&gt;%
-  pivot_longer(contains("$"), names_to = "income",  values_to = "count")
+  pivot_longer(cols = contains("$"), 
+               names_to = "income",  
+               values_to = "count")
 ```
 
 ```
-## # A tibble: 144 x 5
+## # A tibble: 144 × 5
 ##    religion `&gt;150k` `Don't know/refused` income    count
 ##    &lt;chr&gt;      &lt;dbl&gt;                &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;
 ##  1 Agnostic      84                   96 &lt;$10k        27
@@ -1940,17 +1909,18 @@ relig_income %&gt;%
 
 ## `pivot_longer()`
 
-Looks like we missed a few of the income column names. Let's use matches with a regular expression.
+Looks like we missed a few of the income column names. 
 
 
 ```r
 relig_income %&gt;%
-  pivot_longer(matches("\\$|150|refused"), 
-               names_to = "income",  values_to = "count")
+  pivot_longer(cols = c(contains("$"), "&gt;150k", "Don't know/refused"), 
+               names_to = "income",
+               values_to = "count") 
 ```
 
 ```
-## # A tibble: 180 x 3
+## # A tibble: 180 × 3
 ##    religion income             count
 ##    &lt;chr&gt;    &lt;chr&gt;              &lt;dbl&gt;
 ##  1 Agnostic &lt;$10k                 27
@@ -1974,29 +1944,26 @@ Let's load the `billboard` data from tidyverse.
 
 ```r
 data(billboard)
-billboard
+head(billboard)
 ```
 
 ```
-## # A tibble: 317 x 79
-##    artist  track  date.entered   wk1   wk2   wk3   wk4   wk5   wk6   wk7   wk8   wk9  wk10  wk11  wk12  wk13  wk14  wk15  wk16  wk17  wk18  wk19
-##    &lt;chr&gt;   &lt;chr&gt;  &lt;date&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-##  1 2 Pac   Baby … 2000-02-26      87    82    72    77    87    94    99    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA
-##  2 2Ge+her The H… 2000-09-02      91    87    92    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA
-##  3 3 Door… Krypt… 2000-04-08      81    70    68    67    66    57    54    53    51    51    51    51    47    44    38    28    22    18    18
-##  4 3 Door… Loser  2000-10-21      76    76    72    69    67    65    55    59    62    61    61    59    61    66    72    76    75    67    73
-##  5 504 Bo… Wobbl… 2000-04-15      57    34    25    17    17    31    36    49    53    57    64    70    75    76    78    85    92    96    NA
-##  6 98^0    Give … 2000-08-19      51    39    34    26    26    19     2     2     3     6     7    22    29    36    47    67    66    84    93
-##  7 A*Teens Danci… 2000-07-08      97    97    96    95   100    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA
-##  8 Aaliyah I Don… 2000-01-29      84    62    51    41    38    35    35    38    38    36    37    37    38    49    61    63    62    67    83
-##  9 Aaliyah Try A… 2000-03-18      59    53    38    28    21    18    16    14    12    10     9     8     6     1     2     2     2     2     3
-## 10 Adams,… Open … 2000-08-26      76    76    74    69    68    67    61    58    57    59    66    68    61    67    59    63    67    71    79
-## # … with 307 more rows, and 57 more variables: wk20 &lt;dbl&gt;, wk21 &lt;dbl&gt;, wk22 &lt;dbl&gt;, wk23 &lt;dbl&gt;, wk24 &lt;dbl&gt;, wk25 &lt;dbl&gt;, wk26 &lt;dbl&gt;, wk27 &lt;dbl&gt;,
-## #   wk28 &lt;dbl&gt;, wk29 &lt;dbl&gt;, wk30 &lt;dbl&gt;, wk31 &lt;dbl&gt;, wk32 &lt;dbl&gt;, wk33 &lt;dbl&gt;, wk34 &lt;dbl&gt;, wk35 &lt;dbl&gt;, wk36 &lt;dbl&gt;, wk37 &lt;dbl&gt;, wk38 &lt;dbl&gt;,
-## #   wk39 &lt;dbl&gt;, wk40 &lt;dbl&gt;, wk41 &lt;dbl&gt;, wk42 &lt;dbl&gt;, wk43 &lt;dbl&gt;, wk44 &lt;dbl&gt;, wk45 &lt;dbl&gt;, wk46 &lt;dbl&gt;, wk47 &lt;dbl&gt;, wk48 &lt;dbl&gt;, wk49 &lt;dbl&gt;,
-## #   wk50 &lt;dbl&gt;, wk51 &lt;dbl&gt;, wk52 &lt;dbl&gt;, wk53 &lt;dbl&gt;, wk54 &lt;dbl&gt;, wk55 &lt;dbl&gt;, wk56 &lt;dbl&gt;, wk57 &lt;dbl&gt;, wk58 &lt;dbl&gt;, wk59 &lt;dbl&gt;, wk60 &lt;dbl&gt;,
-## #   wk61 &lt;dbl&gt;, wk62 &lt;dbl&gt;, wk63 &lt;dbl&gt;, wk64 &lt;dbl&gt;, wk65 &lt;dbl&gt;, wk66 &lt;lgl&gt;, wk67 &lt;lgl&gt;, wk68 &lt;lgl&gt;, wk69 &lt;lgl&gt;, wk70 &lt;lgl&gt;, wk71 &lt;lgl&gt;,
-## #   wk72 &lt;lgl&gt;, wk73 &lt;lgl&gt;, wk74 &lt;lgl&gt;, wk75 &lt;lgl&gt;, wk76 &lt;lgl&gt;
+## # A tibble: 6 × 79
+##   artist   track    date.entered   wk1   wk2   wk3   wk4   wk5   wk6   wk7   wk8
+##   &lt;chr&gt;    &lt;chr&gt;    &lt;date&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 2 Pac    Baby Do… 2000-02-26      87    82    72    77    87    94    99    NA
+## 2 2Ge+her  The Har… 2000-09-02      91    87    92    NA    NA    NA    NA    NA
+## 3 3 Doors… Krypton… 2000-04-08      81    70    68    67    66    57    54    53
+## 4 3 Doors… Loser    2000-10-21      76    76    72    69    67    65    55    59
+## 5 504 Boyz Wobble … 2000-04-15      57    34    25    17    17    31    36    49
+## 6 98^0     Give Me… 2000-08-19      51    39    34    26    26    19     2     2
+## # … with 68 more variables: wk9 &lt;dbl&gt;, wk10 &lt;dbl&gt;, wk11 &lt;dbl&gt;, wk12 &lt;dbl&gt;,
+## #   wk13 &lt;dbl&gt;, wk14 &lt;dbl&gt;, wk15 &lt;dbl&gt;, wk16 &lt;dbl&gt;, wk17 &lt;dbl&gt;, wk18 &lt;dbl&gt;,
+## #   wk19 &lt;dbl&gt;, wk20 &lt;dbl&gt;, wk21 &lt;dbl&gt;, wk22 &lt;dbl&gt;, wk23 &lt;dbl&gt;, wk24 &lt;dbl&gt;,
+## #   wk25 &lt;dbl&gt;, wk26 &lt;dbl&gt;, wk27 &lt;dbl&gt;, wk28 &lt;dbl&gt;, wk29 &lt;dbl&gt;, wk30 &lt;dbl&gt;,
+## #   wk31 &lt;dbl&gt;, wk32 &lt;dbl&gt;, wk33 &lt;dbl&gt;, wk34 &lt;dbl&gt;, wk35 &lt;dbl&gt;, wk36 &lt;dbl&gt;,
+## #   wk37 &lt;dbl&gt;, wk38 &lt;dbl&gt;, wk39 &lt;dbl&gt;, wk40 &lt;dbl&gt;, wk41 &lt;dbl&gt;, wk42 &lt;dbl&gt;,
+## #   wk43 &lt;dbl&gt;, wk44 &lt;dbl&gt;, wk45 &lt;dbl&gt;, wk46 &lt;dbl&gt;, wk47 &lt;dbl&gt;, wk48 &lt;dbl&gt;, …
 ```
 
 ---
@@ -2011,24 +1978,22 @@ billboard %&gt;%
    names_prefix = "wk",
    values_to = "rank",
    values_drop_na = TRUE
- )
+ ) %&gt;% 
+  head(8)
 ```
 
 ```
-## # A tibble: 5,307 x 5
-##    artist  track                   date.entered week   rank
-##    &lt;chr&gt;   &lt;chr&gt;                   &lt;date&gt;       &lt;chr&gt; &lt;dbl&gt;
-##  1 2 Pac   Baby Don't Cry (Keep... 2000-02-26   1        87
-##  2 2 Pac   Baby Don't Cry (Keep... 2000-02-26   2        82
-##  3 2 Pac   Baby Don't Cry (Keep... 2000-02-26   3        72
-##  4 2 Pac   Baby Don't Cry (Keep... 2000-02-26   4        77
-##  5 2 Pac   Baby Don't Cry (Keep... 2000-02-26   5        87
-##  6 2 Pac   Baby Don't Cry (Keep... 2000-02-26   6        94
-##  7 2 Pac   Baby Don't Cry (Keep... 2000-02-26   7        99
-##  8 2Ge+her The Hardest Part Of ... 2000-09-02   1        91
-##  9 2Ge+her The Hardest Part Of ... 2000-09-02   2        87
-## 10 2Ge+her The Hardest Part Of ... 2000-09-02   3        92
-## # … with 5,297 more rows
+## # A tibble: 8 × 5
+##   artist  track                   date.entered week   rank
+##   &lt;chr&gt;   &lt;chr&gt;                   &lt;date&gt;       &lt;chr&gt; &lt;dbl&gt;
+## 1 2 Pac   Baby Don't Cry (Keep... 2000-02-26   1        87
+## 2 2 Pac   Baby Don't Cry (Keep... 2000-02-26   2        82
+## 3 2 Pac   Baby Don't Cry (Keep... 2000-02-26   3        72
+## 4 2 Pac   Baby Don't Cry (Keep... 2000-02-26   4        77
+## 5 2 Pac   Baby Don't Cry (Keep... 2000-02-26   5        87
+## 6 2 Pac   Baby Don't Cry (Keep... 2000-02-26   6        94
+## 7 2 Pac   Baby Don't Cry (Keep... 2000-02-26   7        99
+## 8 2Ge+her The Hardest Part Of ... 2000-09-02   1        91
 ```
 
 ---
@@ -2039,19 +2004,25 @@ Let's load the `fish_encounters` data from tidyverse.
 
 ```r
 data(fish_encounters)
-head(fish_encounters)
+head(fish_encounters, 12)
 ```
 
 ```
-## # A tibble: 6 x 3
-##   fish  station  seen
-##   &lt;fct&gt; &lt;fct&gt;   &lt;int&gt;
-## 1 4842  Release     1
-## 2 4842  I80_1       1
-## 3 4842  Lisbon      1
-## 4 4842  Rstr        1
-## 5 4842  Base_TD     1
-## 6 4842  BCE         1
+## # A tibble: 12 × 3
+##    fish  station  seen
+##    &lt;fct&gt; &lt;fct&gt;   &lt;int&gt;
+##  1 4842  Release     1
+##  2 4842  I80_1       1
+##  3 4842  Lisbon      1
+##  4 4842  Rstr        1
+##  5 4842  Base_TD     1
+##  6 4842  BCE         1
+##  7 4842  BCW         1
+##  8 4842  BCE2        1
+##  9 4842  BCW2        1
+## 10 4842  MAE         1
+## 11 4842  MAW         1
+## 12 4843  Release     1
 ```
 
 ---
@@ -2063,11 +2034,12 @@ We can use `pivot_wider()` to go from data in "long" form to data in "wide" form
 
 ```r
 fish_encounters %&gt;%
-  pivot_wider(names_from = station, values_from = seen)
+  pivot_wider(names_from = station, values_from = seen) %&gt;%
+  head(12)
 ```
 
 ```
-## # A tibble: 19 x 12
+## # A tibble: 12 × 12
 ##    fish  Release I80_1 Lisbon  Rstr Base_TD   BCE   BCW  BCE2  BCW2   MAE   MAW
 ##    &lt;fct&gt;   &lt;int&gt; &lt;int&gt;  &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
 ##  1 4842        1     1      1     1       1     1     1     1     1     1     1
@@ -2082,13 +2054,6 @@ fish_encounters %&gt;%
 ## 10 4854        1     1     NA    NA      NA    NA    NA    NA    NA    NA    NA
 ## 11 4855        1     1      1     1       1    NA    NA    NA    NA    NA    NA
 ## 12 4857        1     1      1     1       1     1     1     1     1    NA    NA
-## 13 4858        1     1      1     1       1     1     1     1     1     1     1
-## 14 4859        1     1      1     1       1    NA    NA    NA    NA    NA    NA
-## 15 4861        1     1      1     1       1     1     1     1     1     1     1
-## 16 4862        1     1      1     1       1     1     1     1     1    NA    NA
-## 17 4863        1     1     NA    NA      NA    NA    NA    NA    NA    NA    NA
-## 18 4864        1     1     NA    NA      NA    NA    NA    NA    NA    NA    NA
-## 19 4865        1     1      1    NA      NA    NA    NA    NA    NA    NA    NA
 ```
 
 
@@ -2103,32 +2068,23 @@ fish_encounters %&gt;%
     names_from = station,
     values_from = seen,
     values_fill = list(seen = 0)
-  )
+  ) %&gt;%
+  head(9)
 ```
 
 ```
-## # A tibble: 19 x 12
-##    fish  Release I80_1 Lisbon  Rstr Base_TD   BCE   BCW  BCE2  BCW2   MAE   MAW
-##    &lt;fct&gt;   &lt;int&gt; &lt;int&gt;  &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
-##  1 4842        1     1      1     1       1     1     1     1     1     1     1
-##  2 4843        1     1      1     1       1     1     1     1     1     1     1
-##  3 4844        1     1      1     1       1     1     1     1     1     1     1
-##  4 4845        1     1      1     1       1     0     0     0     0     0     0
-##  5 4847        1     1      1     0       0     0     0     0     0     0     0
-##  6 4848        1     1      1     1       0     0     0     0     0     0     0
-##  7 4849        1     1      0     0       0     0     0     0     0     0     0
-##  8 4850        1     1      0     1       1     1     1     0     0     0     0
-##  9 4851        1     1      0     0       0     0     0     0     0     0     0
-## 10 4854        1     1      0     0       0     0     0     0     0     0     0
-## 11 4855        1     1      1     1       1     0     0     0     0     0     0
-## 12 4857        1     1      1     1       1     1     1     1     1     0     0
-## 13 4858        1     1      1     1       1     1     1     1     1     1     1
-## 14 4859        1     1      1     1       1     0     0     0     0     0     0
-## 15 4861        1     1      1     1       1     1     1     1     1     1     1
-## 16 4862        1     1      1     1       1     1     1     1     1     0     0
-## 17 4863        1     1      0     0       0     0     0     0     0     0     0
-## 18 4864        1     1      0     0       0     0     0     0     0     0     0
-## 19 4865        1     1      1     0       0     0     0     0     0     0     0
+## # A tibble: 9 × 12
+##   fish  Release I80_1 Lisbon  Rstr Base_TD   BCE   BCW  BCE2  BCW2   MAE   MAW
+##   &lt;fct&gt;   &lt;int&gt; &lt;int&gt;  &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
+## 1 4842        1     1      1     1       1     1     1     1     1     1     1
+## 2 4843        1     1      1     1       1     1     1     1     1     1     1
+## 3 4844        1     1      1     1       1     1     1     1     1     1     1
+## 4 4845        1     1      1     1       1     0     0     0     0     0     0
+## 5 4847        1     1      1     0       0     0     0     0     0     0     0
+## 6 4848        1     1      1     1       0     0     0     0     0     0     0
+## 7 4849        1     1      0     0       0     0     0     0     0     0     0
+## 8 4850        1     1      0     1       1     1     1     0     0     0     0
+## 9 4851        1     1      0     0       0     0     0     0     0     0     0
 ```
 
 
@@ -2144,7 +2100,7 @@ head(us_rent_income)
 ```
 
 ```
-## # A tibble: 6 x 5
+## # A tibble: 6 × 5
 ##   GEOID NAME    variable estimate   moe
 ##   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;
 ## 1 01    Alabama income      24476   136
@@ -2166,7 +2122,7 @@ us_rent_income %&gt;%
 ```
 
 ```
-## # A tibble: 52 x 6
+## # A tibble: 52 × 6
 ##    GEOID NAME                 estimate_income estimate_rent moe_income moe_rent
 ##    &lt;chr&gt; &lt;chr&gt;                          &lt;dbl&gt;         &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
 ##  1 01    Alabama                        24476           747        136        3
@@ -2223,9 +2179,6 @@ layout: false
 * `inner_join()`, `left_join()`, `right_join()`, `outer_join()` combine data (like SQL)
 
 .pushdown[.center[[Much, much more! (Click me for a cheat sheet!)](https://rstudio.com/resources/cheatsheets/)]]
-
-
-
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

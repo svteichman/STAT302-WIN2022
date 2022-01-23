@@ -1,7 +1,7 @@
 ---
 title: "STAT 302, Lecture Slides 3"
 subtitle: "Data Visualization and Manipulation"
-author: "Peter Gao (adapted from slides by Bryan Martin)"
+author: "Sarah Teichman (adapted from slides by Bryan Martin and Peter Gao)"
 date: ""
 output:
   xaringan::moon_reader:
@@ -22,64 +22,12 @@ knitr::opts_chunk$set(cache = TRUE)
 library(kableExtra)
 ```
 
-# Before class
+# Today's pet picture 
 
-**1a.** (3 points) The hard-threshold function is defined as 
-$$f_\lambda(x) = \begin{cases} x & |x| \geq \lambda\\ 0 & |x| < \lambda \end{cases}$$
-Write an R function that takes two parameters, numeric input `x` and a threshold `lambda`.
-Your function should return the value of $f_\lambda(x)$ and work for vector input `x` of any length.
 
-```{r, eval = F}
-hard_threshold <- function(x, lambda) {
-  # YOUR CODE HERE
-  return(YOUR_OUTPUT_HERE)
-}
-
+```{r, echo = FALSE, out.width = "400px", fig.align = "center"}
+knitr::include_graphics("../../files/images/pets/pig.png")
 ```
-
----
-
-# Before class
-
-**1b.** (1 point) Set $\lambda = 4$, demonstrate your function on the vector `c(-5, -3, 0, 3, 5)`.
-
-```{r, echo = F}
-hard_threshold <- function(x, lambda) {
-  # YOUR CODE HERE
-  return(c(-5, 0, 0, 0, 5))
-}
-
-```
-```{r, eval = T}
-answer_1b <- hard_threshold(x = c(-5, -3, 0, 3, 5), lambda = 4)
-```
-
----
-
-# Before class
-
-**1b.** (1 point) Set $\lambda = 4$, demonstrate your function on the vector `c(-5, -3, 0, 3, 5)`.
-
-```{r, echo = F}
-hard_threshold <- function(x, lambda) {
-  # YOUR CODE HERE
-  return(c(-5, 0, 0, 0, 5))
-}
-
-```
-```{r, eval = T}
-answer_1b <- hard_threshold(x = c(-5, -3, 0, 3, 5), lambda = 4)
-answer_1b # MAKE SURE TO PRINT OUT YOUR ANSWER
-```
-
-
----
-
-# Grading notes
-
-1. Your grade is primarily based on your **knitted** .html file. All your answers and solutions should be in your .html file; look through this file before you submit!
-2. Make sure you print out all answers/results. They should appear in your .html file.
-3. Explanations and written responses are not optional--you will lose points for missing answers even if all your code is correct.
 
 ---
 
@@ -142,13 +90,26 @@ You can (and should) hide this in your R Markdown files by adding the parameter
 `message=FALSE` or `include=FALSE` to your code chunk when you load packages.
 
 ---
+
+## Conflicts?
+
+If you want to use a function from a certain package you can use the syntax `package::function()`, for example `readr::read_csv`. This can be useful if:
+
+* You want to use a function that is masked by a function in another package
+* You want to reader of your code to know what package a function is from
+
+---
 layout: false
 layout: true
 
 # Pipes
 ---
 
-.sectionhead[![pipe](pipe.png)]
+```{r, echo = FALSE, out.width = "600px", fig.align = "center"}
+knitr::include_graphics("../../files/images/pipe.jpeg")
+```
+
+
 
 ---
 
@@ -160,6 +121,7 @@ We will use the `gapminder` data from Jenny Bryan to demonstrate throughout this
 Load the package `gapminder` (after installing) and the corresponding data.
 
 ```{r}
+# install.packages("gapminder")
 library(gapminder)
 data(gapminder)
 ```
@@ -169,7 +131,7 @@ data(gapminder)
 Let's preview the data.
 
 ```{r}
-gapminder
+head(gapminder, 10)
 ```
 
 
@@ -184,9 +146,9 @@ str(gapminder)
 **factors** are categorical data that use integer representation.
 
 This can be efficient to store character vectors, because each string is only entered once. 
-Because of this, creating data frames (but not tibbles!) in R often default to set strings as factors. 
+Because of this, data frames (but not tibbles!) in R default to setting strings as factors. 
 However, it can also get annoying! 
-Factors limit the categories, or `levels`, of the vector, which is often not appropriate.
+Factors limit the categories, or `levels`, of the vector, which can cause problems.
 ---
 
 ## Functions in Functions
@@ -222,6 +184,7 @@ Very commonly, we will want to filter our data to restrict what we plot or analy
 For example, what if we are only interested in data from China since 1970?
 
 ```{r}
+head(gapminder$country == "China" & gapminder$year >= 1970)
 china_1980 <- gapminder %>% 
   filter(country == "China" &
            year >= 1970)
@@ -1226,14 +1189,14 @@ layout: true
 
 --
 
-**No-no:** Pie charts! Eugh! The proportions are completely off!
+**No-no:** Pie charts! These proportions are completely off!
 ---
 
 .center[<img src="images/bad2.jpg" alt="" height="300"/>]
 
 --
 
-**No-no:** Pie charts! Eugh! Percents don't add up!
+**No-no:** Pie charts! These percents don't add up!
 
 ---
 
@@ -1325,9 +1288,7 @@ Install the `gapminder` package:
 install.packages("gapminder")
 ```
 
-1. Try to reproduce the plot below.
-
-2. Create your own visualization and submit to Piazza.
+Try to reproduce the plot below.
 
 ```{r, echo = F, fig.height = 4.5}
 ggplot(gapminder, aes(x = year, y = log(gdpPercap), color = continent, group = country)) +
@@ -1471,6 +1432,7 @@ layout: true
 
 ```{r}
 demo <- -2:2
+demo > 0
 ifelse(demo > 0, "strictly positive", "not strictly positive")
 ```
 
@@ -1546,7 +1508,7 @@ Notice that it doesn't change our data, except for that we can now see that it h
 grouped_gap <- gapminder %>%
   group_by(continent)
 class(grouped_gap)
-grouped_gap
+head(grouped_gap, 4)
 ```
 
 ---
@@ -1559,7 +1521,7 @@ We can remove the groups with `ungroup()`.
 ```{r}
 ungrouped_gap <- ungroup(grouped_gap)
 class(ungrouped_gap)
-ungrouped_gap
+head(ungrouped_gap)
 ```
 
 ---
@@ -1708,19 +1670,22 @@ We can use `pivot_longer()` to go from data in "wide" form to data in "long" for
 
 ```{r}
 relig_income %>%
-  pivot_longer(contains("$"), names_to = "income",  values_to = "count")
+  pivot_longer(cols = contains("$"), 
+               names_to = "income",  
+               values_to = "count")
 ```
 
 ---
 
 ## `pivot_longer()`
 
-Looks like we missed a few of the income column names. Let's use matches with a regular expression.
+Looks like we missed a few of the income column names. 
 
 ```{r}
 relig_income %>%
-  pivot_longer(matches("\\$|150|refused"), 
-               names_to = "income",  values_to = "count")
+  pivot_longer(cols = c(contains("$"), ">150k", "Don't know/refused"), 
+               names_to = "income",
+               values_to = "count") 
 ```
 
 ---
@@ -1730,7 +1695,7 @@ Let's load the `billboard` data from tidyverse.
 
 ```{r}
 data(billboard)
-billboard
+head(billboard)
 ```
 
 ---
@@ -1744,7 +1709,8 @@ billboard %>%
    names_prefix = "wk",
    values_to = "rank",
    values_drop_na = TRUE
- )
+ ) %>% 
+  head(8)
 ```
 
 ---
@@ -1754,7 +1720,7 @@ Let's load the `fish_encounters` data from tidyverse.
 
 ```{r}
 data(fish_encounters)
-head(fish_encounters)
+head(fish_encounters, 12)
 ```
 
 ---
@@ -1765,7 +1731,8 @@ We can use `pivot_wider()` to go from data in "long" form to data in "wide" form
 
 ```{r}
 fish_encounters %>%
-  pivot_wider(names_from = station, values_from = seen)
+  pivot_wider(names_from = station, values_from = seen) %>%
+  head(12)
 ```
 
 
@@ -1779,7 +1746,8 @@ fish_encounters %>%
     names_from = station,
     values_from = seen,
     values_fill = list(seen = 0)
-  )
+  ) %>%
+  head(9)
 ```
 
 
