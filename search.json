@@ -29,8 +29,8 @@
       "title": "Projects",
       "description": "",
       "author": [],
-      "contents": "\n\n\n\n\n",
-      "last_modified": "2022-01-09T18:48:59-08:00"
+      "contents": "\nProject 1: Data Visualization\n\ndue date: 01/31\nInstructions [.html] [.Rmd]\nData [.csv]\n\n\n\n",
+      "last_modified": "2022-01-23T15:26:42-08:00"
     },
     {
       "path": "short_labs.html",
@@ -45,7 +45,7 @@
       "title": "Lecture Slides",
       "author": [],
       "contents": "\nLecture 00: Course Overview [.html] [.Rmd]\nLecture 01: Introduction to R [.html] [.Rmd]\nLecture 02: R Fundamentals [.html] [.Rmd]\nLecture 03: Data Visualization and Manipulation [.html] [.Rmd]\n\n\n\n",
-      "last_modified": "2022-01-23T14:55:18-08:00"
+      "last_modified": "2022-01-23T14:56:32-08:00"
     },
     {
       "path": "syllabus.html",

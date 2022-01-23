@@ -7,8 +7,6 @@ description: ""
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-\begin{comment}
-
 # Project 1: Data Visualization
 
 ![](https://upload.wikimedia.org/wikipedia/commons/2/29/Minard.png)
@@ -17,6 +15,8 @@ knitr::opts_chunk$set(echo = FALSE)
 
 * Instructions [[.html](files/projects/01_data-visualization/01_dataviz.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/projects/01_data-visualization/01_dataviz.Rmd)]
 * Data [[.csv](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/projects/01_data-visualization/Building_Permits_Clean.csv)]
+
+\begin{comment}
 
 # Project 2: Data Analysis
 
