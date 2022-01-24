@@ -32,7 +32,7 @@ You have the option to work with **one** partner for this project and submit a g
 * If you use this .Rmd as your starting template, please remove all instructions, details, and requirements. I only want to receive your final written report.
 * Your Project 1 directory should include an R Project associated with your report and analysis.
 * Final submissions must include .Rmd, .html, and .Rproj files
-* The data are available [here](https://raw.githubusercontent.com/peteragao/STAT302-AUT2021/base/files/projects/01_data-visualization/Building_Permits_Clean.csv). Note that you can use links within `read_csv()` to read online .csv files. I **strongly** recommend saving a version of the unprocessed .csv on your machine in a `Data` subfolder within your Project 1 folder so you will be able to work offline.
+* The data are available [here](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/projects/01_data-visualization/Building_Permits_Clean.csv). Note that you can use links within `read_csv()` to read online .csv files. I **strongly** recommend saving a version of the unprocessed .csv on your machine in a `Data` subfolder within your Project 1 folder so you will be able to work offline.
 
 ### Requirements
 
@@ -40,15 +40,111 @@ You have the option to work with **one** partner for this project and submit a g
 * Your project should include at least 3 different types of visualizations (e.g. scatterplots, box plots, bar plots, histograms, line plots, etc.).
 * At least one of your plots should display variation over time in some way.
 * At least one of your plots should display variation over location in some way.
+* Each visualization should have a title and axis labels.
 * Each visualization should include a caption that fully explains how to understand your visualization (i.e. explain all the components, legends, etc.). A good guideline is that someone who has not read your report should be able to look at just a visualization and its caption and fully understand what that visualization is showing.
 * Each visualization, in order to contribute to your 6 visualization requirement, must be accompanied by at least one paragraph of text. This text should include an interpretation of your visualization as well as what is interesting about your visualization. A strong visualization will be accompanied by text explaining what patterns or insights it helps us glean from the data. Sometimes, you may find that you need two or more visualizations to make a single point. This is fine (and likely preferred if you think it's necessary), but it will only count towards 1 of your total visualizations.
+* Your report should have an introductory paragraph describing the data set and a concluding/summary paragraph describing your main takeaways and what you learned about building permits in Seattle through this project. (Feel free to include anything else you'd like in your introductory and concluding paragraphs).
 * **At the end of your report**, you should include a code appendix with all of your code, from downloading the data to generating the figures. This code should be well-commented and follow the style guidelines we learned in class. Use comments to label which blocks of code correspond to which visualizations. **You should have no code in the main body of your report!** (Remember: you can use `echo = FALSE` to hide code in the report and `eval = FALSE` to print code without running it for a code appendix.)
 
 Keep in mind: **there are no right answers for this project!**
 These are real data, and I'm hoping for creative and interesting analyses that tell a compelling story about the data rather than cookie cutter reports. Have some fun with it, and good luck!
 
+### Code dictionary
+
+There are 22 variables in the permit dataset that you can use for your project.
+
+* "PermitNum": An permit ID number 
+* "PermitClass": The class of permit, i.e. what kind of building will be affected by this permit. This could be commercial, industrial, institutional, multifamily, single family/duplex, or vacant land
+* "PermitClassMapped": class of permit collapsed into either non-residential or residential
+* "PermitTypeMapped": The type of permit, i.e. what type of operation will be done by this permit. This could be building, demolition, grading, or roof.
+* "PermitTypeDesc": Additional description for the type of permit. This could be addition/alteration, change of use only (no construction), curb cut, deconstruction, demolition, new, relocation, temporary, tenant improvement, or NONE. 
+* "Description": A description of the permit. I'd suggest avoiding using this variable unless you have experience manipulating strings in R! 
+* "HousingUnits": The number of housing units that will be affected by this permit. 
+* "HousingUnitsRemoved": The number of housing units that will be removed by this permit. 
+* "HousingUnitsAdded": The number of housing units that will be added by this permit. 
+* "IssuedDate": The date the permit was issued. I'd recommend using the variables "IssuedYear" and "IssuedMth" instead of this variable. 
+* "StatusCurrent": The current status of the permit. This could be completed, withdrawn, expired, etc. 
+* "OriginalAddress1": Address of the permit. I'd suggest avoiding using this variable unless you have experience manipulating strings in R!
+* "OriginalCity": City of the permit. In this dataset, all permits are in Seattle.
+* "OriginalState: State of the permit. In this dataset, all permits are in Washington.
+* "OriginalZip": Zip code of the permit. 
+* "ContractorCompanyName": Contractor company name. There are 1440 contractor companies, but the most interesting ones to look at might be the most common companies. 
+* "IssuedYear": Year in which the permit was issued.
+* "IssuedMth": Month in which the permit was issued.
+* "CouncilDistrict": The council district the permit was issued in. There are 7 council districts in Seattle, so this is the broadest location variable.
+* "CommunityReportingArea": The community reporting area the permit was issued in. There are 53 community reporting areas, so this is the finest location variable. 
+* "NeighborhoodDistrict": The neighborhood district the permit was issued in. There are 13 community reporting areas. This is another location variable.
+
+## Example visualizations 
+
+To give you a sense of a plot, caption, and explanation paragraph that would score well on this project, I've included the following two examples using a different dataset. Your plots don't need to look anything like these, they are simply examples of how to pair visualizations and text to point out certain patterns in a dataset. 
+
+Note that my examples show the code then the output but in your report I expect to see only the visualizations and text in the body of the report and all code in a code appendix. 
 
 
+```{r, message = FALSE}
+# attach tidyverse and gapminder packages 
+library(tidyverse)
+library(gapminder)
+# load data
+data(gapminder)
+```
 
+```{r}
+# scatterplot of log of gdp per capita by life expectancy 
+ggplot(data = gapminder, aes(x = log(gdpPercap), y = lifeExp)) + 
+  geom_point(size = 1) + 
+  labs(title = "Life Expectancy by Log of GDP per Capita",
+       x = "Log of GDP per capita",
+       y = "Life Expectancy") + 
+  theme_bw() + 
+  theme(plot.title = element_text(hjust = 0.5)) + 
+  facet_wrap(~ continent) + 
+  ylim(c(0,90))
+```
 
+Figure 1: This plot shows life expectancy by the log of GDP per capita for each continent. 
 
+There are several different things I notice in this plot. First, I see a positive relationship between the log of GDP per capita and life expectancy for every continent. This tells us that wealthier countries have longer life expectancies. This trend is expecially pronounced in Europe and Oceania, and less pronounced in Africa. Oceania has both high GDP per capita and high life expectancies for all of its countries, while the other continents have a greater range of both variables. Asia especially has the largest range of GDP per capita and of life expectancy. Overall, this plot shows us that while every continent has a positive relationship between the log of GDP per capita and life expectancy, the strength of this relationship and range of each variable vary by continent. 
+
+```{r}
+# compute the average life expectancy by continent in 1952
+life_exp_1952 <- gapminder %>% 
+  filter(year == 1952) %>%
+  group_by(continent) %>%
+  summarise(avg_life_exp = mean(lifeExp))
+
+# compute the average life expectancy by continent in 2007
+life_exp_2007 <- gapminder %>% 
+  filter(year == 2007) %>%
+  group_by(continent) %>%
+  summarise(avg_life_exp = mean(lifeExp))
+
+# make bar plot for average life expectancy by continent in 1952
+ggplot(data = life_exp_1952, aes(x = continent, y = avg_life_exp)) + 
+  geom_col() + 
+  labs(title = "Average Life Expectancy by Continent in 1952",
+       x = "Continent",
+       y = "Average Life Expectancy") + 
+  theme_bw() + 
+  theme(plot.title = element_text(hjust = 0.5)) + 
+  ylim(c(0, 85))
+```
+
+Figure 2: This plot shows the average life expectancy for each continent in 1952. 
+
+```{r}
+# make bar plot for average life expectancy by continent in 2007
+ggplot(data = life_exp_2007, aes(x = continent, y = avg_life_exp)) + 
+  geom_col() + 
+  labs(title = "Average Life Expectancy by Continent in 2007",
+       x = "Continent",
+       y = "Average Life Expectancy") + 
+  theme_bw() + 
+  theme(plot.title = element_text(hjust = 0.5)) + 
+  ylim(c(0, 85))
+```
+
+Figure 3: This plot shows the average life expectancy for each continent in 2007. 
+
+From these two plots, we can see life expectancy increased for every continent from 1952 to 2007. In both years, the ordering of continents by life expectancy from lowest to highest is Africa, Asia, the Americas, Europe, then Oceania. The largest change happened for Asia, which went from an average life expectancy of roughly 45 in 1952 to a average life expectancy of roughly 70 in 2007. The smallest change happened in Oceania, in which life expectancy only increased about 10 years from 1952 to 2007. Additionally, these two plots show us that while the ordering of continents by life expectancy is constant between 1952 and 2007, average life expectancies had a larger range between continents in 1952 compared to 2007. This suggests that the differences in average life expectancy by continent could be decreasing over time.
