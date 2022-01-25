@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ![](https://upload.wikimedia.org/wikipedia/commons/2/29/Minard.png)
 
-**due date: 01/31**
+**due date: 02/02**
 
 * Instructions [[.html](files/projects/01_data-visualization/01_dataviz.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/projects/01_data-visualization/01_dataviz.Rmd)]
 * Data [[.csv](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/projects/01_data-visualization/Building_Permits_Clean.csv)]
