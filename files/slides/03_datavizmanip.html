@@ -1132,23 +1132,162 @@ layout: false
 * `theme_bw()` to make things look nicer
 * Graphical parameters: `color` for color, `alpha` for opacity, `lwd`/`size` for thickness, `shape` for shape, `fill` for interior color, ...
 
-.pushdown[.center[[Much, much more! (Click me for a cheat sheet!)](https://github.com/rstudio/cheatsheets/raw/master/data-visualization.pdf)]]
+.pushdown[.center[[Much, much more! (Click me for a cheat sheet!)](https://rstudio.com/resources/cheatsheets/)]]
 
 ---
-# In-Class Activity
 
-Install the `gapminder` package:
+# Today's pet picture 
+
+
+&lt;img src="../../files/images/pets/duke.png" width="500px" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Before we start 
+
+Let's reload the gapminder package.
 
 
 ```r
-install.packages("gapminder")
+library(gapminder)
+data(gapminder)
 ```
 
-Try to reproduce the plot below.
+Remind ourselves what data is here.
 
-![](03_datavizmanip_files/figure-html/unnamed-chunk-76-1.png)&lt;!-- --&gt;
+
+```r
+head(gapminder)
+```
+
+```
+## # A tibble: 6 × 6
+##   country     continent  year lifeExp      pop gdpPercap
+##   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+## 1 Afghanistan Asia       1952    28.8  8425333      779.
+## 2 Afghanistan Asia       1957    30.3  9240934      821.
+## 3 Afghanistan Asia       1962    32.0 10267083      853.
+## 4 Afghanistan Asia       1967    34.0 11537966      836.
+## 5 Afghanistan Asia       1972    36.1 13079460      740.
+## 6 Afghanistan Asia       1977    38.4 14880372      786.
+```
 
 ---
+
+# Before we start 
+
+Let's make a bar chart for the number of observations for each continent.
+
+.pull-left[
+
+```r
+ggplot(data = gapminder, 
+       aes(x = continent)) 
+```
+]
+
+.pull-right[
+![](03_datavizmanip_files/figure-html/unnamed-chunk-79-1.png)&lt;!-- --&gt;
+]
+
+---
+
+# Before we start 
+
+Let's make a bar chart for the number of observations for each continent.
+
+.pull-left[
+
+```r
+ggplot(data = gapminder, 
+       aes(x = continent)) + 
+  geom_bar()
+```
+]
+
+.pull-right[
+![](03_datavizmanip_files/figure-html/unnamed-chunk-81-1.png)&lt;!-- --&gt;
+]
+
+---
+
+# Before we start 
+
+Let's make a bar chart for the number of observations for each continent.
+
+.pull-left[
+
+```r
+ggplot(data = gapminder, 
+       aes(x = continent)) + 
+  geom_bar() +
+  theme_bw(base_size = 20) +
+  labs(title = "Observations by Continent", 
+       x = "Continent", 
+       y = "Number of Observations") +
+  theme(plot.title =
+          element_text(hjust = 0.5)) 
+```
+]
+
+.pull-right[
+![](03_datavizmanip_files/figure-html/unnamed-chunk-83-1.png)&lt;!-- --&gt;
+]
+
+---
+
+# Before we start 
+
+However, what if we want to plot the difference between the minimum and maximum life expectancy for each country in Europe? 
+
+
+```r
+head(gapminder)
+```
+
+```
+## # A tibble: 6 × 6
+##   country     continent  year lifeExp      pop gdpPercap
+##   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+## 1 Afghanistan Asia       1952    28.8  8425333      779.
+## 2 Afghanistan Asia       1957    30.3  9240934      821.
+## 3 Afghanistan Asia       1962    32.0 10267083      853.
+## 4 Afghanistan Asia       1967    34.0 11537966      836.
+## 5 Afghanistan Asia       1972    36.1 13079460      740.
+## 6 Afghanistan Asia       1977    38.4 14880372      786.
+```
+
+---
+
+# Before we start 
+
+However, what if we want to plot the difference between the minimum and maximum life expectancy for each country in Europe? 
+
+We know how to filter the data to only include data in Europe. 
+
+
+```r
+gapminder %&gt;% 
+  filter(continent == "Europe") %&gt;%
+  head()
+```
+
+```
+## # A tibble: 6 × 6
+##   country continent  year lifeExp     pop gdpPercap
+##   &lt;fct&gt;   &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt;     &lt;dbl&gt;
+## 1 Albania Europe     1952    55.2 1282697     1601.
+## 2 Albania Europe     1957    59.3 1476505     1942.
+## 3 Albania Europe     1962    64.8 1728137     2313.
+## 4 Albania Europe     1967    66.2 1984060     2760.
+## 5 Albania Europe     1972    67.7 2263554     3313.
+## 6 Albania Europe     1977    68.9 2509048     3533.
+```
+
+But what about the rest?
+
+---
+
 class: inverse
 
 .sectionhead[Part 3: Data Manipulation]
@@ -1213,7 +1352,6 @@ gapminder %&gt;%
 ```
 
 ---
-## Helper functions
 
 `select()` has a number of helper functions to select columns (see `?select`).
 Notably:
@@ -1221,6 +1359,14 @@ Notably:
 * `ends_with()` for suffixes
 * `contains()` for strings
 
+
+```r
+names(gapminder)
+```
+
+```
+## [1] "country"   "continent" "year"      "lifeExp"   "pop"       "gdpPercap"
+```
 
 ```r
 gapminder %&gt;%
@@ -1242,14 +1388,20 @@ gapminder %&gt;%
 
 ---
 
-## Helper functions
-
 `select()` has a number of helper functions to select columns (see `?select`).
 Notably:
 * `starts_with()` for prefixes
 * `ends_with()` for suffixes
 * `contains()` for strings
 
+
+```r
+names(gapminder)
+```
+
+```
+## [1] "country"   "continent" "year"      "lifeExp"   "pop"       "gdpPercap"
+```
 
 ```r
 gapminder %&gt;%
@@ -1271,14 +1423,20 @@ gapminder %&gt;%
 
 ---
 
-## Helper functions
-
 `select()` has a number of helper functions to select columns (see `?select`).
 Notably:
 * `starts_with()` for prefixes
 * `ends_with()` for suffixes
 * `contains()` for strings
 
+
+```r
+names(gapminder)
+```
+
+```
+## [1] "country"   "continent" "year"      "lifeExp"   "pop"       "gdpPercap"
+```
 
 ```r
 gapminder %&gt;%
@@ -1298,8 +1456,6 @@ gapminder %&gt;%
 ## 6      786.
 ```
 ---
-
-## Helper functions
 
 `select()` has a number of helper functions to select columns (see `?select`).
 Notably:
@@ -1403,7 +1559,7 @@ ifelse(demo &gt; 0, "strictly positive", "not strictly positive")
 ---
 
 `ifelse()` can be very useful within `mutate()`.
-For example, if we want to use the country code `USA` instead of `United States`, and store this variable as `country_clean`, we can use:
+For example, if we want to use the country code `USA` instead of `United States`, and store this variable `country_clean` as a character type instead of a factor, we can use:
 
 
 ```r
@@ -1413,20 +1569,20 @@ gapminder %&gt;%
                   "USA", as.character(country))) %&gt;%
   filter(year == 2007,
          continent == "Americas") %&gt;%
-  select(country, country_clean, lifeExp, gdpPercap) %&gt;%
+  select(country, country_clean) %&gt;%
   tail()
 ```
 
 ```
-## # A tibble: 6 × 4
-##   country             country_clean       lifeExp gdpPercap
-##   &lt;fct&gt;               &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;
-## 1 Peru                Peru                   71.4     7409.
-## 2 Puerto Rico         Puerto Rico            78.7    19329.
-## 3 Trinidad and Tobago Trinidad and Tobago    69.8    18009.
-## 4 United States       USA                    78.2    42952.
-## 5 Uruguay             Uruguay                76.4    10611.
-## 6 Venezuela           Venezuela              73.7    11416.
+## # A tibble: 6 × 2
+##   country             country_clean      
+##   &lt;fct&gt;               &lt;chr&gt;              
+## 1 Peru                Peru               
+## 2 Puerto Rico         Puerto Rico        
+## 3 Trinidad and Tobago Trinidad and Tobago
+## 4 United States       USA                
+## 5 Uruguay             Uruguay            
+## 6 Venezuela           Venezuela
 ```
 
 ---
@@ -2179,6 +2335,67 @@ layout: false
 * `inner_join()`, `left_join()`, `right_join()`, `outer_join()` combine data (like SQL)
 
 .pushdown[.center[[Much, much more! (Click me for a cheat sheet!)](https://rstudio.com/resources/cheatsheets/)]]
+
+---
+
+# Back to our earlier example
+
+What if we want to plot the difference between the minimum and maximum life expectancy for each country in Europe? Let's only consider countries with the ten largest differences. 
+
+
+```r
+lifeExpDiff &lt;- gapminder %&gt;% 
+  filter(continent == "Europe") %&gt;% 
+  group_by(country) %&gt;%
+  summarise(minLifeExp = min(lifeExp),
+            maxLifeExp = max(lifeExp),
+            lifeExpDiff = maxLifeExp - minLifeExp) %&gt;% 
+  arrange(desc(lifeExpDiff)) %&gt;%
+  head(10)
+head(lifeExpDiff)
+```
+
+```
+## # A tibble: 6 × 4
+##   country                minLifeExp maxLifeExp lifeExpDiff
+##   &lt;fct&gt;                       &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;
+## 1 Turkey                       43.6       71.8        28.2
+## 2 Albania                      55.2       76.4        21.2
+## 3 Bosnia and Herzegovina       53.8       74.9        21.0
+## 4 Portugal                     59.8       78.1        18.3
+## 5 Montenegro                   59.2       75.4        16.3
+## 6 Serbia                       58.0       74.0        16.0
+```
+
+---
+
+# Back to our earlier example
+
+What if we want to plot the difference between the minimum and maximum life expectancy for each country in Europe? Let's only consider countries with the ten largest differences. 
+
+.pull-left[
+
+```r
+ggplot(data = lifeExpDiff, 
+       aes(x = country, 
+           y = lifeExpDiff)) + 
+  geom_col() + 
+  theme_bw(base_size = 14) + 
+  labs(title = "Largest Life Expectancy Differences in Europe",
+       x = "",
+       y = "Life Expectancy Difference") + 
+  theme(plot.title = 
+          element_text(hjust = 0.5),
+        axis.text.x = 
+          element_text(angle = 45, 
+                       hjust = 1, 
+                       vjust = 1))
+```
+]
+
+.pull-right[
+![](03_datavizmanip_files/figure-html/unnamed-chunk-122-1.png)&lt;!-- --&gt;
+]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

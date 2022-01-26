@@ -1277,28 +1277,138 @@ layout: false
 * `theme_bw()` to make things look nicer
 * Graphical parameters: `color` for color, `alpha` for opacity, `lwd`/`size` for thickness, `shape` for shape, `fill` for interior color, ...
 
-.pushdown[.center[[Much, much more! (Click me for a cheat sheet!)](https://github.com/rstudio/cheatsheets/raw/master/data-visualization.pdf)]]
+.pushdown[.center[[Much, much more! (Click me for a cheat sheet!)](https://rstudio.com/resources/cheatsheets/)]]
 
 ---
-# In-Class Activity
 
-Install the `gapminder` package:
+# Today's pet picture 
 
-```{r, eval = F}
-install.packages("gapminder")
-```
 
-Try to reproduce the plot below.
-
-```{r, echo = F, fig.height = 4.5}
-ggplot(gapminder, aes(x = year, y = log(gdpPercap), color = continent, group = country)) +
-  geom_line(linetype = 'dashed') + facet_wrap(~continent) + 
-  theme_bw(base_size = 16) + 
-  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),
-        panel.spacing.x = unit(0.75, "cm")) 
+```{r, echo = FALSE, out.width = "500px", fig.align = "center"}
+knitr::include_graphics("../../files/images/pets/duke.png")
 ```
 
 ---
+
+# Before we start 
+
+Let's reload the gapminder package.
+
+```{r}
+library(gapminder)
+data(gapminder)
+```
+
+Remind ourselves what data is here.
+
+```{r}
+head(gapminder)
+```
+
+---
+
+# Before we start 
+
+Let's make a bar chart for the number of observations for each continent.
+
+.pull-left[
+```{r, eval = FALSE}
+ggplot(data = gapminder, 
+       aes(x = continent)) 
+```
+]
+
+.pull-right[
+```{r, echo = FALSE, fig.height = 5}
+ggplot(data = gapminder, 
+       aes(x = continent))
+```
+]
+
+---
+
+# Before we start 
+
+Let's make a bar chart for the number of observations for each continent.
+
+.pull-left[
+```{r, eval = FALSE}
+ggplot(data = gapminder, 
+       aes(x = continent)) + 
+  geom_bar()
+```
+]
+
+.pull-right[
+```{r, echo = FALSE, fig.height = 5}
+ggplot(data = gapminder, 
+       aes(x = continent)) + 
+  geom_bar()
+```
+]
+
+---
+
+# Before we start 
+
+Let's make a bar chart for the number of observations for each continent.
+
+.pull-left[
+```{r, eval = FALSE}
+ggplot(data = gapminder, 
+       aes(x = continent)) + 
+  geom_bar() +
+  theme_bw(base_size = 20) +
+  labs(title = "Observations by Continent", 
+       x = "Continent", 
+       y = "Number of Observations") +
+  theme(plot.title =
+          element_text(hjust = 0.5)) 
+```
+]
+
+.pull-right[
+```{r, echo = FALSE, fig.height = 5}
+ggplot(data = gapminder, 
+       aes(x = continent)) + 
+  geom_bar() +
+  theme_bw(base_size = 20) +
+  labs(title = "Observations by Continent", 
+       x = "Continent", 
+       y = "Number of Observations") +
+  theme(plot.title =
+          element_text(hjust = 0.5)) 
+```
+]
+
+---
+
+# Before we start 
+
+However, what if we want to plot the difference between the minimum and maximum life expectancy for each country in Europe? 
+
+```{r}
+head(gapminder)
+```
+
+---
+
+# Before we start 
+
+However, what if we want to plot the difference between the minimum and maximum life expectancy for each country in Europe? 
+
+We know how to filter the data to only include data in Europe. 
+
+```{r}
+gapminder %>% 
+  filter(continent == "Europe") %>%
+  head()
+```
+
+But what about the rest?
+
+---
+
 class: inverse
 
 .sectionhead[Part 3: Data Manipulation]
@@ -1327,7 +1437,6 @@ gapminder %>%
 ```
 
 ---
-## Helper functions
 
 `select()` has a number of helper functions to select columns (see `?select`).
 Notably:
@@ -1336,6 +1445,7 @@ Notably:
 * `contains()` for strings
 
 ```{r}
+names(gapminder)
 gapminder %>%
   select(starts_with("co")) %>%
   head()
@@ -1343,8 +1453,6 @@ gapminder %>%
 
 ---
 
-## Helper functions
-
 `select()` has a number of helper functions to select columns (see `?select`).
 Notably:
 * `starts_with()` for prefixes
@@ -1352,6 +1460,7 @@ Notably:
 * `contains()` for strings
 
 ```{r}
+names(gapminder)
 gapminder %>%
   select(ends_with("p")) %>%
   head()
@@ -1359,8 +1468,6 @@ gapminder %>%
 
 ---
 
-## Helper functions
-
 `select()` has a number of helper functions to select columns (see `?select`).
 Notably:
 * `starts_with()` for prefixes
@@ -1368,13 +1475,12 @@ Notably:
 * `contains()` for strings
 
 ```{r}
+names(gapminder)
 gapminder %>%
   select(contains("Per")) %>%
   head()
 ```
 ---
-
-## Helper functions
 
 `select()` has a number of helper functions to select columns (see `?select`).
 Notably:
@@ -1439,7 +1545,7 @@ ifelse(demo > 0, "strictly positive", "not strictly positive")
 ---
 
 `ifelse()` can be very useful within `mutate()`.
-For example, if we want to use the country code `USA` instead of `United States`, and store this variable as `country_clean`, we can use:
+For example, if we want to use the country code `USA` instead of `United States`, and store this variable `country_clean` as a character type instead of a factor, we can use:
 
 ```{r}
 gapminder %>%
@@ -1448,7 +1554,7 @@ gapminder %>%
                   "USA", as.character(country))) %>%
   filter(year == 2007,
          continent == "Americas") %>%
-  select(country, country_clean, lifeExp, gdpPercap) %>%
+  select(country, country_clean) %>%
   tail()
 ```
 
@@ -1812,5 +1918,65 @@ layout: false
 
 .pushdown[.center[[Much, much more! (Click me for a cheat sheet!)](https://rstudio.com/resources/cheatsheets/)]]
 
+---
+
+# Back to our earlier example
+
+What if we want to plot the difference between the minimum and maximum life expectancy for each country in Europe? Let's only consider countries with the ten largest differences. 
+
+```{r}
+lifeExpDiff <- gapminder %>% 
+  filter(continent == "Europe") %>% 
+  group_by(country) %>%
+  summarise(minLifeExp = min(lifeExp),
+            maxLifeExp = max(lifeExp),
+            lifeExpDiff = maxLifeExp - minLifeExp) %>% 
+  arrange(desc(lifeExpDiff)) %>%
+  head(10)
+head(lifeExpDiff)
+```
+
+---
+
+# Back to our earlier example
+
+What if we want to plot the difference between the minimum and maximum life expectancy for each country in Europe? Let's only consider countries with the ten largest differences. 
+
+.pull-left[
+```{r, eval = FALSE}
+ggplot(data = lifeExpDiff, 
+       aes(x = country, 
+           y = lifeExpDiff)) + 
+  geom_col() + 
+  theme_bw(base_size = 14) + 
+  labs(title = "Largest Life Expectancy Differences in Europe",
+       x = "",
+       y = "Life Expectancy Difference") + 
+  theme(plot.title = 
+          element_text(hjust = 0.5),
+        axis.text.x = 
+          element_text(angle = 45, 
+                       hjust = 1, 
+                       vjust = 1))
+```
+]
+
+.pull-right[
+```{r, echo = FALSE, fig.height = 5}
+ggplot(data = lifeExpDiff, 
+       aes(x = country, y = lifeExpDiff)) + 
+  geom_col() + 
+  theme_bw(base_size = 14) + 
+  labs(title = "Largest Life Expectancy Differences in Europe",
+       x = "",
+       y = "Life Expectancy Difference") + 
+  theme(plot.title = 
+          element_text(hjust = 0.5),
+        axis.text.x = 
+          element_text(angle = 45, 
+                       hjust = 1, 
+                       vjust = 1))
+```
+]
 
 
