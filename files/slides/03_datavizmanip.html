@@ -2308,10 +2308,189 @@ We can use SQL-like join statements in R!
 * `inner_join(x, y, by = "key")`: match observations only when exact keys are equal
 * `left_join(x, y, by = "key")`: keep all observations in `x`, match observations in `y` by keys, `NA` otherwise
 * `right_join(x, y, by = "key")`: keep all observations in `y`, match observations in `x` by keys, `NA` otherwise
-* `outer_join(x, y, by = "key")`: keep all observations in `x` and `y`, match keys where possible, `NA` otherwise
+* `full_join(x, y, by = "key")`: keep all observations in `x` and `y`, match keys where possible, `NA` otherwise
 
 
-.footnote[Usually, `left_join()` will suffice!]
+
+
+.pull-left[
+
+```r
+x
+```
+
+```
+##   id   name
+## 1  1 Nutmeg
+## 2  2    Pig
+## 3  3   Duke
+```
+]
+
+.pull-right[
+
+```r
+y
+```
+
+```
+##   id animal
+## 1  1    cat
+## 2  2    dog
+## 3  4   bird
+```
+]
+
+---
+## Inner join 
+
+
+```r
+x
+```
+
+```
+##   id   name
+## 1  1 Nutmeg
+## 2  2    Pig
+## 3  3   Duke
+```
+
+```r
+y
+```
+
+```
+##   id animal
+## 1  1    cat
+## 2  2    dog
+## 3  4   bird
+```
+
+```r
+inner_join(x, y, by = "id")
+```
+
+```
+##   id   name animal
+## 1  1 Nutmeg    cat
+## 2  2    Pig    dog
+```
+
+---
+
+## Left join 
+
+
+```r
+x
+```
+
+```
+##   id   name
+## 1  1 Nutmeg
+## 2  2    Pig
+## 3  3   Duke
+```
+
+```r
+y
+```
+
+```
+##   id animal
+## 1  1    cat
+## 2  2    dog
+## 3  4   bird
+```
+
+```r
+left_join(x, y, by = "id")
+```
+
+```
+##   id   name animal
+## 1  1 Nutmeg    cat
+## 2  2    Pig    dog
+## 3  3   Duke   &lt;NA&gt;
+```
+
+---
+
+## Right join 
+
+
+```r
+x
+```
+
+```
+##   id   name
+## 1  1 Nutmeg
+## 2  2    Pig
+## 3  3   Duke
+```
+
+```r
+y
+```
+
+```
+##   id animal
+## 1  1    cat
+## 2  2    dog
+## 3  4   bird
+```
+
+```r
+right_join(x, y, by = "id")
+```
+
+```
+##   id   name animal
+## 1  1 Nutmeg    cat
+## 2  2    Pig    dog
+## 3  4   &lt;NA&gt;   bird
+```
+
+---
+
+## Full join 
+
+
+```r
+x
+```
+
+```
+##   id   name
+## 1  1 Nutmeg
+## 2  2    Pig
+## 3  3   Duke
+```
+
+```r
+y
+```
+
+```
+##   id animal
+## 1  1    cat
+## 2  2    dog
+## 3  4   bird
+```
+
+```r
+full_join(x, y, by = "id")
+```
+
+```
+##   id   name animal
+## 1  1 Nutmeg    cat
+## 2  2    Pig    dog
+## 3  3   Duke   &lt;NA&gt;
+## 4  4   &lt;NA&gt;   bird
+```
 
 ---
 
@@ -2394,7 +2573,7 @@ ggplot(data = lifeExpDiff,
 ]
 
 .pull-right[
-![](03_datavizmanip_files/figure-html/unnamed-chunk-122-1.png)&lt;!-- --&gt;
+![](03_datavizmanip_files/figure-html/unnamed-chunk-129-1.png)&lt;!-- --&gt;
 ]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>

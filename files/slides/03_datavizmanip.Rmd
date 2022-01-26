@@ -1890,10 +1890,66 @@ We can use SQL-like join statements in R!
 * `inner_join(x, y, by = "key")`: match observations only when exact keys are equal
 * `left_join(x, y, by = "key")`: keep all observations in `x`, match observations in `y` by keys, `NA` otherwise
 * `right_join(x, y, by = "key")`: keep all observations in `y`, match observations in `x` by keys, `NA` otherwise
-* `outer_join(x, y, by = "key")`: keep all observations in `x` and `y`, match keys where possible, `NA` otherwise
+* `full_join(x, y, by = "key")`: keep all observations in `x` and `y`, match keys where possible, `NA` otherwise
 
 
-.footnote[Usually, `left_join()` will suffice!]
+```{r, include = FALSE}
+x <- data.frame(id = c(1,2,3),
+                name = c("Nutmeg", "Pig", "Duke"))
+y <- data.frame(id = c(1, 2, 4), 
+                animal = c("cat", "dog", "bird"))
+```
+
+.pull-left[
+```{r}
+x
+```
+]
+
+.pull-right[
+```{r}
+y
+```
+]
+
+---
+## Inner join 
+
+```{r}
+x
+y
+inner_join(x, y, by = "id")
+```
+
+---
+
+## Left join 
+
+```{r}
+x
+y
+left_join(x, y, by = "id")
+```
+
+---
+
+## Right join 
+
+```{r}
+x
+y
+right_join(x, y, by = "id")
+```
+
+---
+
+## Full join 
+
+```{r}
+x
+y
+full_join(x, y, by = "id")
+```
 
 ---
 
