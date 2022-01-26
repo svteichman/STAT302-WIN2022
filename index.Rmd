@@ -34,8 +34,8 @@ Materials for this course were originally developed by [Bryan Martin](https://br
 
 ### Week Five
 
-* **M 01/31**: Project 1 due before class; Short Lab 3 assigned
-* **W 02/02**: Short Lab 3 due before class; Lab 3 assigned
+* **M 01/31**: Short Lab 3 assigned
+* **W 02/02**: Project 1 and Short Lab 3 due before class; Lab 3 assigned
 
 ### Week Six
 
