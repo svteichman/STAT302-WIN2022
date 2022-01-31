@@ -19,7 +19,7 @@ Make sure to store the text as a variable. Use the `skip` argument to discard th
 
 **1b.** Print the total number of lines.
 
-**1c.** Remove all empty lines, then print the total number of lines.
+**1c.** Remove all empty lines, and save this object to a new variable. Use this variable without empty lines for the rest of this assignment. Print the total number of lines remaining after removing empty lines. 
 
 (*Hint: to remove empty elements from a string vector x, you could use* `x <- x[x != ""]`)
 
@@ -27,11 +27,12 @@ Make sure to store the text as a variable. Use the `skip` argument to discard th
 
 **2a.** Use `str_c()` to collapse the Shakespeare string vector into one large string. (Don't try to print it!)
 
-**2b.** Use `str_split()` to separate your string into words.
+**2b.** Use `str_count()` to find out the number of times Shakespeare uses the word "hello".
 
-(*Hint: you might get a list of length 1 that you have to convert to a vector. You could do this by using something like* `x <- unlist(x)` *or* `x <- x[[1]]`)
 
-**2c.** Use a combination of `table()` and `sort(..., decreasing = TRUE)` argument to get a count of the unique words in Shakespeare's complete works and print out the 10 most common words.
+**2c.** Use `str_split()` to separate your string into words. How many words are in the complete works of William Shakespeare? 
+
+(*Hint: you might get a list of length 1 from* `str_split()` *that you have to convert to a vector. You could do this by using something like* `x <- unlist(x)` *or* `x <- x[[1]]`)
 
 ## Part 3. Factors
 
@@ -40,11 +41,12 @@ Make sure to store the text as a variable. Use the `skip` argument to discard th
 ```{r, message = F, warning = F}
 movies <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-10-23/movie_profit.csv")
 ```
-**3b.** Collapse the `Drama` and `Horror` levels of `genre` into one `Drama_Horror` level.
 
-**3c.** Create a new factor variable in the movies tibble, `audience`, that takes the value `"all ages"` for G and PG movies, `"Teens and adults"` for PG-13 movies, and `"Adults only"` for R movies.
+**3b.** Create a new factor variable in the movies tibble, `audience`, that recodes movie ratings to read `"children"` for G movies, `"all_ages"` for PG movies, `"teens_and_adults"` for PG-13 movies, and `"adults_only"` for R movies.
 
 ## Part 4. Dates
+
+*Note: `lubridate` is not part of the tidyverse, so you will need to install and load it separately.*
 
 **4a.** Convert the `release_date` variable into a column of `Date` objects using an appropriate function.
 

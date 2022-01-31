@@ -14,9 +14,10 @@ knitr::opts_chunk$set(echo = FALSE)
 
 * Lecture 03: Data Visualization and Manipulation [[.html](files/slides/03_datavizmanip.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/slides/03_datavizmanip.Rmd)]
 
-\begin{comment}
 
 * Lecture 04: Strings, Factors, and Dates [[.html](files/slides/04_stringsfactors.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/slides/04_stringsfactors.Rmd)]
+
+\begin{comment}
 
 * Lecture 05: Regression and Inference [[.html](files/slides/05_inference.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/slides/05_inference.Rmd)]
 
