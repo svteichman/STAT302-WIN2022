@@ -1,6 +1,6 @@
 ---
 title: "STAT 302, Lecture Slides 4"
-subtitle: "Regular Expressions and Strings"
+subtitle: "Strings, Factors, and Dates"
 author: "Sarah Teichman (adapted from slides by Bryan Martin and Peter Gao)"
 date: ""
 output:
@@ -554,8 +554,6 @@ fct_recode(f2, x = "a")
 fct_recode(f2, x = "a", y = "b", z = "c", w = "d")
 ```
 
----
-
 
 
 ---
@@ -607,9 +605,6 @@ class: inverse
 
 ---
 
-.middler[<img src="lubridate.png" alt="" height="350"/>]
-
----
 
 ```{r}
 library(lubridate)
