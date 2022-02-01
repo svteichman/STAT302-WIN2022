@@ -1,7 +1,7 @@
 ---
 title: "STAT 302, Lecture Slides 5"
 subtitle: "Statistical Inference"
-author: "Peter Gao (adapted from slides by Bryan Martin)"
+author: "Sarah Teichman (adapted from slides by Bryan Martin and Peter Gao)"
 date: ""
 output:
   xaringan::moon_reader:
@@ -47,8 +47,8 @@ class: inverse
 
 # Statistical modeling
 
-Let's assume we have some data $X_1,\ldots,X_p, Y$ where $X_1,\ldots,X_p$ are $p$ **independent variables/explanatory variables/covariates/predictors** and $Y$ is the **dependent variables/response/outcome**.
-We want to know the relationship between our covariates and our response, we can do this with a method called **regression**.
+Let's assume we have some data $X_1,\ldots,X_p, Y$ where $X_1,\ldots,X_p$ are $p$ **independent variables/explanatory variables/covariates/predictors** and $Y$ is the **dependent variable/response/outcome**.
+We want to quantify the relationship between our covariates and our response.
 Regression provides us with a statistical method to conduct
 
 * **inference:** assess the relationship between our variables, our statistical model as a whole, predictor importance
@@ -148,6 +148,12 @@ $$\large \mathbb{E}[Y|X_1,\ldots, X_p] = \beta_0 + \beta_1 X_1 + \cdots + \beta_
 What happens to this expectation if we increase $X_j$ by 1 unit, holding everything else constant?
 
 --
+$$\large \mathbb{E}[Y|X_1,\ldots, X_j+1,\ldots, X_p] = \beta_0 + \beta_1 X_1 + \cdots + (X_j+1)\beta_j + \cdots + \beta_p X_p$$
+--
+
+$$\large \mathbb{E}[Y|X_1,\ldots, X_j+1,\ldots, X_p]  -  \mathbb{E}[Y|X_1,\ldots, X_j,\ldots, X_p] = \beta_j$$
+
+
 
 The conditional expectation of $Y$ increases by $\beta_j$!
 
@@ -201,7 +207,6 @@ Using this formula will give us a model in the form of
 ```{r, eval = F}
 lm(Y ~ X_1 + X_2 + ... + X_p)
 ```
-.footnote[[1] Strictly speaking, neither the dependent variable nor the independent variables are necessary to create a formula object.]
 
 
 ---
@@ -210,6 +215,7 @@ lm(Y ~ X_1 + X_2 + ... + X_p)
 
 ```{r}
 data(mtcars)
+head(mtcars, 3)
 my_lm <- lm(mpg ~ hp + wt, data = mtcars)
 class(my_lm)
 my_lm
@@ -254,70 +260,55 @@ Remember that we want our error term to look normally distributed with mean zero
 Interpreting these is both a science and an art.
 We won't go into all the details for this class, but here are some tips:
 
-* **Residuals vs Fitted:** these are your errors (residuals) plotted over the predicted outcome (fitted). Errors should be random, so here you want to see randomly scattered points with no discernable pattern. You want the trend line to be approximately horizontal.
-* **Normal Q-Q plot:** These are the quantiles of your errors against the quantiles of a normal distribution. In theory, your errors should be normally distributed, so you are hoping that points are mostly along the 45-degree $y=x$ line.
-
----
-
-* **Scale-location:** This looks at the magnitude of standardized residuals over the predicted outcome. Similar interpretation as residuals vs fitted. This can make it slightly easier to identify undesireable patterns.
-* **Residuals vs leverage:** This can help identify highly influential points, such as outliers. If points are outside dotted red lines, then removing them would noticeably alter your results. *Never just remove outliers!* If it's real data, it's valid and removing it will bias your results. If it's clearly mis-entered data, fine. It is much more important to understand why outliers are there than to remove them.
-
 ---
 
 # <TT>plot():</TT> Regression model diagnostics
 
-```{r, eval = FALSE}
-plot(my_lm)
-```
-
-.center[
-```{r, echo = FALSE}
+**Residuals vs Fitted:** these are your errors (residuals) plotted over the predicted outcome (fitted). Errors should be random, so here you want to see randomly scattered points with no discernable pattern. You want the trend line to be approximately horizontal.
+```{r, echo = FALSE, fig.align = 'center', fig.height = 6.5}
 plot(my_lm, which = 1)
 ```
-]
 
 ---
 
 # <TT>plot():</TT> Regression model diagnostics
 
-```{r, eval = FALSE}
-plot(my_lm)
-```
-
-.center[
-```{r, echo = FALSE}
+**Normal Q-Q plot:** These are the quantiles of your errors against the quantiles of a normal distribution. In theory, your errors should be normally distributed, so you are hoping that points are mostly along the 45-degree $y=x$ line.
+```{r, echo = FALSE, fig.align = 'center', fig.height = 6.5}
 plot(my_lm, which = 2)
+
 ```
-]
 
 ---
 
 # <TT>plot():</TT> Regression model diagnostics
 
-```{r, eval = FALSE}
-plot(my_lm)
-```
-
-.center[
-```{r, echo = FALSE}
+**Scale-location:** This looks at the magnitude of standardized residuals over the predicted outcome. Similar interpretation as residuals vs fitted. This can make it slightly easier to identify undesireable patterns.
+```{r, echo = FALSE, fig.align = 'center', fig.height = 6.5}
 plot(my_lm, which = 3)
+
 ```
-]
+
 ---
 
 # <TT>plot():</TT> Regression model diagnostics
 
-```{r, eval = FALSE}
-plot(my_lm)
-```
-
-.center[
-```{r, echo = FALSE}
+**Residuals vs leverage:** This can help identify highly influential points, such as outliers. If points are outside dotted red lines, then removing them would noticeably alter your results. *Never just remove outliers!* If it's clearly mis-entered data, fine. It is more important to understand why outliers are there than to remove them.
+```{r, echo = FALSE, fig.align = 'center', fig.height = 6}
 plot(my_lm, which = 5)
 ```
-]
 
 --- 
+
+# <TT>coef():</TT> Extract coefficients
+
+Use `coef()` to extract estimated coefficients as a vector.
+
+```{r}
+coef(my_lm)
+```
+
+---
 
 # <TT>coef():</TT> Extract coefficients
 
@@ -332,7 +323,7 @@ coef(my_lm)
 # <TT>fitted():</TT> Extract fitted values
 
 Use `fitted()` to extract the fitted/estimated values for the response. 
-This can be useful to compare how our fitted values compare to the estimated values to help assess model fit.
+It can be useful to compare our fitted values to actual values to help assess model fit.
 
 ```{r, fig.height = 3.5, eval = FALSE}
 mod_fits <- fitted(my_lm)
@@ -342,7 +333,8 @@ ggplot(my_df, aes(x = fitted, y = actual)) +
   geom_abline(slope = 1, intercept = 0, col = "red", lty = 2) + 
   theme_bw(base_size = 15) +
   labs(x = "Fitted values", y = "Actual values", title = "Actual vs. Fitted") +
-  theme(plot.title = element_text(hjust = 0.5))
+  theme(plot.title = element_text(hjust = 0.5)) + 
+  xlim(c(0, 30) + ylim(c(0,35)) 
 ```
 
 
@@ -355,7 +347,8 @@ ggplot(my_df, aes(x = fitted, y = actual)) +
   geom_abline(slope = 1, intercept = 0, col = "red", lty = 2) + 
   theme_bw(base_size = 15) +
   labs(x = "Fitted values", y = "Actual values", title = "Actual vs. Fitted") +
-  theme(plot.title = element_text(hjust = 0.5))
+  theme(plot.title = element_text(hjust = 0.5)) + 
+  xlim(c(0, 30)) + ylim(c(0,35)) 
 ```
 ]
 
@@ -391,24 +384,17 @@ summary(no_intercept)
 
 ---
 
-## `:`
+## `*`
 
-Use `X1:X2` to include an interaction effect in your model. This is useful if you have reason to believe two covariates interact, such as gender and education in a wage model.
-In our case, we'll assume horsepower and weight interact in their effect on mpg.
+Use `X1*X2` to include an interaction effect in your model. This is useful if you have reason to believe two covariates interact, such as gender and education in a wage model.
+In our case, we'll assume weight and transmission (0 for automatic, 1 for manual) interact in their effect on mpg.
 
-Typically (always?), you if you include an interaction effect, you also want to include the marginal effects. You can do this automatically using `X1*X2`.
-
----
-
-```{r}
-interact <- lm(mpg ~ hp:wt, data = mtcars)
-summary(interact)
-```
+When you use `X1*X2` you include an interaction effect and marginal effects for each variable `X1` and `X2`. If you ever want to exclude these marginal effects (this will happen rarely!) you can instead use `X1:X2`.
 
 ---
 
 ```{r}
-interact <- lm(mpg ~ hp*wt, data = mtcars)
+interact <- lm(mpg ~ wt*am, data = mtcars)
 summary(interact)
 ```
 
@@ -420,13 +406,13 @@ Use `~ .` to include all non-response variables in the input data as independent
 
 ```{r}
 include_all <- lm(mpg ~ ., data = mtcars)
-summary(include_all)
+summary(include_all)$coefficients
 ```
 
 ---
 layout: false
 
-# Matrix Notation
+# Reminder of Matrix Notation
 
 We can fully write out a linear regression model
 
@@ -455,7 +441,6 @@ This can also be expressed in matrix form:
 * $\beta \in \mathbb{R}^{((k+1)\times 1)}$: a $(k+1)$-dimensional vector of regression parameters
 * $\epsilon \in \mathbb{R}^{n \times 1}$: an n-dimensional vector of the error term
 
-This will be helpful for Lab 3!
 
 ---
 
@@ -465,7 +450,7 @@ How do we choose/estimate $\beta_{(k+1)\times1}$?
 
 Least squares finds the line that minimizes the squared distance between the points and the line, i.e. makes $$\left[y_i - (\beta_0 + \beta_1 x_{i, 1} + \dots + \beta_k x_{i,k})\right]^2$$ as small as possible for all $i = 1, \dots, n$.
 
-The vector $\widehat{\beta}$ that minimizes the sum of the squared distances is ()
+The vector $\widehat{\beta}$ that minimizes the sum of the squared distances is:
 
 $$ \widehat{\beta}=\left(\mathbf{X}^T \mathbf{X} \right)^{-1}\mathbf{X}^T \mathbf{Y}.$$
 
@@ -508,7 +493,7 @@ Suppose we have a coin, and we want to test whether or not it is fair.
 We might flip the coin over and over and record the results, and then measure the proportion of times we got a heads.
 
 We can state this experiment more formally. 
-Let $X_1,...,X_n$ be $n$ random variables corresponding to an indicator of whether a coin flip is heads (i.e. $X_i = 1$ if the $i$<sup>th</sup> flip is heads, $0$ if tails).
+Let $X_1,...,X_n$ be $n$ random variables corresponding to indicators of the results of coin flips (i.e. $X_i = 1$ if the $i$<sup>th</sup> flip is heads, $0$ if tails).
 We don't know the *true* probability that our coin lands on heads, so we may say that $$X_i \stackrel{iid}{\sim} Bin(1, p),$$ with unknown probability parameter $p$.<sup>1</sup>
 
 .footnote[[1] A binomial distribution with $n=1$ is sometimes also denoted $Bernoulli(p)$]
@@ -542,22 +527,20 @@ In general, we can think of
 
 An important note: for the most part, these are broad generalizations, not formal definitions! 
 It is not always the case that the alternative is "interesting" and the null is not. 
-However, we do typically set up our hypothesis tests so that this is the case!
+However, we typically set up our hypothesis tests so that this is the case!
 
 ---
 
 ## The testing
 
-.center[**We always assume that our null hypothesis is true!**]
+.center[**We always start by assuming that our null hypothesis is true!**]
 
 Our question is whether our data provides sufficient evidence to **reject the null** $H_0$.
 
 For example, if we flipped our coin 100 times and observed 99 heads, we probably would reject our null hypothesis that the coin is fair.
-If instead we flipped our coin 100 times and observed 52 heads, we probably would not conclude that we have enough evidence to reject our null hypothesis, and maintain our baseline assumption that the coin is fair.
+If instead we flipped our coin 100 times and observed 52 heads, we probably would not conclude that we have enough evidence to reject our null hypothesis that the coin is fair.
 
 .center[**This style of thinking is key in all of statistics!**]
-
-Where we assume something is true, and then observe whether or not the evidence (data) supports this assumption.
 
 In hypothesis testing, we never, ever, ever examine whether our evidence supports our scientific hypothesis (the alternative)!
 We only examine whether it supports rejecting a baseline assumption (the null).
@@ -574,7 +557,7 @@ layout: false
 * "something about a population": we call this a **parameter**. A parameter is a numerical characteristic describing a population/model.
 
 
-* Example of a model/population: coin flips distributed $Bin(1, p)$
+* Example of a population: coin flips distributed $Bin(1, p)$
 
 * Example of a parameter: the probability of heads $p$
 
@@ -660,9 +643,7 @@ We can use `pbinom()` to calculate the probability of observing a test statistic
 
 ---
 
-Note that `lower.tail = TRUE` is the default, and returns the probability of observing a value *less than or equal to* the value that we input.
-Thus, when `lower.tail = FALSE`, we return the probability of observing a value *strictly greater than* the value that we input. We want the probability of observing a value *greater than or equal to* the value that we input. 
-Thus, we subtract 1 to make sure this value is included in our probability.
+Note that when `lower.tail = FALSE`, we return the probability of observing a value *strictly greater than* the value that we input. We want the probability of observing a value *greater than or equal to* the value that we input. 
 
 ```{r}
 # record test statistic
@@ -784,11 +765,8 @@ We've already defined a p-value, without explicitly naming the term.
 
 **Premise:** If our results are extreme under the assumption of the null hypothesis, then perhaps our assumption is wrong
 
-That's it. Nothing more, nothing less, and every part of the definition is important.
+---
 
----
-layout:false
----
 
 layout: true
 
@@ -798,48 +776,32 @@ layout: true
 
 .middler[## Why we should be cautious about small p-values]
 
----
-
-.middler[## Why we should be cautious about small p-values]
+--
 
 **Type 1 errors** are "false positives".
 
-We commit a type 1 error if we incorrectly reject the null hypothesis when the null hypothesis is actually true.
+We commit a type 1 error if we reject the null hypothesis when the null hypothesis is actually true.
 
 ---
 
 .middler[
-$\LARGE \alpha = P(\text{reject } H_0 | H_0)$
+$\LARGE \alpha = P(\text{reject } H_0 | H_0 \text{ true})$
 
-$\LARGE 1-\alpha = P(\text{don't reject } H_0 | H_0)$
+$\LARGE 1-\alpha = P(\text{don't reject } H_0 | H_0 \text{ true})$
 ]
 
 ---
 
 .middler[
-$\LARGE .05 = P(\text{reject } H_0 | H_0)$
+$\LARGE .05 = P(\text{reject } H_0 | H_0 \text{ true})$
 
-$\LARGE .95 = P(\text{don't reject } H_0 | H_0)$
+$\LARGE .95 = P(\text{don't reject } H_0 | H_0 \text{ true})$
 ]
 
 ---
 
 .center[<img src="images/multipletesting.png" alt="" height="500"/>]
 
----
-layout: false
-
-.middler-nocent[
-* Why we should be cautious about small p-values
-]
-
----
-
-.middler-nocent[
-* Why we should be cautious about small p-values
-
-* Why we should be cautious about large p-values
-]
 
 ---
 layout: true
@@ -855,12 +817,12 @@ layout: true
 
 **Type 2 errors** are "false negatives".
 
-We commit a type 2 error if we incorrectly fail to reject the null hypothesis when the null hypothesis is actually false.
+We commit a type 2 error if we fail to reject the null hypothesis when the null hypothesis is actually false.
 
 ---
 
 .middler[
-$\LARGE P(\text{fail to reject } H_0 | H_0 \text{ is false})$
+$\LARGE P(\text{fail to reject } H_0 | H_0 \text{ false})$
 ]
 
 ---
@@ -868,7 +830,7 @@ $\LARGE P(\text{fail to reject } H_0 | H_0 \text{ is false})$
 Type 2 error also gives us the concept of **power**, the probability of correctly rejecting the null.
 
 .middler[
-$\Large \text{Power} = P(\text{reject } H_0 | H_0 \text{ is false}) = 1 - P(\text{type 2 error})$
+$\Large \text{Power} = P(\text{reject } H_0 | H_0 \text{ false}) = 1 - P(\text{type 2 error})$
 ]
 
 ---
@@ -890,27 +852,6 @@ layout: false
 
 .middler[
 <img src="images/errortable.png" alt="" height="500"/>
-]
-
----
-layout: true
-# Hypothesis Testing
----
-
-.middler-nocent[
-* Why we should be cautious about small p-values
-
-* Why we should be cautious about large p-values
-]
-
----
-
-.middler-nocent[
-* Why we should be cautious about small p-values
-
-* Why we should be cautious about large p-values
-
-* Why we should be cautious about medium p-values
 ]
 
 ---
@@ -1192,7 +1133,7 @@ A **sample space**, commonly denoted $\Omega$ or $S$, is the set of all possible
 * Hours spent sleeping in day: $\Omega = \{x: x\in \mathbb{R}, 0 \leq x \leq 24\}$
 * A simulation from a normal distribution: $\Omega = (-\infty, \infty)$
 
-The elements of $\Omega$ must be **mutually exclusive** and **collectively exhaustive**.
+The elements of $\Omega$ must be **mutually exclusive** (no overlap) and **collectively exhaustive** (cover all potential options).
 
 ---
 
