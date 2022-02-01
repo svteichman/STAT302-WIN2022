@@ -21,11 +21,18 @@ class: center, title-slide
 
 
 
+# Today's pet picture 
 
+
+&lt;img src="../../files/images/pets/huating_cat.jpg" width="700px" style="display: block; margin: auto;" /&gt;
+
+Thanks Huating! 
+
+---
 # Outline
 
-1. Linear Models
-2. Hypothesis Testing
+1. Hypothesis Testing
+2. Linear Models
 
 
 #### Appendices: 
@@ -37,569 +44,10 @@ class: center, title-slide
 
 .middler[**Goal:** Understand and learn how to apply statistical tests and models with real data!]
 
-
 ---
 class: inverse
 
-.sectionhead[Part 1. Linear Models]
-
----
-
-# Statistical modeling
-
-Let's assume we have some data `\(X_1,\ldots,X_p, Y\)` where `\(X_1,\ldots,X_p\)` are `\(p\)` **independent variables/explanatory variables/covariates/predictors** and `\(Y\)` is the **dependent variable/response/outcome**.
-We want to quantify the relationship between our covariates and our response.
-Regression provides us with a statistical method to conduct
-
-* **inference:** assess the relationship between our variables, our statistical model as a whole, predictor importance
-  * What is the relationship between sleep and GPA?
-  * Is parents' education or parents' income more important for explaining income?
-* **prediction:** predict new/future outcomes from new/future covariates
-  * Can we predict test scores based on hours spent studying?
-
----
-# Intermission: History of "Regression"
-
-.middler[The history of the term "regression", like that of the field of statistics, is closely tied to the eugenics movement.]
-
----
-
-layout: false
-
-# Linear Regression
-
-Given our response `\(Y\)` and our predictors `\(X_1, \ldots, X_p\)`, a **linear regression model** takes the form:
-
-\\[
-\LARGE
-`\begin{eqnarray}
-&amp;Y &amp;= \beta_0 + \beta_1 X_1 + \cdots + \beta_p X_p + \epsilon,\\
-&amp;\epsilon &amp;\sim N(0,\sigma^2) 
-\end{eqnarray}`
-\\]
-
----
-
-# Matrix Notation
-
-We can fully write out a linear regression model
-
-\\[
-`\begin{equation}
-\begin{bmatrix} y_1 \\ y_2\\ \vdots \\ y_n \end{bmatrix} = 
-\begin{bmatrix} 1 &amp; x_{1,1} &amp; \cdots &amp; x_{1,k}\\
-1 &amp; x_{2,1} &amp; \cdots &amp; x_{2, k}\\
-\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
-1 &amp; x_{n,1} &amp; \cdots &amp; x_{n, k}\end{bmatrix}
-\begin{bmatrix} \beta_0 \\ \beta_1 \\ \vdots \\ \beta_{k} \end{bmatrix} +
-\begin{bmatrix} \epsilon_1 \\ \epsilon_2 \\ \vdots \\ \epsilon_{n} \end{bmatrix}
-\end{equation}`
-\\]
-
-This can also be expressed in matrix form:
-
-\\[
-`\begin{align}
-\mathbf{Y} &amp;= \mathbf{X}\beta + \epsilon,\\
-\epsilon&amp;\sim N(0,1)
-\end{align}`
-\\]
-* `\(\mathbf{Y} \in \mathbb{R}^{n \times 1}\)`: an n-dimensional vector of the response
-* `\(\mathbf{X} \in \mathbb{R}^{n \times (k+1)}\)`: a `\(((k+1)\times n)\)` matrix of the predictors (including intercept)
-* `\(\beta \in \mathbb{R}^{((k+1)\times 1)}\)`: a `\((k+1)\)`-dimensional vector of regression parameters
-* `\(\epsilon \in \mathbb{R}^{n \times 1}\)`: an n-dimensional vector of the error term
-
-This will be helpful for Lab 3!
-
-
-
----
-
-# `\(\large \epsilon\)`: Error term
-
-`\(\epsilon\)`, pronounced epsilon, represents the **error term** of our model.
-We can model `\(Y\)` as a linear function of the `\(X\)`'s, but in the real world, the relationship won't always be perfect. There is noise! It can come from
-
-* Measurement error in the `\(X\)`'s
-* Measurement error in the `\(Y\)`'s
-* Unobserved/missing variables in the model
-* Deviations in the true model from linearity
-* True randomness
-
-In linear regression, we assume that this error term is normally distributed with mean zero and variance `\(\sigma^2\)`.
-
----
-
-# `\(\large \beta_0\)`: Intercept
-
-`\(\beta_0\)` is the **intercept term** of our model. Notice that 
-
-`$$\large \mathbb{E}[Y|X_1 = X_2 = \cdots = X_p = 0] = \beta_0$$`
-
-Thus, `\(\beta_0\)` is the expected value of our response if all the covariates are equal to `\(0\)`!
-This is also known as the y-intercept of our model.
-
----
-
-# `\(\large X_j\)`: Independent variable
-
-`\(X_j\)` represents the `\(j\)`&lt;sup&gt;th&lt;/sup&gt; independent variable in our model. Notice that 
-`$$\large \mathbb{E}[Y|X_1,\ldots, X_p] = \beta_0 + \beta_1 X_1 + \cdots + \beta_p X_p$$`
-What happens to this expectation if we increase `\(X_j\)` by 1 unit, holding everything else constant?
-
---
-`$$\large \mathbb{E}[Y|X_1,\ldots, X_j+1,\ldots, X_p] = \beta_0 + \beta_1 X_1 + \cdots + (X_j+1)\beta_j + \cdots + \beta_p X_p$$`
---
-
-`$$\large \mathbb{E}[Y|X_1,\ldots, X_j+1,\ldots, X_p]  -  \mathbb{E}[Y|X_1,\ldots, X_j,\ldots, X_p] = \beta_j$$`
-
-
-
-The conditional expectation of `\(Y\)` increases by `\(\beta_j\)`!
-
----
-
-# `\(\large \beta_j\)`: Coefficient
-
-`\(\beta_j\)` represents the `\(j\)`&lt;sup&gt;th&lt;/sup&gt; regression coefficient in our model.
-From the previous slide, we saw that for every 1 unit increase in `\(X_j\)`, holding all other variables constant, the expected value of the response increases by `\(\beta_j\)`.
-From this we can derive an interpretation.
-
-**Interpretation of `\(\beta_j\)`:** the expected difference in the response between two observations differing by one unit in `\(X_j\)`, with all other covariates identical.
-
----
-
-# Linear Regression
-
-
-\\[
-\LARGE
-`\begin{eqnarray}
-&amp;Y &amp;= \beta_0 + \beta_1 X_1 + \cdots + \beta_p X_p + \epsilon,\\
-&amp;\epsilon &amp;\sim N(0,\sigma^2) 
-\end{eqnarray}`
-\\]
-
-
-* `\(Y\)`: dependent variable, outcome, response
-* `\(X_j\)`: independent variable, covariate, predictor
-* `\(\beta_0\)`: Intercept
-* `\(\beta_j\)`: coefficient, the expected difference in the response between two observations differing by one unit in `\(X_j\)`, with all other covariates identical.
-* `\(\epsilon\)`: error, noise, with mean `\(0\)` and variance `\(\sigma^2\)`
-
----
-
-# &lt;TT&gt;lm():&lt;/TT&gt; Linear Model
-
-We fit a linear regression model in R using `lm()`. 
-The first argument is a **formula**, which is a type of R object. 
-Formulas typically take the following form&lt;sup&gt;1&lt;/sup&gt;: `Y ~ X_1 + X_2 + ... + X_p`.
-
-The dependent variable, `Y` goes on the left-hand side of the tilde `~`, which marks the formula. 
-The independent variables are added on the right-hand side.
-Using this formula will give us a model in the form of
-\\[
-`\begin{eqnarray}
-&amp;Y &amp;= \beta_0 + \beta_1 X_1 + \cdots + \beta_p X_p + \epsilon,\\
-&amp;\epsilon &amp;\sim N(0,\sigma^2) 
-\end{eqnarray}`
-\\]
-
-```r
-lm(Y ~ X_1 + X_2 + ... + X_p)
-```
-
-
----
-
-# &lt;TT&gt;lm():&lt;/TT&gt; Linear Model
-
-
-```r
-data(mtcars)
-head(mtcars, 3)
-```
-
-```
-##                mpg cyl disp  hp drat    wt  qsec vs am gear carb
-## Mazda RX4     21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
-## Mazda RX4 Wag 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
-## Datsun 710    22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
-```
-
-```r
-my_lm &lt;- lm(mpg ~ hp + wt, data = mtcars)
-class(my_lm)
-```
-
-```
-## [1] "lm"
-```
-
-```r
-my_lm
-```
-
-```
-## 
-## Call:
-## lm(formula = mpg ~ hp + wt, data = mtcars)
-## 
-## Coefficients:
-## (Intercept)           hp           wt  
-##    37.22727     -0.03177     -3.87783
-```
-
----
-
-# &lt;TT&gt;lm():&lt;/TT&gt; Linear Model
-We can see from `names()` that `lm` objects contain a lot more than they print out by default.
-
-```r
-names(my_lm)
-```
-
-```
-##  [1] "coefficients"  "residuals"     "effects"       "rank"         
-##  [5] "fitted.values" "assign"        "qr"            "df.residual"  
-##  [9] "xlevels"       "call"          "terms"         "model"
-```
-
-
----
-
-# &lt;TT&gt;summary():&lt;/TT&gt; Model summaries
-
-`summary()` gives us a summary of our `lm` object in R.
-
-* The quantiles of the residuals: hopefully, they match a normal distribution!
-* Coefficients, their standard errors, and their individual significances
-* (Adjusted) R-squared value: how much of the overall variability in the response is explained by the model?
-* F-statistic: hypothesis test for the significance of the overall model
-
----
-
-# &lt;TT&gt;summary():&lt;/TT&gt; Model summaries
-
-
-```r
-summary(my_lm)
-```
-
-```
-## 
-## Call:
-## lm(formula = mpg ~ hp + wt, data = mtcars)
-## 
-## Residuals:
-##    Min     1Q Median     3Q    Max 
-## -3.941 -1.600 -0.182  1.050  5.854 
-## 
-## Coefficients:
-##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept) 37.22727    1.59879  23.285  &lt; 2e-16 ***
-## hp          -0.03177    0.00903  -3.519  0.00145 ** 
-## wt          -3.87783    0.63273  -6.129 1.12e-06 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 2.593 on 29 degrees of freedom
-## Multiple R-squared:  0.8268,	Adjusted R-squared:  0.8148 
-## F-statistic: 69.21 on 2 and 29 DF,  p-value: 9.109e-12
-```
-
-
----
-
-# &lt;TT&gt;plot():&lt;/TT&gt; Regression model diagnostics
-
-
-Calling `plot(my_lm)` will return several diagnostic plots.
-Remember that we want our error term to look normally distributed with mean zero.
-Interpreting these is both a science and an art.
-We won't go into all the details for this class, but here are some tips:
-
----
-
-# &lt;TT&gt;plot():&lt;/TT&gt; Regression model diagnostics
-
-**Residuals vs Fitted:** these are your errors (residuals) plotted over the predicted outcome (fitted). Errors should be random, so here you want to see randomly scattered points with no discernable pattern. You want the trend line to be approximately horizontal.
-&lt;img src="05_inference_files/figure-html/unnamed-chunk-5-1.png" style="display: block; margin: auto;" /&gt;
-
----
-
-# &lt;TT&gt;plot():&lt;/TT&gt; Regression model diagnostics
-
-**Normal Q-Q plot:** These are the quantiles of your errors against the quantiles of a normal distribution. In theory, your errors should be normally distributed, so you are hoping that points are mostly along the 45-degree `\(y=x\)` line.
-&lt;img src="05_inference_files/figure-html/unnamed-chunk-6-1.png" style="display: block; margin: auto;" /&gt;
-
----
-
-# &lt;TT&gt;plot():&lt;/TT&gt; Regression model diagnostics
-
-**Scale-location:** This looks at the magnitude of standardized residuals over the predicted outcome. Similar interpretation as residuals vs fitted. This can make it slightly easier to identify undesireable patterns.
-&lt;img src="05_inference_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
-
----
-
-# &lt;TT&gt;plot():&lt;/TT&gt; Regression model diagnostics
-
-**Residuals vs leverage:** This can help identify highly influential points, such as outliers. If points are outside dotted red lines, then removing them would noticeably alter your results. *Never just remove outliers!* If it's clearly mis-entered data, fine. It is more important to understand why outliers are there than to remove them.
-&lt;img src="05_inference_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
-
---- 
-
-# &lt;TT&gt;coef():&lt;/TT&gt; Extract coefficients
-
-Use `coef()` to extract estimated coefficients as a vector.
-
-
-```r
-coef(my_lm)
-```
-
-```
-## (Intercept)          hp          wt 
-## 37.22727012 -0.03177295 -3.87783074
-```
-
----
-
-# &lt;TT&gt;coef():&lt;/TT&gt; Extract coefficients
-
-Use `coef()` to extract estimated coefficients as a vector.
-
-
-```r
-coef(my_lm)
-```
-
-```
-## (Intercept)          hp          wt 
-## 37.22727012 -0.03177295 -3.87783074
-```
-
----
-
-# &lt;TT&gt;fitted():&lt;/TT&gt; Extract fitted values
-
-Use `fitted()` to extract the fitted/estimated values for the response. 
-It can be useful to compare our fitted values to actual values to help assess model fit.
-
-
-```r
-mod_fits &lt;- fitted(my_lm)
-my_df &lt;- data.frame(actual = mtcars$mpg, fitted = mod_fits)
-ggplot(my_df, aes(x = fitted, y = actual)) +
-  geom_point() +
-  geom_abline(slope = 1, intercept = 0, col = "red", lty = 2) + 
-  theme_bw(base_size = 15) +
-  labs(x = "Fitted values", y = "Actual values", title = "Actual vs. Fitted") +
-  theme(plot.title = element_text(hjust = 0.5)) + 
-  xlim(c(0, 30) + ylim(c(0,35)) 
-```
-
-
-.center[
-![](05_inference_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
-]
-
----
-
-# &lt;TT&gt;predict():&lt;/TT&gt; Predict new outcomes
-
-Use `predict()` to predict new outcomes given new explanatory variables.
-For example, pretend we observe two new cars with horsepowers of `100` and `150`, respectively, and weights of `3000` and `3500`, respectively.
-
-
-```r
-# Note: wt is in 1000s of lbs!
-new_obs &lt;- data.frame(hp = c(100, 150), wt = c(3, 3.5))
-predict(my_lm, new_obs)
-```
-
-```
-##        1        2 
-## 22.41648 18.88892
-```
-
-We'll come back to prediction in future lectures!
-
----
-layout: true
-
-# Formula Tools
----
-
-## `- 1`
-
-Use `- 1` to remove an intercept from your model. Only do this if you are very sure that what you are doing is appropriate! I don't recommend doing this in practice.
-
-
-```r
-no_intercept &lt;- lm(mpg ~ hp + wt - 1, data = mtcars)
-summary(no_intercept)
-```
-
-```
-## 
-## Call:
-## lm(formula = mpg ~ hp + wt - 1, data = mtcars)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -19.407  -2.382   2.511   7.091  23.885 
-## 
-## Coefficients:
-##    Estimate Std. Error t value Pr(&gt;|t|)   
-## hp -0.03394    0.03940  -0.861   0.3959   
-## wt  6.84045    1.89425   3.611   0.0011 **
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 11.32 on 30 degrees of freedom
-## Multiple R-squared:  0.7264,	Adjusted R-squared:  0.7082 
-## F-statistic: 39.83 on 2 and 30 DF,  p-value: 3.599e-09
-```
-
----
-
-## `*`
-
-Use `X1*X2` to include an interaction effect in your model. This is useful if you have reason to believe two covariates interact, such as gender and education in a wage model.
-In our case, we'll assume weight and transmission (0 for automatic, 1 for manual) interact in their effect on mpg.
-
-When you use `X1*X2` you include an interaction effect and marginal effects for each variable `X1` and `X2`. If you ever want to exclude these marginal effects (this will happen rarely!) you can instead use `X1:X2`.
-
----
-
-
-```r
-interact &lt;- lm(mpg ~ wt*am, data = mtcars)
-summary(interact)
-```
-
-```
-## 
-## Call:
-## lm(formula = mpg ~ wt * am, data = mtcars)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -3.6004 -1.5446 -0.5325  0.9012  6.0909 
-## 
-## Coefficients:
-##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  31.4161     3.0201  10.402 4.00e-11 ***
-## wt           -3.7859     0.7856  -4.819 4.55e-05 ***
-## am           14.8784     4.2640   3.489  0.00162 ** 
-## wt:am        -5.2984     1.4447  -3.667  0.00102 ** 
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 2.591 on 28 degrees of freedom
-## Multiple R-squared:  0.833,	Adjusted R-squared:  0.8151 
-## F-statistic: 46.57 on 3 and 28 DF,  p-value: 5.209e-11
-```
-
----
-
-## `.`
-
-Use `~ .` to include all non-response variables in the input data as independent variables.
-
-
-```r
-include_all &lt;- lm(mpg ~ ., data = mtcars)
-summary(include_all)$coefficients
-```
-
-```
-##                Estimate  Std. Error    t value   Pr(&gt;|t|)
-## (Intercept) 12.30337416 18.71788443  0.6573058 0.51812440
-## cyl         -0.11144048  1.04502336 -0.1066392 0.91608738
-## disp         0.01333524  0.01785750  0.7467585 0.46348865
-## hp          -0.02148212  0.02176858 -0.9868407 0.33495531
-## drat         0.78711097  1.63537307  0.4813036 0.63527790
-## wt          -3.71530393  1.89441430 -1.9611887 0.06325215
-## qsec         0.82104075  0.73084480  1.1234133 0.27394127
-## vs           0.31776281  2.10450861  0.1509915 0.88142347
-## am           2.52022689  2.05665055  1.2254035 0.23398971
-## gear         0.65541302  1.49325996  0.4389142 0.66520643
-## carb        -0.19941925  0.82875250 -0.2406258 0.81217871
-```
-
----
-layout: false
-
-# Reminder of Matrix Notation
-
-We can fully write out a linear regression model
-
-\\[
-`\begin{equation}
-\begin{bmatrix} y_1 \\ y_2\\ \vdots \\ y_n \end{bmatrix} = 
-\begin{bmatrix} 1 &amp; x_{1,1} &amp; \cdots &amp; x_{1,k}\\
-1 &amp; x_{2,1} &amp; \cdots &amp; x_{2, k}\\
-\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
-1 &amp; x_{n,1} &amp; \cdots &amp; x_{n, k}\end{bmatrix}
-\begin{bmatrix} \beta_0 \\ \beta_1 \\ \vdots \\ \beta_{k} \end{bmatrix} +
-\begin{bmatrix} \epsilon_1 \\ \epsilon_2 \\ \vdots \\ \epsilon_{n} \end{bmatrix}
-\end{equation}`
-\\]
-
-This can also be expressed in matrix form:
-
-\\[
-`\begin{align}
-\mathbf{Y} &amp;= \mathbf{X}\beta + \epsilon,\\
-\epsilon&amp;\sim N(0,1)
-\end{align}`
-\\]
-* `\(\mathbf{Y} \in \mathbb{R}^{n \times 1}\)`: an n-dimensional vector of the response
-* `\(\mathbf{X} \in \mathbb{R}^{n \times (k+1)}\)`: a `\(((k+1)\times n)\)` matrix of the predictors (including intercept)
-* `\(\beta \in \mathbb{R}^{((k+1)\times 1)}\)`: a `\((k+1)\)`-dimensional vector of regression parameters
-* `\(\epsilon \in \mathbb{R}^{n \times 1}\)`: an n-dimensional vector of the error term
-
-
----
-
-# Least squares
-
-How do we choose/estimate `\(\beta_{(k+1)\times1}\)`?
-
-Least squares finds the line that minimizes the squared distance between the points and the line, i.e. makes `$$\left[y_i - (\beta_0 + \beta_1 x_{i, 1} + \dots + \beta_k x_{i,k})\right]^2$$` as small as possible for all `\(i = 1, \dots, n\)`.
-
-The vector `\(\widehat{\beta}\)` that minimizes the sum of the squared distances is:
-
-$$ \widehat{\beta}=\left(\mathbf{X}^T \mathbf{X} \right)^{-1}\mathbf{X}^T \mathbf{Y}.$$
-
-Note: In statistics, once we have estimated a parameter we put a "hat" on it, e.g. `\(\widehat{\beta_0}\)` is the estimate of the true parameter `\(\beta_0\)`.
-
----
-
-# Least squares in R
-
-For lab 3, you will need to take a `formula` and an input data frame `data` and perform linear regression.
-
-Your function should return a `table` similar to the coefficent table from `summary()` with rows for each coefficient (including the `(Intercept)`!) and columns for the `Estimate`, `Std. Error`, `t value`, and `Pr(&gt;|t|)`. There should be row and column names.
-
-
-```r
-my_lm &lt;- function(formula, data) {
-  # YOUR CODE HERE
-}
-```
-
-Tips:
-1. Start by writing pseudo-code. What are the steps you need to achieve?
-2. Remember the formula `\(\widehat{\beta}=\left(\mathbf{X}^T \mathbf{X} \right)^{-1}\mathbf{X}^T \mathbf{Y}\)`. How will you extract `\(\mathbf{Y}\)` and `\(\mathbf{X}\)` from your data frame? The functions `model.frame()` and `model.response()` will be helpful.
-
-
----
-class: inverse
-
-.sectionhead[Part 2. Hypothesis Testing]
+.sectionhead[Part 1. Hypothesis Testing]
 
 ---
 layout: true
@@ -1081,7 +529,7 @@ This means that, *under the null hypothesis*, our test statistic is distributed 
 What does the pdf of this distribution look like?
 
 .center[
-![](05_inference_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
+![](05_inference_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -1091,7 +539,7 @@ What does the pdf of this distribution look like?
 What if we calculate a test statistic `\(T=1.64\)`?
 
 .center[
-![](05_inference_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
+![](05_inference_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -1106,7 +554,7 @@ H_a: \theta &amp;&gt; \theta_0
 Then our p-value looks like
 
 .center[
-![](05_inference_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
+![](05_inference_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -1121,7 +569,7 @@ H_a: \theta &amp;\neq \theta_0
 Then our p-value looks like
 
 .center[
-![](05_inference_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
+![](05_inference_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -1145,7 +593,7 @@ This is because as our sample size increases, the difference between a t-test an
 In practice, we often have sample sizes large enough where there difference is marginal, and normal distributions are nicer to work with than t-distributions.
 
 .center[
-![](05_inference_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
+![](05_inference_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -1251,6 +699,564 @@ t.test(x, mu = 0)
 ## mean of x 
 ## 0.3492983
 ```
+
+
+---
+class: inverse
+
+.sectionhead[Part 2. Linear Models]
+
+---
+
+# Statistical modeling
+
+Let's assume we have some data `\(X_1,\ldots,X_p, Y\)` where `\(X_1,\ldots,X_p\)` are `\(p\)` **independent variables/explanatory variables/covariates/predictors** and `\(Y\)` is the **dependent variable/response/outcome**.
+We want to quantify the relationship between our covariates and our response.
+Regression provides us with a statistical method to conduct
+
+* **inference:** assess the relationship between our variables, our statistical model as a whole, predictor importance
+  * What is the relationship between sleep and GPA?
+  * Is parents' education or parents' income more important for explaining income?
+* **prediction:** predict new/future outcomes from new/future covariates
+  * Can we predict test scores based on hours spent studying?
+
+---
+# Intermission: History of "Regression"
+
+.middler[The history of the term "regression", like that of the field of statistics, is closely tied to the eugenics movement.]
+
+---
+
+layout: false
+
+# Linear Regression
+
+Given our response `\(Y\)` and our predictors `\(X_1, \ldots, X_p\)`, a **linear regression model** takes the form:
+
+\\[
+\LARGE
+`\begin{eqnarray}
+&amp;Y &amp;= \beta_0 + \beta_1 X_1 + \cdots + \beta_p X_p + \epsilon,\\
+&amp;\epsilon &amp;\sim N(0,\sigma^2) 
+\end{eqnarray}`
+\\]
+
+---
+
+# Matrix Notation
+
+We can fully write out a linear regression model
+
+\\[
+`\begin{equation}
+\begin{bmatrix} y_1 \\ y_2\\ \vdots \\ y_n \end{bmatrix} = 
+\begin{bmatrix} 1 &amp; x_{1,1} &amp; \cdots &amp; x_{1,k}\\
+1 &amp; x_{2,1} &amp; \cdots &amp; x_{2, k}\\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+1 &amp; x_{n,1} &amp; \cdots &amp; x_{n, k}\end{bmatrix}
+\begin{bmatrix} \beta_0 \\ \beta_1 \\ \vdots \\ \beta_{k} \end{bmatrix} +
+\begin{bmatrix} \epsilon_1 \\ \epsilon_2 \\ \vdots \\ \epsilon_{n} \end{bmatrix}
+\end{equation}`
+\\]
+
+This can also be expressed in matrix form:
+
+\\[
+`\begin{align}
+\mathbf{Y} &amp;= \mathbf{X}\beta + \epsilon,\\
+\epsilon&amp;\sim N(0,1)
+\end{align}`
+\\]
+* `\(\mathbf{Y} \in \mathbb{R}^{n \times 1}\)`: an n-dimensional vector of the response
+* `\(\mathbf{X} \in \mathbb{R}^{n \times (k+1)}\)`: a `\(((k+1)\times n)\)` matrix of the predictors (including intercept)
+* `\(\beta \in \mathbb{R}^{((k+1)\times 1)}\)`: a `\((k+1)\)`-dimensional vector of regression parameters
+* `\(\epsilon \in \mathbb{R}^{n \times 1}\)`: an n-dimensional vector of the error term
+
+This will be helpful for Lab 3!
+
+
+
+---
+
+# `\(\large \epsilon\)`: Error term
+
+`\(\epsilon\)`, pronounced epsilon, represents the **error term** of our model.
+We can model `\(Y\)` as a linear function of the `\(X\)`'s, but in the real world, the relationship won't always be perfect. There is noise! It can come from
+
+* Measurement error in the `\(X\)`'s
+* Measurement error in the `\(Y\)`'s
+* Unobserved/missing variables in the model
+* Deviations in the true model from linearity
+* True randomness
+
+In linear regression, we assume that this error term is normally distributed with mean zero and variance `\(\sigma^2\)`.
+
+---
+
+# `\(\large \beta_0\)`: Intercept
+
+`\(\beta_0\)` is the **intercept term** of our model. Notice that 
+
+`$$\large \mathbb{E}[Y|X_1 = X_2 = \cdots = X_p = 0] = \beta_0$$`
+
+Thus, `\(\beta_0\)` is the expected value of our response if all the covariates are equal to `\(0\)`!
+This is also known as the y-intercept of our model.
+
+---
+
+# `\(\large X_j\)`: Independent variable
+
+`\(X_j\)` represents the `\(j\)`&lt;sup&gt;th&lt;/sup&gt; independent variable in our model. Notice that 
+`$$\large \mathbb{E}[Y|X_1,\ldots, X_p] = \beta_0 + \beta_1 X_1 + \cdots + \beta_p X_p$$`
+What happens to this expectation if we increase `\(X_j\)` by 1 unit, holding everything else constant?
+
+--
+`$$\large \mathbb{E}[Y|X_1,\ldots, X_j+1,\ldots, X_p] = \beta_0 + \beta_1 X_1 + \cdots + (X_j+1)\beta_j + \cdots + \beta_p X_p$$`
+--
+
+`$$\large \mathbb{E}[Y|X_1,\ldots, X_j+1,\ldots, X_p]  -  \mathbb{E}[Y|X_1,\ldots, X_j,\ldots, X_p] = \beta_j$$`
+
+
+
+The conditional expectation of `\(Y\)` increases by `\(\beta_j\)`!
+
+---
+
+# `\(\large \beta_j\)`: Coefficient
+
+`\(\beta_j\)` represents the `\(j\)`&lt;sup&gt;th&lt;/sup&gt; regression coefficient in our model.
+From the previous slide, we saw that for every 1 unit increase in `\(X_j\)`, holding all other variables constant, the expected value of the response increases by `\(\beta_j\)`.
+From this we can derive an interpretation.
+
+**Interpretation of `\(\beta_j\)`:** the expected difference in the response between two observations differing by one unit in `\(X_j\)`, with all other covariates identical.
+
+---
+
+# Linear Regression
+
+
+\\[
+\LARGE
+`\begin{eqnarray}
+&amp;Y &amp;= \beta_0 + \beta_1 X_1 + \cdots + \beta_p X_p + \epsilon,\\
+&amp;\epsilon &amp;\sim N(0,\sigma^2) 
+\end{eqnarray}`
+\\]
+
+
+* `\(Y\)`: dependent variable, outcome, response
+* `\(X_j\)`: independent variable, covariate, predictor
+* `\(\beta_0\)`: Intercept
+* `\(\beta_j\)`: coefficient, the expected difference in the response between two observations differing by one unit in `\(X_j\)`, with all other covariates identical.
+* `\(\epsilon\)`: error, noise, with mean `\(0\)` and variance `\(\sigma^2\)`
+
+---
+
+# &lt;TT&gt;lm():&lt;/TT&gt; Linear Model
+
+We fit a linear regression model in R using `lm()`. 
+The first argument is a **formula**, which is a type of R object. 
+Formulas typically take the following form&lt;sup&gt;1&lt;/sup&gt;: `Y ~ X_1 + X_2 + ... + X_p`.
+
+The dependent variable, `Y` goes on the left-hand side of the tilde `~`, which marks the formula. 
+The independent variables are added on the right-hand side.
+Using this formula will give us a model in the form of
+\\[
+`\begin{eqnarray}
+&amp;Y &amp;= \beta_0 + \beta_1 X_1 + \cdots + \beta_p X_p + \epsilon,\\
+&amp;\epsilon &amp;\sim N(0,\sigma^2) 
+\end{eqnarray}`
+\\]
+
+```r
+lm(Y ~ X_1 + X_2 + ... + X_p)
+```
+
+
+---
+
+# &lt;TT&gt;lm():&lt;/TT&gt; Linear Model
+
+
+```r
+data(mtcars)
+head(mtcars, 3)
+```
+
+```
+##                mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4     21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+## Datsun 710    22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+```
+
+```r
+my_lm &lt;- lm(mpg ~ hp + wt, data = mtcars)
+class(my_lm)
+```
+
+```
+## [1] "lm"
+```
+
+```r
+my_lm
+```
+
+```
+## 
+## Call:
+## lm(formula = mpg ~ hp + wt, data = mtcars)
+## 
+## Coefficients:
+## (Intercept)           hp           wt  
+##    37.22727     -0.03177     -3.87783
+```
+
+---
+
+# &lt;TT&gt;lm():&lt;/TT&gt; Linear Model
+We can see from `names()` that `lm` objects contain a lot more than they print out by default.
+
+```r
+names(my_lm)
+```
+
+```
+##  [1] "coefficients"  "residuals"     "effects"       "rank"         
+##  [5] "fitted.values" "assign"        "qr"            "df.residual"  
+##  [9] "xlevels"       "call"          "terms"         "model"
+```
+
+
+---
+
+# &lt;TT&gt;summary():&lt;/TT&gt; Model summaries
+
+`summary()` gives us a summary of our `lm` object in R.
+
+* The quantiles of the residuals: hopefully, they match a normal distribution!
+* Coefficients, their standard errors, and their individual significances
+* (Adjusted) R-squared value: how much of the overall variability in the response is explained by the model?
+* F-statistic: hypothesis test for the significance of the overall model
+
+---
+
+# &lt;TT&gt;summary():&lt;/TT&gt; Model summaries
+
+
+```r
+summary(my_lm)
+```
+
+```
+## 
+## Call:
+## lm(formula = mpg ~ hp + wt, data = mtcars)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -3.941 -1.600 -0.182  1.050  5.854 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 37.22727    1.59879  23.285  &lt; 2e-16 ***
+## hp          -0.03177    0.00903  -3.519  0.00145 ** 
+## wt          -3.87783    0.63273  -6.129 1.12e-06 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.593 on 29 degrees of freedom
+## Multiple R-squared:  0.8268,	Adjusted R-squared:  0.8148 
+## F-statistic: 69.21 on 2 and 29 DF,  p-value: 9.109e-12
+```
+
+
+---
+
+# &lt;TT&gt;plot():&lt;/TT&gt; Regression model diagnostics
+
+
+Calling `plot(my_lm)` will return several diagnostic plots.
+Remember that we want our error term to look normally distributed with mean zero.
+Interpreting these is both a science and an art.
+We won't go into all the details for this class, but here are some tips:
+
+---
+
+# &lt;TT&gt;plot():&lt;/TT&gt; Regression model diagnostics
+
+**Residuals vs Fitted:** these are your errors (residuals) plotted over the predicted outcome (fitted). Errors should be random, so here you want to see randomly scattered points with no discernable pattern. You want the trend line to be approximately horizontal.
+&lt;img src="05_inference_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# &lt;TT&gt;plot():&lt;/TT&gt; Regression model diagnostics
+
+**Normal Q-Q plot:** These are the quantiles of your errors against the quantiles of a normal distribution. In theory, your errors should be normally distributed, so you are hoping that points are mostly along the 45-degree `\(y=x\)` line.
+&lt;img src="05_inference_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# &lt;TT&gt;plot():&lt;/TT&gt; Regression model diagnostics
+
+**Scale-location:** This looks at the magnitude of standardized residuals over the predicted outcome. Similar interpretation as residuals vs fitted. This can make it slightly easier to identify undesireable patterns.
+&lt;img src="05_inference_files/figure-html/unnamed-chunk-18-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# &lt;TT&gt;plot():&lt;/TT&gt; Regression model diagnostics
+
+**Residuals vs leverage:** This can help identify highly influential points, such as outliers. If points are outside dotted red lines, then removing them would noticeably alter your results. *Never just remove outliers!* If it's clearly mis-entered data, fine. It is more important to understand why outliers are there than to remove them.
+&lt;img src="05_inference_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;" /&gt;
+
+--- 
+
+# &lt;TT&gt;coef():&lt;/TT&gt; Extract coefficients
+
+Use `coef()` to extract estimated coefficients as a vector.
+
+
+```r
+coef(my_lm)
+```
+
+```
+## (Intercept)          hp          wt 
+## 37.22727012 -0.03177295 -3.87783074
+```
+
+---
+
+# &lt;TT&gt;coef():&lt;/TT&gt; Extract coefficients
+
+Use `coef()` to extract estimated coefficients as a vector.
+
+
+```r
+coef(my_lm)
+```
+
+```
+## (Intercept)          hp          wt 
+## 37.22727012 -0.03177295 -3.87783074
+```
+
+---
+
+# &lt;TT&gt;fitted():&lt;/TT&gt; Extract fitted values
+
+Use `fitted()` to extract the fitted/estimated values for the response. 
+It can be useful to compare our fitted values to actual values to help assess model fit.
+
+
+```r
+mod_fits &lt;- fitted(my_lm)
+my_df &lt;- data.frame(actual = mtcars$mpg, fitted = mod_fits)
+ggplot(my_df, aes(x = fitted, y = actual)) +
+  geom_point() +
+  geom_abline(slope = 1, intercept = 0, col = "red", lty = 2) + 
+  theme_bw(base_size = 15) +
+  labs(x = "Fitted values", y = "Actual values", title = "Actual vs. Fitted") +
+  theme(plot.title = element_text(hjust = 0.5)) + 
+  xlim(c(0, 30) + ylim(c(0,35)) 
+```
+
+
+.center[
+![](05_inference_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
+]
+
+---
+
+# &lt;TT&gt;predict():&lt;/TT&gt; Predict new outcomes
+
+Use `predict()` to predict new outcomes given new explanatory variables.
+For example, pretend we observe two new cars with horsepowers of `100` and `150`, respectively, and weights of `3000` and `3500`, respectively.
+
+
+```r
+# Note: wt is in 1000s of lbs!
+new_obs &lt;- data.frame(hp = c(100, 150), wt = c(3, 3.5))
+predict(my_lm, new_obs)
+```
+
+```
+##        1        2 
+## 22.41648 18.88892
+```
+
+We'll come back to prediction in future lectures!
+
+---
+layout: true
+
+# Formula Tools
+---
+
+## `- 1`
+
+Use `- 1` to remove an intercept from your model. Only do this if you are very sure that what you are doing is appropriate! I don't recommend doing this in practice.
+
+
+```r
+no_intercept &lt;- lm(mpg ~ hp + wt - 1, data = mtcars)
+summary(no_intercept)
+```
+
+```
+## 
+## Call:
+## lm(formula = mpg ~ hp + wt - 1, data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -19.407  -2.382   2.511   7.091  23.885 
+## 
+## Coefficients:
+##    Estimate Std. Error t value Pr(&gt;|t|)   
+## hp -0.03394    0.03940  -0.861   0.3959   
+## wt  6.84045    1.89425   3.611   0.0011 **
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 11.32 on 30 degrees of freedom
+## Multiple R-squared:  0.7264,	Adjusted R-squared:  0.7082 
+## F-statistic: 39.83 on 2 and 30 DF,  p-value: 3.599e-09
+```
+
+---
+
+## `*`
+
+Use `X1*X2` to include an interaction effect in your model. This is useful if you have reason to believe two covariates interact, such as gender and education in a wage model.
+In our case, we'll assume weight and transmission (0 for automatic, 1 for manual) interact in their effect on mpg.
+
+When you use `X1*X2` you include an interaction effect and marginal effects for each variable `X1` and `X2`. If you ever want to exclude these marginal effects (this will happen rarely!) you can instead use `X1:X2`.
+
+---
+
+
+```r
+interact &lt;- lm(mpg ~ wt*am, data = mtcars)
+summary(interact)
+```
+
+```
+## 
+## Call:
+## lm(formula = mpg ~ wt * am, data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.6004 -1.5446 -0.5325  0.9012  6.0909 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  31.4161     3.0201  10.402 4.00e-11 ***
+## wt           -3.7859     0.7856  -4.819 4.55e-05 ***
+## am           14.8784     4.2640   3.489  0.00162 ** 
+## wt:am        -5.2984     1.4447  -3.667  0.00102 ** 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.591 on 28 degrees of freedom
+## Multiple R-squared:  0.833,	Adjusted R-squared:  0.8151 
+## F-statistic: 46.57 on 3 and 28 DF,  p-value: 5.209e-11
+```
+
+---
+
+## `.`
+
+Use `~ .` to include all non-response variables in the input data as independent variables.
+
+
+```r
+include_all &lt;- lm(mpg ~ ., data = mtcars)
+summary(include_all)$coefficients
+```
+
+```
+##                Estimate  Std. Error    t value   Pr(&gt;|t|)
+## (Intercept) 12.30337416 18.71788443  0.6573058 0.51812440
+## cyl         -0.11144048  1.04502336 -0.1066392 0.91608738
+## disp         0.01333524  0.01785750  0.7467585 0.46348865
+## hp          -0.02148212  0.02176858 -0.9868407 0.33495531
+## drat         0.78711097  1.63537307  0.4813036 0.63527790
+## wt          -3.71530393  1.89441430 -1.9611887 0.06325215
+## qsec         0.82104075  0.73084480  1.1234133 0.27394127
+## vs           0.31776281  2.10450861  0.1509915 0.88142347
+## am           2.52022689  2.05665055  1.2254035 0.23398971
+## gear         0.65541302  1.49325996  0.4389142 0.66520643
+## carb        -0.19941925  0.82875250 -0.2406258 0.81217871
+```
+
+---
+layout: false
+
+# Reminder of Matrix Notation
+
+We can fully write out a linear regression model
+
+\\[
+`\begin{equation}
+\begin{bmatrix} y_1 \\ y_2\\ \vdots \\ y_n \end{bmatrix} = 
+\begin{bmatrix} 1 &amp; x_{1,1} &amp; \cdots &amp; x_{1,k}\\
+1 &amp; x_{2,1} &amp; \cdots &amp; x_{2, k}\\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+1 &amp; x_{n,1} &amp; \cdots &amp; x_{n, k}\end{bmatrix}
+\begin{bmatrix} \beta_0 \\ \beta_1 \\ \vdots \\ \beta_{k} \end{bmatrix} +
+\begin{bmatrix} \epsilon_1 \\ \epsilon_2 \\ \vdots \\ \epsilon_{n} \end{bmatrix}
+\end{equation}`
+\\]
+
+This can also be expressed in matrix form:
+
+\\[
+`\begin{align}
+\mathbf{Y} &amp;= \mathbf{X}\beta + \epsilon,\\
+\epsilon&amp;\sim N(0,1)
+\end{align}`
+\\]
+* `\(\mathbf{Y} \in \mathbb{R}^{n \times 1}\)`: an n-dimensional vector of the response
+* `\(\mathbf{X} \in \mathbb{R}^{n \times (k+1)}\)`: a `\(((k+1)\times n)\)` matrix of the predictors (including intercept)
+* `\(\beta \in \mathbb{R}^{((k+1)\times 1)}\)`: a `\((k+1)\)`-dimensional vector of regression parameters
+* `\(\epsilon \in \mathbb{R}^{n \times 1}\)`: an n-dimensional vector of the error term
+
+
+---
+
+# Least squares
+
+How do we choose/estimate `\(\beta_{(k+1)\times1}\)`?
+
+Least squares finds the line that minimizes the squared distance between the points and the line, i.e. makes `$$\left[y_i - (\beta_0 + \beta_1 x_{i, 1} + \dots + \beta_k x_{i,k})\right]^2$$` as small as possible for all `\(i = 1, \dots, n\)`.
+
+The vector `\(\widehat{\beta}\)` that minimizes the sum of the squared distances is:
+
+$$ \widehat{\beta}=\left(\mathbf{X}^T \mathbf{X} \right)^{-1}\mathbf{X}^T \mathbf{Y}.$$
+
+Note: In statistics, once we have estimated a parameter we put a "hat" on it, e.g. `\(\widehat{\beta_0}\)` is the estimate of the true parameter `\(\beta_0\)`.
+
+---
+
+# Least squares in R
+
+For lab 3, you will need to take a `formula` and an input data frame `data` and perform linear regression.
+
+Your function should return a `table` similar to the coefficent table from `summary()` with rows for each coefficient (including the `(Intercept)`!) and columns for the `Estimate`, `Std. Error`, `t value`, and `Pr(&gt;|t|)`. There should be row and column names.
+
+
+```r
+my_lm &lt;- function(formula, data) {
+  # YOUR CODE HERE
+}
+```
+
+Tips:
+1. Start by writing pseudo-code. What are the steps you need to achieve?
+2. Remember the formula `\(\widehat{\beta}=\left(\mathbf{X}^T \mathbf{X} \right)^{-1}\mathbf{X}^T \mathbf{Y}\)`. How will you extract `\(\mathbf{Y}\)` and `\(\mathbf{X}\)` from your data frame? The functions `model.frame()` and `model.response()` will be helpful.
 
 
 ---
