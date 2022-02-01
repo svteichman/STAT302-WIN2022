@@ -21,8 +21,8 @@
       "title": "Labs",
       "description": "",
       "author": [],
-      "contents": "\nLab 1: Working with vectors and matrices [.html] [.Rmd]\nLab 2: Functions, lists, and data [.html] [.Rmd]\n\n\n\n\n",
-      "last_modified": "2022-01-19T10:26:51-08:00"
+      "contents": "\nLab 1: Working with vectors and matrices [.html] [.Rmd]\nLab 2: Functions, lists, and data [.html] [.Rmd]\nLab 3: t-tests and linear models [.html] [.Rmd]\n\n\n\n\n",
+      "last_modified": "2022-02-01T11:59:39-08:00"
     },
     {
       "path": "projects.html",
@@ -44,8 +44,8 @@
       "path": "slides.html",
       "title": "Lecture Slides",
       "author": [],
-      "contents": "\nLecture 00: Course Overview [.html] [.Rmd]\nLecture 01: Introduction to R [.html] [.Rmd]\nLecture 02: R Fundamentals [.html] [.Rmd]\nLecture 03: Data Visualization and Manipulation [.html] [.Rmd]\nLecture 04: Strings, Factors, and Dates [.html] [.Rmd]\n\n\n\n",
-      "last_modified": "2022-01-30T17:18:12-08:00"
+      "contents": "\nLecture 00: Course Overview [.html] [.Rmd]\nLecture 01: Introduction to R [.html] [.Rmd]\nLecture 02: R Fundamentals [.html] [.Rmd]\nLecture 03: Data Visualization and Manipulation [.html] [.Rmd]\nLecture 04: Strings, Factors, and Dates [.html] [.Rmd]\nLecture 05: Regression and Inference [.html] [.Rmd]\n\n\n\n",
+      "last_modified": "2022-02-01T11:59:51-08:00"
     },
     {
       "path": "syllabus.html",
