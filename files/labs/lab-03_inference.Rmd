@@ -1,6 +1,6 @@
 ---
 title: "Lab 3"
-author: "STAT 302"
+author: ""
 date: "Due Date Here"
 output: html_document
 ---
@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Part 1. t-test (10 points)
 
-Write a function `my_t.test()` that performs a one sample t-test in R. Your code should not use the `t.test` function in it.
+Write a function `my_t.test()` that performs a one sample t-test in R. Your code should not use the `t.test` function in it. Don't forget to follow the function style guide!
 
 Your function should have the following parameters:
 
@@ -54,7 +54,8 @@ Your function should have the following parameters:
 * `formula`: a `formula` class object, similar to `lm()`.
 * `data`: input data frame.
 
-Your function should return a `table` similar to the coefficent table from `summary()` with rows for each coefficient (including the `(Intercept)`!) and columns for the `Estimate`, `Std. Error`, `t value`, and `Pr(>|t|)`. There should be row and column names.
+Your function should return a `table` similar to the coefficent table from `summary()` with rows for each coefficient (including the `(Intercept)`!) and columns for the `Estimate`, `Std. Error`, `t value`, and `p value`. There should be row and column names.
+*Hint: I made my table by starting with a dataframe and formatting it with the `kable()` function from the `knitr` package.*
 
 You may find the following information helpful:
 
@@ -69,7 +70,7 @@ $$
 * The degrees of freedom (df) you should use for your tests are equal to your sample size minus the number of covariates (including intercept!).
 * You can estimate $\sigma^2$ using the formula
 $$
-\hat{\sigma}^2 = \sum_i \dfrac{(Y_i - \mathbf{X}_i \beta)^2}{\text{df}}.
+\hat{\sigma}^2 = \sum_i \dfrac{(Y_i - \mathbf{X}_i \hat{\beta})^2}{\text{df}}.
 $$
 * You can estimate the standard error for your coefficients using the formula
 $$
@@ -94,6 +95,6 @@ To prove it works, Use the code below to read in data from a survey of 55 Duke U
 grades_data <- read.csv("https://www.openintro.org/data/csv/gpa.csv")
 ```
 
-Use this data to regress `gpa` upon `studyweek` using both `my_lm()` and `lm()`. The results of `my_lm()` should match the coefficient table from the `summary` of your `lm()` output.
+Use this data to regress `gpa` (dependent variable) upon `studyweek` (independent variable) using both `my_lm()` and `lm()`. The results of `my_lm()` should match the coefficient table from the `summary` of your `lm()` output. (Don't worry if the p-value is different. While the `lm()` function will print p-values using scientific notation, the result from `pt()` will simply be $0$ if the output is very very small. This is fine for very small values!)
 
 
