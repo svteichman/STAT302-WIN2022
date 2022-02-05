@@ -48,9 +48,9 @@ Now you'll be using your `my_pca()` function to explore the environmental perfor
 
 You'll be using these two datasets: 
 
-* Dataset 1: [environmental indicators for PCA](https://raw.githubusercontent.com/svteichman/STAT302-WIN2021/main/files/projects/02_dimension_reduction/pca_data.csv)
+* Dataset 1: [environmental indicators for PCA](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/projects/02_dimension_reduction/pca_data.csv)
 
-* Dataset 2: [environmental indicator summaries and other country data](https://raw.githubusercontent.com/svteichman/STAT302-WIN2021/main/files/projects/02_dimension_reduction/other_data.csv)
+* Dataset 2: [environmental indicator summaries and other country data](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/projects/02_dimension_reduction/other_data.csv)
 
 This data contains information about $32$ different environmental indicators for $180$ countries. These indicators are in the table below in the "Indicator" column.
 
