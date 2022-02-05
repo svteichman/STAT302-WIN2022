@@ -1,0 +1,67 @@
+---
+title: "Project 2: Dimension Reduction"
+author: "INSERT YOUR NAME(S) HERE"
+date: ""
+output: html_document
+---
+
+## Instructions
+
+For this project, you will be writing your own function to perform PCA, and then exploring a dataset of environmental indicators using PCA. Like Project 1, the exploration part of this project is intentionally open-ended! 
+
+You will produce a report with two distinct parts. In part 1 (worth 15 points), you'll implement your own function to perform PCA and will simulate data to show that your function and the built-in function in R, `prcomp()`, return the same results on the simulated data. In part 2 (worth 15 points), you will analyze data from the [Environmental Performance Index](https://epi.yale.edu/), which ranks 180 countries on 32 variables that describe environmental health and ecosystem vitality. 
+
+You have the option to work with a partner for this project and submit a group report. 
+If you do so, you must both submit the same .Rmd, .html, and .Rproj files on Canvas with both of your names at the top of the .html.
+
+### Part 1 
+
+Part 1 of your report can contain both text and code. 
+
+Write a function `run_pca()` that will run PCA on a data matrix. Note that R has multiple functions that run PCA, including `prcomp()` and `princomp()`, these will not be accepted for part I. Don't forget to follow the function style guide!
+
+Your function should have the following parameters:
+
+* `x` a matrix (or dataframe) to perform PCA on. 
+* `scale` a logical value, if TRUE then run PCA on the cenetered and scaled version of the x dataframe (this is equivalent to doing PCA on the correlation matrix), if FALSE then run PCA on the non-scaled version of the dataframe (this is equivalent to doing PCA on the covariance matrix).
+
+Your function should return a `list` with elements:
+
+* `x_pca` a matrix with the same dimensions as the `x` matrix that contains the principal components
+* `loading_mat` a matrix of variable loadings
+* `pc_sd` a vector of standard deviations of the principal components 
+
+You may find the following information helpful:
+
+* If you'd like to scale your data, for each variable subtract the variable mean from every element in the column and divide by the variable standard deviation. 
+* Use the function `cov()` to get the covariance matrix of a data matrix.
+* Use the function `eigen()` to perform the eigendecomposition of a square symmetric matrix. 
+* Use `%*%` to multiply matrices together. 
+
+To understand how to put these all together to perform PCA, take a look at the class lecture slides. If you're having trouble getting started, I'd recommend writing out in words each step before translating it to code! 
+
+To prove that your function works, simulate a matrix with $4$ rows and $3$ columns full of random data using the `rnorm()` function. Run both `my_pca()` and `prcomp()` on your simulated data. Print out the principal components from each function, loadings from each function, and standard deviations of the principal components from each function. 
+
+### Part 2 
+
+Now you'll be using your `my_pca()` function to explore the environmental performance index data. Like in Project 1, this part of your report should only have text and plots in the main body, and should be followed by a code appendix to show any code that you used for part 2. 
+
+You'll be using these two datasets: 
+
+* Dataset 1: [environmental indicators for PCA](https://raw.githubusercontent.com/svteichman/STAT302-WIN2021/main/files/projects/02_dimension_reduction/pca_data.csv)
+
+* Dataset 2: [environmental indicator summaries and other country data](https://raw.githubusercontent.com/svteichman/STAT302-WIN2021/main/files/projects/02_dimension_reduction/other_data.csv)
+
+This data contains information about $32$ different environmental indicators for $180$ countries. These indicators are in the table below in the "Indicator" column.
+
+![](../../../files/images/epi_info.png)
+
+More information can be found at https://epi.yale.edu/downloads/epi2020technicalappendix20200803.pdf. Note, the dataset I gave you does not contain the indicators FSS, RMS, or FGT for fisheries because they had too much missing data. For Part 2 you should do the following:
+
+* Run a PCA using the Dataset 1 (make sure to exclude the country name column when you pass the data into your `my_pca()` function). 
+* Make three plots to explore your data, each that include at least one principal component. Look at the lecture slides for examples! If you want to use variables from Dataset 2 (which I highly suggest!!), you can join the two datasets using the function `left_join()`, since they both have the variable `country`. 
+* Compare the first principal component to the variable `EPI` in the second dataset. This is the measure that the creators of this dataset made to summarise all of the environmental indicators into a single number. Did you expect your first principal component to be similar to this `EPI` measure? Why or why not? Is it? 
+
+This content should be explained in a report for Part 2. Please include an introductory paragraph explaining the dataset and a concluding paragraph explaining what you learned from your exploration. All code should be hidden in the body of Part 2 and included in a code appendix at the end. 
+
+
