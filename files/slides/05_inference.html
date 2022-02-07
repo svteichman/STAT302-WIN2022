@@ -702,6 +702,15 @@ t.test(x, mu = 0)
 
 
 ---
+
+# Today's pet picture 
+
+
+&lt;img src="../../files/images/pets/kuma.jpg" width="400px" style="display: block; margin: auto;" /&gt;
+
+Thanks Christian! 
+
+---
 class: inverse
 
 .sectionhead[Part 2. Linear Models]
@@ -750,11 +759,11 @@ We can fully write out a linear regression model
 \\[
 `\begin{equation}
 \begin{bmatrix} y_1 \\ y_2\\ \vdots \\ y_n \end{bmatrix} = 
-\begin{bmatrix} 1 &amp; x_{1,1} &amp; \cdots &amp; x_{1,k}\\
-1 &amp; x_{2,1} &amp; \cdots &amp; x_{2, k}\\
+\begin{bmatrix} 1 &amp; x_{1,1} &amp; \cdots &amp; x_{1,p}\\
+1 &amp; x_{2,1} &amp; \cdots &amp; x_{2, p}\\
 \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
-1 &amp; x_{n,1} &amp; \cdots &amp; x_{n, k}\end{bmatrix}
-\begin{bmatrix} \beta_0 \\ \beta_1 \\ \vdots \\ \beta_{k} \end{bmatrix} +
+1 &amp; x_{n,1} &amp; \cdots &amp; x_{n, p}\end{bmatrix}
+\begin{bmatrix} \beta_0 \\ \beta_1 \\ \vdots \\ \beta_{p} \end{bmatrix} +
 \begin{bmatrix} \epsilon_1 \\ \epsilon_2 \\ \vdots \\ \epsilon_{n} \end{bmatrix}
 \end{equation}`
 \\]
@@ -768,8 +777,8 @@ This can also be expressed in matrix form:
 \end{align}`
 \\]
 * `\(\mathbf{Y} \in \mathbb{R}^{n \times 1}\)`: an n-dimensional vector of the response
-* `\(\mathbf{X} \in \mathbb{R}^{n \times (k+1)}\)`: a `\(((k+1)\times n)\)` matrix of the predictors (including intercept)
-* `\(\beta \in \mathbb{R}^{((k+1)\times 1)}\)`: a `\((k+1)\)`-dimensional vector of regression parameters
+* `\(\mathbf{X} \in \mathbb{R}^{n \times (p+1)}\)`: a `\(((p+1)\times n)\)` matrix of the predictors (including intercept)
+* `\(\beta \in \mathbb{R}^{((p+1)\times 1)}\)`: a `\((p+1)\)`-dimensional vector of regression parameters
 * `\(\epsilon \in \mathbb{R}^{n \times 1}\)`: an n-dimensional vector of the error term
 
 This will be helpful for Lab 3!
@@ -856,7 +865,7 @@ From this we can derive an interpretation.
 
 We fit a linear regression model in R using `lm()`. 
 The first argument is a **formula**, which is a type of R object. 
-Formulas typically take the following form&lt;sup&gt;1&lt;/sup&gt;: `Y ~ X_1 + X_2 + ... + X_p`.
+Formulas typically take the following form: `Y ~ X_1 + X_2 + ... + X_p`.
 
 The dependent variable, `Y` goes on the left-hand side of the tilde `~`, which marks the formula. 
 The independent variables are added on the right-hand side.
@@ -987,28 +996,28 @@ We won't go into all the details for this class, but here are some tips:
 # &lt;TT&gt;plot():&lt;/TT&gt; Regression model diagnostics
 
 **Residuals vs Fitted:** these are your errors (residuals) plotted over the predicted outcome (fitted). Errors should be random, so here you want to see randomly scattered points with no discernable pattern. You want the trend line to be approximately horizontal.
-&lt;img src="05_inference_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" /&gt;
-
----
-
-# &lt;TT&gt;plot():&lt;/TT&gt; Regression model diagnostics
-
-**Normal Q-Q plot:** These are the quantiles of your errors against the quantiles of a normal distribution. In theory, your errors should be normally distributed, so you are hoping that points are mostly along the 45-degree `\(y=x\)` line.
 &lt;img src="05_inference_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
 # &lt;TT&gt;plot():&lt;/TT&gt; Regression model diagnostics
 
-**Scale-location:** This looks at the magnitude of standardized residuals over the predicted outcome. Similar interpretation as residuals vs fitted. This can make it slightly easier to identify undesireable patterns.
+**Normal Q-Q plot:** These are the quantiles of your errors against the quantiles of a normal distribution. In theory, your errors should be normally distributed, so you are hoping that points are mostly along the 45-degree `\(y=x\)` line.
 &lt;img src="05_inference_files/figure-html/unnamed-chunk-18-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
 # &lt;TT&gt;plot():&lt;/TT&gt; Regression model diagnostics
 
-**Residuals vs leverage:** This can help identify highly influential points, such as outliers. If points are outside dotted red lines, then removing them would noticeably alter your results. *Never just remove outliers!* If it's clearly mis-entered data, fine. It is more important to understand why outliers are there than to remove them.
+**Scale-location:** This looks at the magnitude of standardized residuals over the predicted outcome. Similar interpretation as residuals vs fitted. This can make it slightly easier to identify undesireable patterns.
 &lt;img src="05_inference_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# &lt;TT&gt;plot():&lt;/TT&gt; Regression model diagnostics
+
+**Residuals vs leverage:** This can help identify highly influential points, such as outliers. If points are outside dotted red lines, then removing them would noticeably alter your results. *Never just remove outliers!* If it's clearly mis-entered data, fine. It is more important to understand why outliers are there than to remove them.
+&lt;img src="05_inference_files/figure-html/unnamed-chunk-20-1.png" style="display: block; margin: auto;" /&gt;
 
 --- 
 
@@ -1064,7 +1073,7 @@ ggplot(my_df, aes(x = fitted, y = actual)) +
 
 
 .center[
-![](05_inference_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
+![](05_inference_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -1202,11 +1211,11 @@ We can fully write out a linear regression model
 \\[
 `\begin{equation}
 \begin{bmatrix} y_1 \\ y_2\\ \vdots \\ y_n \end{bmatrix} = 
-\begin{bmatrix} 1 &amp; x_{1,1} &amp; \cdots &amp; x_{1,k}\\
-1 &amp; x_{2,1} &amp; \cdots &amp; x_{2, k}\\
+\begin{bmatrix} 1 &amp; x_{1,1} &amp; \cdots &amp; x_{1,p}\\
+1 &amp; x_{2,1} &amp; \cdots &amp; x_{2, p}\\
 \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
 1 &amp; x_{n,1} &amp; \cdots &amp; x_{n, k}\end{bmatrix}
-\begin{bmatrix} \beta_0 \\ \beta_1 \\ \vdots \\ \beta_{k} \end{bmatrix} +
+\begin{bmatrix} \beta_0 \\ \beta_1 \\ \vdots \\ \beta_{p} \end{bmatrix} +
 \begin{bmatrix} \epsilon_1 \\ \epsilon_2 \\ \vdots \\ \epsilon_{n} \end{bmatrix}
 \end{equation}`
 \\]
@@ -1220,8 +1229,8 @@ This can also be expressed in matrix form:
 \end{align}`
 \\]
 * `\(\mathbf{Y} \in \mathbb{R}^{n \times 1}\)`: an n-dimensional vector of the response
-* `\(\mathbf{X} \in \mathbb{R}^{n \times (k+1)}\)`: a `\(((k+1)\times n)\)` matrix of the predictors (including intercept)
-* `\(\beta \in \mathbb{R}^{((k+1)\times 1)}\)`: a `\((k+1)\)`-dimensional vector of regression parameters
+* `\(\mathbf{X} \in \mathbb{R}^{n \times (p+1)}\)`: a `\(((p+1)\times n)\)` matrix of the predictors (including intercept)
+* `\(\beta \in \mathbb{R}^{((p+1)\times 1)}\)`: a `\((p+1)\)`-dimensional vector of regression parameters
 * `\(\epsilon \in \mathbb{R}^{n \times 1}\)`: an n-dimensional vector of the error term
 
 
@@ -1229,9 +1238,9 @@ This can also be expressed in matrix form:
 
 # Least squares
 
-How do we choose/estimate `\(\beta_{(k+1)\times1}\)`?
+How do we estimate `\(\beta_{(p+1)\times1}\)`?
 
-Least squares finds the line that minimizes the squared distance between the points and the line, i.e. makes `$$\left[y_i - (\beta_0 + \beta_1 x_{i, 1} + \dots + \beta_k x_{i,k})\right]^2$$` as small as possible for all `\(i = 1, \dots, n\)`.
+Least squares finds values of `\(\widehat{\beta}_0, \widehat{\beta}_1,\dots,\widehat{\beta_p}\)` that define a (multidimensional) line that minimizes the squared distance between the points and the line, i.e. makes `$$\left[y_i - (\widehat{\beta}_0 + \widehat{\beta}_1 x_{i, 1} + \dots + \widehat{\beta}_p x_{i,p})\right]^2$$` as small as possible for all `\(i = 1, \dots, n\)`.
 
 The vector `\(\widehat{\beta}\)` that minimizes the sum of the squared distances is:
 
