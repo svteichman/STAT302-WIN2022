@@ -16,15 +16,18 @@ knitr::opts_chunk$set(echo = FALSE)
 * Instructions [[.html](files/projects/01_data-visualization/01_dataviz.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/projects/01_data-visualization/01_dataviz.Rmd)]
 * Data [[.csv](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/projects/01_data-visualization/Building_Permits_Clean.csv)]
 
-\begin{comment}
 
-# Project 2: Data Analysis
+# Project 2: Data Analysis Using PCA
 
-![](https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Capitol_%28PSF%29.jpg/640px-Capitol_%28PSF%29.jpg)
+![](https://eige.europa.eu/sites/default/files/styles/eige_original_optimised/public/images/environment_climate_change_0.jpg?itok=OgfBMStR)
 
 **due date: 02/21**
 
-* Instructions [[.html](files/projects/02_congress-data/02_voting-analysis.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/projects/02_congress-data/02_voting-analysis.Rmd)]
+* Instructions [[.html](files/projects/02_dimension_reduction/02-dimension_reduction.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/projects/02_dimension_reduction/02-dimension_reduction.Rmd)]
+* Dataset 1 [[.csv](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/projects/02_dimension_reduction/pca_data.csv)]
+* Dataset 2 [[.csv](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/projects/02_dimension_reduction/additional_data.csv)]
+
+\begin{comment}
 
 # Project 3: ????????
 

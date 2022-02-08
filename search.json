@@ -29,8 +29,8 @@
       "title": "Projects",
       "description": "",
       "author": [],
-      "contents": "\nProject 1: Data Visualization\n\ndue date: 02/02\nInstructions [.html] [.Rmd]\nData [.csv]\n\n\n\n",
-      "last_modified": "2022-01-24T16:42:53-08:00"
+      "contents": "\nProject 1: Data Visualization\n\ndue date: 02/02\nInstructions [.html] [.Rmd]\nData [.csv]\nProject 2: Data Analysis Using PCA\n\ndue date: 02/21\nInstructions [.html] [.Rmd]\nDataset 1 [.csv]\nDataset 2 [.csv]\n\n\n\n",
+      "last_modified": "2022-02-08T13:36:55-08:00"
     },
     {
       "path": "short_labs.html",
@@ -44,8 +44,8 @@
       "path": "slides.html",
       "title": "Lecture Slides",
       "author": [],
-      "contents": "\nLecture 00: Course Overview [.html] [.Rmd]\nLecture 01: Introduction to R [.html] [.Rmd]\nLecture 02: R Fundamentals [.html] [.Rmd]\nLecture 03: Data Visualization and Manipulation [.html] [.Rmd]\nLecture 04: Strings, Factors, and Dates [.html] [.Rmd]\nLecture 05: Regression and Inference [.html] [.Rmd]\n\n\n\n",
-      "last_modified": "2022-02-01T11:59:51-08:00"
+      "contents": "\nLecture 00: Course Overview [.html] [.Rmd]\nLecture 01: Introduction to R [.html] [.Rmd]\nLecture 02: R Fundamentals [.html] [.Rmd]\nLecture 03: Data Visualization and Manipulation [.html] [.Rmd]\nLecture 04: Strings, Factors, and Dates [.html] [.Rmd]\nLecture 05: Regression and Inference [.html] [.Rmd]\nLecture 06: Multivariate Data and PCA [.html] [.Rmd]\n\n\n\n",
+      "last_modified": "2022-02-08T13:31:34-08:00"
     },
     {
       "path": "syllabus.html",

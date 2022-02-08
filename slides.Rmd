@@ -19,9 +19,10 @@ knitr::opts_chunk$set(echo = FALSE)
 
 * Lecture 05: Regression and Inference [[.html](files/slides/05_inference.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/slides/05_inference.Rmd)]
 
-\begin{comment}
 
-* Lecture 06: Application: SVD and PCA [[.html](files/slides/06_svdpca.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/slides/06_svdpca.Rmd)]
+* Lecture 06: Multivariate Data and PCA [[.html](files/slides/06_svdpca.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/slides/06_svdpca.Rmd)]
+
+\begin{comment}
 
 * Lecture 07: Debugging and Git [[.html](files/slides/07_debuggit.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/slides/07_debuggit.html)]
 
