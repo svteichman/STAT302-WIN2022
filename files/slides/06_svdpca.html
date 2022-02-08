@@ -25,9 +25,9 @@ class: center, title-slide
 # Today's pet picture 
 
 
-&lt;img src="../../files/images/pets/huating_cat.jpg" width="700px" style="display: block; margin: auto;" /&gt;
+&lt;img src="../../files/images/pets/siffy.JPG" width="700px" style="display: block; margin: auto;" /&gt;
 
-Thanks Huating! 
+Thanks Joia! 
 
 ---
 
@@ -502,7 +502,15 @@ cars_pca$loadings
 
 # Example of PCA
 
-Let's use the five quantitative variables from the `mtcars` dataset. We'll use the R function `princomp()`. 
+Let's look closer at the loadings on the first two principal components. 
+
+&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-14-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Example of PCA
+
+Let's look closer at the loadings. 
 
 
 ```r
@@ -589,7 +597,15 @@ cars_pca_scaled$loadings
 ## Cumulative Var    0.2    0.4    0.6    0.8    1.0
 ```
 
---- 
+---
+
+# Back to our example
+
+Let's look closer at the loadings on the first two principal components. 
+
+&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /&gt;
+
+---
 
 # Wait, what about dimension reduction? 
 
@@ -605,12 +621,220 @@ cars_pca_scaled$loadings
 
 ---
 
-# How do we know how many principal components to use? 
+# How many principal components to use? 
 
-* Define the sum of the variances of variable as `\(V = \sum_{j=1}^p Var(\mathbf{x}_j)\)`. 
-* The sume of the variances of the principal components is equal to `\(V\)`.* 
+* If we keep all `\(p\)` principal component vectors `\(\mathbf{y}_j\)`, `\(j\in\{1,\ldots,p\}\)`, then we can explain all of the variance in our data matrix `\(\mathbf{X}\)` (or scaled data matrix `\(\tilde{\mathbf{X}}\)`). 
 
-.footnote[*We can prove this using the fact that `\(\mathbf{X}\)` contains the variance of each variable on the diagonals and the expression $\text{trace}(\mathbf{S}) = \text{trace}(\mathbf{U\Lambda U}^T) = \text{trace}(\mathbf{U}^T\mathbf{US}) = \text{trace}(\mathbf{\Lambda}) = \sum_{j=1}^p{\lambda_{j}}.]
+--
+
+* Remember our eigendecomposition, `\(\mathbf{S} = \mathbf{U\Lambda U}^T\)`, in which `\(\mathbf{\Lambda}\)` is a diagonal matrix with the eigenvalues of `\(\mathbf{S}\)` sorted in descending order.
+
+--
+
+* Denote the ordered diagonal values from our `\(\mathbf{\Lambda}\)` matrix as `\(\lambda_1,\ldots,\lambda_p\)`.
+
+--
+
+* The proportion of variance explained (PVE) of principal component `\(j\)` is equal to the `\(j\)`th eigenvalue from the eigendecomposition, `\(\lambda_j\)`.
+
+--
+
+* If we only keep `\(k\)` of the `\(p\)` principal components, then we will explain a proportion of the variance in our data: 
+`$$\text{PVE}_{1:k} = \frac{\sum_{j=1}^k \lambda_j}{\sum_{j'=1}^p \lambda_{j'}}$$`
+
+---
+
+# How many principal components to use? 
+
+* We'd like to choose a value `\(k\)` that is small enough to reduce the dimension substantially and big enough to explain much of the data's variability. 
+
+---
+
+# How many principal components to use? 
+
+* We can make a scree plot to visualize the proportion of variance explained by each principal component. 
+
+
+```r
+screeplot(cars_pca_scaled, type = "lines", main = "Scree Plot")
+```
+
+&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-18-1.png" style="display: block; margin: auto;" /&gt;
+
+* In a scree plot, we look for the "elbow."
+
+---
+
+# How many principal components to use? 
+
+* In practice, we often look primarily at the first two principal components, because we can plot these in two dimensions. 
+
+.pull-left[
+
+```r
+plot_df &lt;- 
+  data.frame(pc1 = cars_pca_scaled$
+               scores[, 1],
+             pc2 = cars_pca_scaled$
+               scores[, 2],
+             name = rownames(mtcars))
+ggplot(plot_df, 
+       aes(x = pc1, y = pc2, 
+           label = name)) + 
+  geom_point() + 
+  geom_text(size = 4, 
+            nudge_x = .12, 
+            nudge_y = .12) + 
+  labs(x = "Principal Component 1", 
+       y = "Principal Component 2",
+       title = "First Two Principal Components of mtcars") + 
+  theme_bw(base_size = 12) + 
+  theme(plot.title = 
+          element_text(hjust = 0.5))
+```
+]
+
+.pull-right[
+![](06_svdpca_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
+]
+
+---
+
+# Biplots 
+
+* Biplots show the transformed data and loadings for the first two principal components. 
+
+
+```r
+biplot(cars_pca_scaled)
+```
+
+&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-21-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Back to first two principal components 
+
+&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-22-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Back to first two principal components 
+
+
+```r
+plot_df &lt;- 
+  data.frame(pc1 = cars_pca_scaled$scores[, 1],
+             pc2 = cars_pca_scaled$scores[, 2],
+             name = rownames(mtcars),
+             transmission = mtcars$am)
+ggplot(plot_df, 
+       aes(x = pc1, y = pc2, 
+           label = name,
+           color = as.factor(transmission))) + 
+  geom_point(size = 3) + 
+  labs(x = "Principal Component 1", 
+       y = "Principal Component 2",
+       color = "Transmission",
+       title = "First Two Principal Components of mtcars") + 
+  theme_bw(base_size = 12) + 
+  theme(plot.title = 
+          element_text(hjust = 0.5))
+```
+
+---
+
+# Back to first two principal components 
+
+&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-24-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Back to first two principal components 
+
+
+```r
+plot_df &lt;- 
+  data.frame(pc1 = cars_pca_scaled$scores[, 1],
+             pc2 = cars_pca_scaled$scores[, 2],
+             name = rownames(mtcars),
+             cylinders = mtcars$cyl)
+ggplot(plot_df, 
+       aes(x = pc1, y = pc2, 
+           label = name,
+           color = as.factor(cylinders))) + 
+  geom_point(size = 3) + 
+  labs(x = "Principal Component 1", 
+       y = "Principal Component 2",
+       color = "Cylinders",
+       title = "First Two Principal Components of mtcars") + 
+  theme_bw(base_size = 12) + 
+  theme(plot.title = 
+          element_text(hjust = 0.5))
+```
+
+---
+
+# Back to first two principal components 
+
+&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-26-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Back to first two principal components 
+
+
+```r
+plot_df &lt;- 
+  data.frame(pc1 = cars_pca_scaled$scores[, 1],
+             pc2 = cars_pca_scaled$scores[, 2],
+             name = rownames(mtcars),
+             engine = mtcars$vs)
+ggplot(plot_df, 
+       aes(x = pc1, y = pc2, 
+           label = name,
+           color = as.factor(engine))) + 
+  geom_point(size = 3) + 
+  labs(x = "Principal Component 1", 
+       y = "Principal Component 2",
+       color = "Engine",
+       title = "First Two Principal Components of mtcars") + 
+  theme_bw(base_size = 12) + 
+  theme(plot.title = 
+          element_text(hjust = 0.5))
+```
+
+---
+
+# Back to first two principal components 
+
+&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-28-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Back to first two principal components 
+
+
+```r
+plot_df &lt;- 
+  data.frame(pc1 = cars_pca_scaled$scores[, 1],
+             pc2 = cars_pca_scaled$scores[, 2],
+             name = rownames(mtcars),
+             carb = mtcars$carb)
+ggplot(plot_df, 
+       aes(x = pc1, y = pc2, 
+           label = name,
+           color = carb)) + 
+  geom_point(size = 3) + 
+  labs(x = "Principal Component 1", 
+       y = "Principal Component 2",
+       color = "Carburetors",
+       title = "First Two Principal Components of mtcars") + 
+  theme_bw(base_size = 12) + 
+  theme(plot.title = 
+          element_text(hjust = 0.5)) + 
+  scale_color_continuous(low = "blue", high = "red")
+```
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

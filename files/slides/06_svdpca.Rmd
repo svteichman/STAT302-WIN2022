@@ -26,10 +26,10 @@ library(tidyverse)
 
 
 ```{r, echo = FALSE, out.width = "700px", fig.align = "center"}
-knitr::include_graphics("../../files/images/pets/huating_cat.jpg")
+knitr::include_graphics("../../files/images/pets/siffy.JPG")
 ```
 
-Thanks Huating! 
+Thanks Joia! 
 
 ---
 
@@ -447,7 +447,31 @@ cars_pca$loadings
 
 # Example of PCA
 
-Let's use the five quantitative variables from the `mtcars` dataset. We'll use the R function `princomp()`. 
+Let's look closer at the loadings on the first two principal components. 
+
+```{r, echo = FALSE, fig.align='center'}
+plot_df <- data.frame(loading1 = cars_pca$loadings[ ,1],
+                      loading2 = cars_pca$loadings[, 2],
+                      name = names(cars_pca_df))
+ggplot(plot_df, aes(x = loading1,
+                    y = loading2,
+                    label = name)) + 
+  geom_point() + 
+  geom_text(nudge_x = 0.06) + 
+  geom_hline(yintercept = 0, color = "gray") + 
+  geom_vline(xintercept = 0, color = "gray") +
+  xlab("Loadings for Principal Component 1") + 
+  ylab("Loadings for Principal Component 2") + 
+  ggtitle("Loadings for First Two Principal Components") + 
+  theme_bw(base_size = 12) + 
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+---
+
+# Example of PCA
+
+Let's look closer at the loadings. 
 
 ```{r}
 round(cars_pca$loadings[1:5, ], 3)
@@ -498,7 +522,31 @@ cars_pca_scaled <- princomp(cars_pca_df, cor = TRUE)
 cars_pca_scaled$loadings
 ```
 
---- 
+---
+
+# Back to our example
+
+Let's look closer at the loadings on the first two principal components. 
+
+```{r, echo = FALSE, fig.align='center'}
+plot_df <- data.frame(loading1 = cars_pca_scaled$loadings[ ,1],
+                      loading2 = cars_pca_scaled$loadings[, 2],
+                      name = names(cars_pca_df))
+ggplot(plot_df, aes(x = loading1,
+                    y = loading2,
+                    label = name)) + 
+  geom_point() + 
+  geom_hline(yintercept = 0, color = "gray") + 
+  geom_vline(xintercept = 0, color = "gray") +
+  geom_text(nudge_x = 0.06) + 
+  xlab("Loadings for Principal Component 1") + 
+  ylab("Loadings for Principal Component 2") + 
+  ggtitle("Loadings for First Two Principal Components") + 
+  theme_bw(base_size = 12) + 
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+---
 
 # Wait, what about dimension reduction? 
 
@@ -514,11 +562,294 @@ cars_pca_scaled$loadings
 
 ---
 
-# How do we know how many principal components to use? 
+# How many principal components to use? 
 
-* Define the sum of the variances of variable as $V = \sum_{j=1}^p Var(\mathbf{x}_j)$. 
-* The spectral decomposition theorem told us that 
-* The sum of the variances of the principal components is equal to $V$.* 
+* If we keep all $p$ principal component vectors $\mathbf{y}_j$, $j\in\{1,\ldots,p\}$, then we can explain all of the variance in our data matrix $\mathbf{X}$ (or scaled data matrix $\tilde{\mathbf{X}}$). 
 
-.footnote[*We can prove this using the fact that $\mathbf{X}$ contains the variance of each variable on the diagonals and the expression $\text{trace}(\mathbf{S}) = \text{trace}(\mathbf{U\Lambda U}^T) = \text{trace}(\mathbf{U}^T\mathbf{US}) = \text{trace}(\mathbf{\Lambda}) = \sum_{j=1}^p{\lambda_{j}}.]
+--
 
+* Remember our eigendecomposition, $\mathbf{S} = \mathbf{U\Lambda U}^T$, in which $\mathbf{\Lambda}$ is a diagonal matrix with the eigenvalues of $\mathbf{S}$ sorted in descending order.
+
+--
+
+* Denote the ordered diagonal values from our $\mathbf{\Lambda}$ matrix as $\lambda_1,\ldots,\lambda_p$.
+
+--
+
+* The proportion of variance explained (PVE) of principal component $j$ is equal to the $j$th eigenvalue from the eigendecomposition, $\lambda_j$.
+
+--
+
+* If we only keep $k$ of the $p$ principal components, then we will explain a proportion of the variance in our data: 
+$$\text{PVE}_{1:k} = \frac{\sum_{j=1}^k \lambda_j}{\sum_{j'=1}^p \lambda_{j'}}$$
+
+---
+
+# How many principal components to use? 
+
+* We'd like to choose a value $k$ that is small enough to reduce the dimension substantially and big enough to explain much of the data's variability. 
+
+---
+
+# How many principal components to use? 
+
+* We can make a scree plot to visualize the proportion of variance explained by each principal component. 
+
+```{r, fig.align='center', fig.height = 5}
+screeplot(cars_pca_scaled, type = "lines", main = "Scree Plot")
+```
+
+* In a scree plot, we look for the "elbow."
+
+---
+
+# How many principal components to use? 
+
+* In practice, we often look primarily at the first two principal components, because we can plot these in two dimensions. 
+
+.pull-left[
+```{r, eval = FALSE}
+plot_df <- 
+  data.frame(pc1 = cars_pca_scaled$
+               scores[, 1],
+             pc2 = cars_pca_scaled$
+               scores[, 2],
+             name = rownames(mtcars))
+ggplot(plot_df, 
+       aes(x = pc1, y = pc2, 
+           label = name)) + 
+  geom_point() + 
+  geom_text(size = 4, 
+            nudge_x = .12, 
+            nudge_y = .12) + 
+  labs(x = "Principal Component 1", 
+       y = "Principal Component 2",
+       title = "First Two Principal Components of mtcars") + 
+  theme_bw(base_size = 12) + 
+  theme(plot.title = 
+          element_text(hjust = 0.5))
+```
+]
+
+.pull-right[
+```{r, echo = FALSE}
+plot_df <- 
+  data.frame(pc1 = cars_pca_scaled$scores[, 1],
+             pc2 = cars_pca_scaled$scores[, 2],
+             name = rownames(mtcars))
+ggplot(plot_df, 
+       aes(x = pc1, y = pc2, label = name)) + 
+  geom_point() + 
+  geom_text(size = 4, 
+            nudge_x = .12, nudge_y = .12) + 
+  labs(x = "Principal Component 1", 
+       y = "Principal Component 2",
+       title = "First Two Principal Components of mtcars") + 
+  theme_bw(base_size = 12) + 
+  theme(plot.title = element_text(hjust = 0.5))
+```
+]
+
+---
+
+# Biplots 
+
+* Biplots show the transformed data and loadings for the first two principal components. 
+
+```{r, fig.align='center', fig.height = 6}
+biplot(cars_pca_scaled)
+```
+
+---
+
+# Back to first two principal components 
+
+```{r, echo = FALSE, fig.align='center'}
+plot_df <- 
+  data.frame(pc1 = cars_pca_scaled$scores[, 1],
+             pc2 = cars_pca_scaled$scores[, 2],
+             name = rownames(mtcars),
+             transmission = mtcars$am)
+ggplot(plot_df, 
+       aes(x = pc1, y = pc2, 
+           label = name,
+           color = as.factor(transmission))) + 
+  geom_point(size = 3) + 
+  labs(x = "Principal Component 1", 
+       y = "Principal Component 2",
+       color = "Transmission",
+       title = "First Two Principal Components of mtcars") + 
+  theme_bw(base_size = 12) + 
+  theme(plot.title = 
+          element_text(hjust = 0.5))
+```
+
+---
+
+# Back to first two principal components 
+
+```{r, eval = FALSE, fig.align='center'}
+plot_df <- 
+  data.frame(pc1 = cars_pca_scaled$scores[, 1],
+             pc2 = cars_pca_scaled$scores[, 2],
+             name = rownames(mtcars),
+             transmission = mtcars$am)
+ggplot(plot_df, 
+       aes(x = pc1, y = pc2, 
+           label = name,
+           color = as.factor(transmission))) + 
+  geom_point(size = 3) + 
+  labs(x = "Principal Component 1", 
+       y = "Principal Component 2",
+       color = "Transmission",
+       title = "First Two Principal Components of mtcars") + 
+  theme_bw(base_size = 12) + 
+  theme(plot.title = 
+          element_text(hjust = 0.5))
+```
+
+---
+
+# Back to first two principal components 
+
+```{r, echo = FALSE, fig.align='center'}
+plot_df <- 
+  data.frame(pc1 = cars_pca_scaled$scores[, 1],
+             pc2 = cars_pca_scaled$scores[, 2],
+             name = rownames(mtcars),
+             cylinders = mtcars$cyl)
+ggplot(plot_df, 
+       aes(x = pc1, y = pc2, 
+           label = name,
+           color = as.factor(cylinders))) + 
+  geom_point(size = 3) + 
+  labs(x = "Principal Component 1", 
+       y = "Principal Component 2",
+       color = "Cylinders",
+       title = "First Two Principal Components of mtcars") + 
+  theme_bw(base_size = 12) + 
+  theme(plot.title = 
+          element_text(hjust = 0.5))
+```
+
+---
+
+# Back to first two principal components 
+
+```{r, eval = FALSE, fig.align='center'}
+plot_df <- 
+  data.frame(pc1 = cars_pca_scaled$scores[, 1],
+             pc2 = cars_pca_scaled$scores[, 2],
+             name = rownames(mtcars),
+             cylinders = mtcars$cyl)
+ggplot(plot_df, 
+       aes(x = pc1, y = pc2, 
+           label = name,
+           color = as.factor(cylinders))) + 
+  geom_point(size = 3) + 
+  labs(x = "Principal Component 1", 
+       y = "Principal Component 2",
+       color = "Cylinders",
+       title = "First Two Principal Components of mtcars") + 
+  theme_bw(base_size = 12) + 
+  theme(plot.title = 
+          element_text(hjust = 0.5))
+```
+
+---
+
+# Back to first two principal components 
+
+```{r, echo = FALSE, fig.align='center'}
+plot_df <- 
+  data.frame(pc1 = cars_pca_scaled$scores[, 1],
+             pc2 = cars_pca_scaled$scores[, 2],
+             name = rownames(mtcars),
+             engine = mtcars$vs)
+ggplot(plot_df, 
+       aes(x = pc1, y = pc2, 
+           label = name,
+           color = as.factor(engine))) + 
+  geom_point(size = 3) + 
+  labs(x = "Principal Component 1", 
+       y = "Principal Component 2",
+       color = "Engine",
+       title = "First Two Principal Components of mtcars") + 
+  theme_bw(base_size = 12) + 
+  theme(plot.title = 
+          element_text(hjust = 0.5))
+```
+
+---
+
+# Back to first two principal components 
+
+```{r, eval = FALSE, fig.align='center'}
+plot_df <- 
+  data.frame(pc1 = cars_pca_scaled$scores[, 1],
+             pc2 = cars_pca_scaled$scores[, 2],
+             name = rownames(mtcars),
+             engine = mtcars$vs)
+ggplot(plot_df, 
+       aes(x = pc1, y = pc2, 
+           label = name,
+           color = as.factor(engine))) + 
+  geom_point(size = 3) + 
+  labs(x = "Principal Component 1", 
+       y = "Principal Component 2",
+       color = "Engine",
+       title = "First Two Principal Components of mtcars") + 
+  theme_bw(base_size = 12) + 
+  theme(plot.title = 
+          element_text(hjust = 0.5))
+```
+
+---
+
+# Back to first two principal components 
+
+```{r, echo = FALSE, fig.align='center'}
+plot_df <- 
+  data.frame(pc1 = cars_pca_scaled$scores[, 1],
+             pc2 = cars_pca_scaled$scores[, 2],
+             name = rownames(mtcars),
+             carb = mtcars$carb)
+ggplot(plot_df, 
+       aes(x = pc1, y = pc2, 
+           label = name,
+           color = carb)) + 
+  geom_point(size = 3) + 
+  labs(x = "Principal Component 1", 
+       y = "Principal Component 2",
+       color = "Carburetors",
+       title = "First Two Principal Components of mtcars") + 
+  theme_bw(base_size = 12) + 
+  theme(plot.title = 
+          element_text(hjust = 0.5)) + 
+  scale_color_continuous(low = "blue", high = "red")
+```
+
+---
+
+# Back to first two principal components 
+
+```{r, eval = FALSE, fig.align='center'}
+plot_df <- 
+  data.frame(pc1 = cars_pca_scaled$scores[, 1],
+             pc2 = cars_pca_scaled$scores[, 2],
+             name = rownames(mtcars),
+             carb = mtcars$carb)
+ggplot(plot_df, 
+       aes(x = pc1, y = pc2, 
+           label = name,
+           color = carb)) + 
+  geom_point(size = 3) + 
+  labs(x = "Principal Component 1", 
+       y = "Principal Component 2",
+       color = "Carburetors",
+       title = "First Two Principal Components of mtcars") + 
+  theme_bw(base_size = 12) + 
+  theme(plot.title = 
+          element_text(hjust = 0.5)) + 
+  scale_color_continuous(low = "blue", high = "red")
+```
