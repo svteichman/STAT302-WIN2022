@@ -700,6 +700,41 @@ ggplot(plot_df,
 
 ---
 
+# How many principal components to use? 
+
+* In practice, we often look primarily at the first two principal components, because we can plot these in two dimensions. 
+
+.pull-left[
+
+```r
+text_df &lt;- plot_df %&gt;%
+  filter(name %in%
+           c("Merc 230", "Hornet 4 Drive",
+             "Lotus Europa", "Porsche 914-2",
+             "Maserati Bora", "Ferrari Dino"))
+ggplot(plot_df, 
+       aes(x = pc1, y = pc2,
+           label = name)) + 
+  geom_point() + 
+  geom_text(data = text_df,
+            size = 4, 
+            nudge_x = .12, 
+            nudge_y = .12) + 
+  labs(x = "Principal Component 1", 
+       y = "Principal Component 2",
+       title = "First Two Principal Components of mtcars") + 
+  theme_bw(base_size = 12) + 
+  theme(plot.title = 
+          element_text(hjust = 0.5))
+```
+]
+
+.pull-right[
+![](06_svdpca_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
+]
+
+---
+
 # Biplots 
 
 * Biplots show the transformed data and loadings for the first two principal components. 
@@ -709,13 +744,13 @@ ggplot(plot_df,
 biplot(cars_pca_scaled)
 ```
 
-&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-21-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-23-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
 # Back to first two principal components 
 
-&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-22-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-24-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -746,7 +781,7 @@ ggplot(plot_df,
 
 # Back to first two principal components 
 
-&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-24-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-26-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -777,7 +812,7 @@ ggplot(plot_df,
 
 # Back to first two principal components 
 
-&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-26-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-28-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -808,7 +843,7 @@ ggplot(plot_df,
 
 # Back to first two principal components 
 
-&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-28-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-30-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
