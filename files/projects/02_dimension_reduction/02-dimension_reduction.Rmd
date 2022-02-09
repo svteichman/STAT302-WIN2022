@@ -9,10 +9,10 @@ output: html_document
 
 For this project, you will be writing your own function to perform PCA, and then exploring a dataset of environmental indicators using PCA. 
 
-You will produce a report with two distinct parts. In part 1 (worth 10 points), you'll implement your own function to perform PCA and will simulate data to show that your function and the built-in function in R, `prcomp()`, return the same results on the simulated data. In part 2 (worth 20 points), you will analyze data from the [Environmental Performance Index](https://epi.yale.edu/), which ranks 180 countries on 32 variables that describe environmental health and ecosystem vitality. 
+You will produce a report with two distinct parts. In Part 1 (worth 10 points), you'll implement your own function to perform PCA and will simulate data to show that your function and the built-in function in R, `princomp()`, return the same results on the simulated data. In Part 2 (worth 20 points), you will analyze data from the [Environmental Performance Index](https://epi.yale.edu/), which ranks 180 countries on 32 variables that describe environmental health and ecosystem vitality. 
 
-You have the option to work with a partner for this project and submit a group report. 
-If you do so, you must both submit the same .Rmd, .html, and .Rproj files on Canvas with both of your names at the top of the .html.
+For this project, please submit an .Rmd, .html, and .Rproj file. You have the option to work with a partner for this project and submit a group report. 
+If you do so, you must both submit the same files on Canvas with both of your names at the top of the .html.
 
 ### Part 1 
 
@@ -22,13 +22,13 @@ Write a function `run_pca()` that will run PCA on a data matrix. Note that R has
 
 Your function should have the following parameters:
 
-* `x` a matrix (or dataframe) to perform PCA on. 
+* `X` a matrix (or dataframe) to perform PCA on. 
 * `scale` a logical value, if TRUE then run PCA on the centered and scaled version of the x dataframe (this is equivalent to doing PCA on the correlation matrix), if FALSE then run PCA on the centered but non-scaled version of the dataframe (this is equivalent to doing PCA on the covariance matrix).
 
 Your function should return a `list` with elements:
 
-* `prin_comps` a matrix with the same dimensions as the `x` matrix that contains the principal components
-* `loadings` a matrix of variable loadings
+* `prin_comps` a matrix with the same dimensions as the `X` matrix that contains the principal component vectors
+* `loadings` a matrix of variable loadings, this should be a square matrix where the number of rows and columns are equal to the number of columns of `X`
 * `portion_var` a vector of variances explained by each principal component
 
 You may find the following information helpful:
@@ -52,15 +52,15 @@ X[, 3] <- rnorm(4, mean = 0, sd = 15)
 
 ### Part 2 
 
-Now you'll be using your `my_pca()` function to explore the environmental performance index data. Like in Project 1, this part of your report should only have text and plots in the main body, and should be followed by a code appendix to show any code that you used for part 2. 
+Now you'll be using your `my_pca()` function to explore the environmental performance index data. Like in Project 1, this part of your report should only have text and plots in the main body, and should be followed by a code appendix to show any code that you used for Part 2. 
 
 You'll be using these two datasets: 
 
 * Dataset 1: [environmental indicators for PCA](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/projects/02_dimension_reduction/pca_data.csv) 
 
-* Dataset 2: [environmental indicator summaries and other country data](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/projects/02_dimension_reduction/additional_data.csv) (see a data dictionary at the end of the instructions)
+* Dataset 2: [additional country data](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/projects/02_dimension_reduction/additional_data.csv) (see a data dictionary at the end of the instructions)
 
-Dataset 1 information about $32$ different environmental indicators for $180$ countries. These indicators are in the table below in the "Indicator" column and the variable names in Dataset 2 correspond with the "TLA" column.
+Dataset 1 has information about $29$ different environmental indicators for $180$ countries. These indicators are in the table below in the "Indicator" column and the variable names in Dataset 2 correspond with the "TLA" column.
 
 ![](../../../files/images/epi_info.png)
 
