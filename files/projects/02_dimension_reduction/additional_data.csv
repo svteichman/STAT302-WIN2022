@@ -1,181 +1,181 @@
-"","country","region","ldc","emmrkt","gdp","EPI"
-"1","Afghanistan","Southern Asia",1,0,516.747870807558,25.5
-"2","Angola","Sub-Saharan Africa",1,0,1776.16686789531,29.7
-"3","Albania","Eastern Europe",0,0,5246.29230634793,49
-"4","United Arab Emirates","Greater Middle East",0,1,36284.5552429552,55.6
-"5","Argentina","Latin America & Caribbean",0,1,8579.01777315683,52.2
-"6","Armenia","Former Soviet States",0,0,4266.01807420946,52.3
-"7","Antigua and Barbuda","Latin America & Caribbean",0,0,13992.7444804497,48.5
-"8","Australia","Global West",0,0,51692.8427477695,74.9
-"9","Austria","Global West",0,0,48586.8013213238,79.6
-"10","Azerbaijan","Former Soviet States",0,0,4221.40747847848,46.5
-"11","Burundi","Sub-Saharan Africa",1,0,238.990725856496,27
-"12","Belgium","Global West",0,0,45159.3482229717,73.3
-"13","Benin","Sub-Saharan Africa",1,0,1291.04097215441,30
-"14","Burkina Faso","Sub-Saharan Africa",1,0,857.932729650223,38.3
-"15","Bangladesh","Southern Asia",1,0,1961.6137487886,29
-"16","Bulgaria","Eastern Europe",0,0,10079.2033812203,57
-"17","Bahrain","Greater Middle East",0,0,20409.9528047731,51
-"18","Bahamas","Latin America & Caribbean",0,0,NA,43.5
-"19","Bosnia and Herzegovina","Eastern Europe",0,0,6079.73828544838,45.4
-"20","Belarus","Former Soviet States",0,0,6424.15217642722,53
-"21","Belize","Latin America & Caribbean",0,0,4115.17700795622,41.9
-"22","Bolivia","Latin America & Caribbean",0,0,3133.09980321504,44.3
-"23","Brazil","Latin America & Caribbean",0,1,6796.84454227877,51.2
-"24","Barbados","Latin America & Caribbean",0,0,15373.8547035017,45.6
-"25","Brunei Darussalam","Asia-Pacific",0,0,27442.95382794,54.8
-"26","Bhutan","Southern Asia",1,0,3000.77932702976,39.3
-"27","Botswana","Sub-Saharan Africa",0,0,6404.89993159074,40.4
-"28","Central African Republic","Sub-Saharan Africa",1,0,492.79587119399,36.9
-"29","Canada","Global West",0,0,43258.176319834,71
-"30","Switzerland","Global West",0,0,87097.0364503764,81.5
-"31","Chile","Latin America & Caribbean",0,1,13231.7042069383,55.3
-"32","China","Asia-Pacific",0,1,10434.7751874839,37.3
-"33","Cote d'Ivoire","Sub-Saharan Africa",0,0,2325.72370502247,25.8
-"34","Cameroon","Sub-Saharan Africa",0,0,1537.13021832773,33.6
-"35","Dem. Rep. Congo","Sub-Saharan Africa",1,0,NA,36.4
-"36","Republic of Congo","Sub-Saharan Africa",0,0,NA,30.8
-"37","Colombia","Latin America & Caribbean",0,1,5334.55604233917,52.9
-"38","Comoros","Sub-Saharan Africa",1,0,1420.66174747221,32.1
-"39","Cabo Verde","Sub-Saharan Africa",0,0,3064.27238842819,32.8
-"40","Costa Rica","Latin America & Caribbean",0,0,12140.8541545754,52.5
-"41","Cuba","Latin America & Caribbean",0,0,9477.85287326771,48.4
-"42","Cyprus","Eastern Europe",0,0,26623.8008913181,64.8
-"43","Czech Republic","Eastern Europe",0,1,22932.2249686565,71
-"44","Germany","Global West",0,0,46208.4294717472,77.2
-"45","Djibouti","Sub-Saharan Africa",1,0,3425.48417585803,28.1
-"46","Dominica","Latin America & Caribbean",0,0,7003.85902147233,44.6
-"47","Denmark","Global West",0,0,61063.3164304238,82.5
-"48","Dominican Republic","Latin America & Caribbean",0,0,7268.1969096591,46.3
-"49","Algeria","Greater Middle East",0,0,3306.85820838104,44.8
-"50","Ecuador","Latin America & Caribbean",0,0,5600.38961495341,51
-"51","Egypt","Greater Middle East",0,1,NA,43.3
-"52","Eritrea","Sub-Saharan Africa",1,0,NA,30.4
-"53","Spain","Global West",0,0,27063.1939180299,74.3
-"54","Estonia","Eastern Europe",0,0,23027.0269956294,65.3
-"55","Ethiopia","Sub-Saharan Africa",1,0,936.340461064749,34.4
-"56","Finland","Global West",0,0,48773.2811691347,78.9
-"57","Fiji","Asia-Pacific",0,0,5057.63191261761,34.4
-"58","France","Global West",0,0,39030.3603713482,80
-"59","Micronesia","Asia-Pacific",0,0,NA,33
-"60","Gabon","Sub-Saharan Africa",0,0,6881.71519231831,45.8
-"61","United Kingdom","Global West",0,0,41124.5347686731,81.3
-"62","Georgia","Former Soviet States",0,0,4266.69079450924,41.3
-"63","Ghana","Sub-Saharan Africa",0,0,2205.5290158584,27.6
-"64","Guinea","Sub-Saharan Africa",1,0,1194.03786469445,26.4
-"65","Gambia","Sub-Saharan Africa",1,0,NA,27.9
-"66","Guinea-Bissau","Sub-Saharan Africa",1,0,727.520171719562,29.1
-"67","Equatorial Guinea","Sub-Saharan Africa",0,0,7143.23870497146,38.1
-"68","Greece","Eastern Europe",0,1,17622.5410033504,69.1
-"69","Grenada","Latin America & Caribbean",0,0,9261.55187617696,43.1
-"70","Guatemala","Latin America & Caribbean",0,0,4603.33961670975,31.8
-"71","Guyana","Latin America & Caribbean",0,0,6955.93921717789,35.9
-"72","Honduras","Latin America & Caribbean",0,0,2389.012430771,37.8
-"73","Croatia","Eastern Europe",0,0,14134.1626811193,63.1
-"74","Haiti","Latin America & Caribbean",1,0,1272.36799204205,27
-"75","Hungary","Eastern Europe",0,1,15980.740889649,63.7
-"76","Indonesia","Asia-Pacific",0,1,3869.58842704537,37.8
-"77","India","Southern Asia",0,1,1927.70782309335,27.6
-"78","Ireland","Global West",0,0,85267.7647437582,72.8
-"79","Iran","Greater Middle East",0,0,NA,48
-"80","Iraq","Greater Middle East",0,0,4145.86293637602,39.5
-"81","Iceland","Global West",0,0,59270.1800510483,72.3
-"82","Israel","Greater Middle East",0,0,44168.9436355026,65.8
-"83","Italy","Global West",0,0,31714.2209467105,71
-"84","Jamaica","Latin America & Caribbean",0,0,4664.53024222133,48.2
-"85","Jordan","Greater Middle East",0,0,4282.76582461621,53.4
-"86","Japan","Asia-Pacific",0,0,40193.2524448357,75.1
-"87","Kazakhstan","Former Soviet States",0,0,9122.23343021644,44.7
-"88","Kenya","Sub-Saharan Africa",0,0,1878.58070251348,34.7
-"89","Kyrgyzstan","Former Soviet States",0,0,NA,39.8
-"90","Cambodia","Asia-Pacific",1,0,1543.66925757282,33.6
-"91","Kiribati","Asia-Pacific",1,0,1653.54029724315,37.7
-"92","South Korea","Asia-Pacific",0,1,NA,66.5
-"93","Kuwait","Greater Middle East",0,1,24811.7697100231,53.6
-"94","Laos","Asia-Pacific",1,0,NA,34.8
-"95","Lebanon","Greater Middle East",0,0,4649.54764607837,45.4
-"96","Liberia","Sub-Saharan Africa",1,0,632.93638561735,22.6
-"97","Saint Lucia","Latin America & Caribbean",0,0,NA,43.1
-"98","Sri Lanka","Southern Asia",0,0,3680.67347661745,39
-"99","Lesotho","Sub-Saharan Africa",1,0,875.353432963926,28
-"100","Lithuania","Eastern Europe",0,0,20233.6413480843,62.9
-"101","Luxembourg","Global West",0,0,116014.602496869,82.3
-"102","Latvia","Eastern Europe",0,0,17726.2529351368,61.6
-"103","Morocco","Greater Middle East",0,0,3009.24945958152,42.3
-"104","Moldova","Former Soviet States",0,0,4547.05972064671,44.4
-"105","Madagascar","Sub-Saharan Africa",1,0,471.491496300252,26.5
-"106","Maldives","Southern Asia",0,0,6924.10574465625,35.6
-"107","Mexico","Latin America & Caribbean",0,1,8329.27131263927,52.6
-"108","Marshall Islands","Asia-Pacific",0,0,4129.850998412,30.8
-"109","North Macedonia","Eastern Europe",0,0,5917.26257545221,55.4
-"110","Mali","Sub-Saharan Africa",1,0,862.453018770252,29.4
-"111","Malta","Global West",0,0,27884.6428274251,70.7
-"112","Myanmar","Asia-Pacific",1,0,1467.60428115143,25.1
-"113","Montenegro","Eastern Europe",0,0,7677.15222569996,46.3
-"114","Mongolia","Asia-Pacific",0,0,4060.95051770038,32.2
-"115","Mozambique","Sub-Saharan Africa",1,0,448.544280704982,33.9
-"116","Mauritania","Sub-Saharan Africa",1,0,1701.99116304908,27.7
-"117","Mauritius","Sub-Saharan Africa",0,0,8627.84315711981,45.1
-"118","Malawi","Sub-Saharan Africa",1,0,636.820536833847,38.3
-"119","Malaysia","Asia-Pacific",0,1,10412.3489834381,47.9
-"120","Namibia","Sub-Saharan Africa",0,0,4179.27806560875,40.2
-"121","Niger","Sub-Saharan Africa",1,0,567.669892261611,30.8
-"122","Nigeria","Sub-Saharan Africa",0,0,2097.09247289022,31
-"123","Nicaragua","Latin America & Caribbean",0,0,1905.26115155921,39.2
-"124","Netherlands","Global West",0,0,52397.1167129558,75.3
-"125","Norway","Global West",0,0,67389.912047247,77.7
-"126","Nepal","Southern Asia",1,0,1155.14285440358,32.7
-"127","New Zealand","Global West",0,0,41441.4666667011,71.3
-"128","Oman","Greater Middle East",0,0,12659.7177242392,38.5
-"129","Pakistan","Southern Asia",0,1,1188.85975692162,33.1
-"130","Panama","Latin America & Caribbean",0,0,12509.8352901414,47.3
-"131","Peru","Latin America & Caribbean",0,1,6126.87453978867,44
-"132","Philippines","Asia-Pacific",0,1,3298.82958569657,38.4
-"133","Papua New Guinea","Asia-Pacific",0,0,2757.21752973696,32.4
-"134","Poland","Eastern Europe",0,1,15720.994663556,60.9
-"135","Portugal","Global West",0,0,22176.2967116929,67
-"136","Paraguay","Latin America & Caribbean",0,0,5001.07276045191,46.4
-"137","Qatar","Greater Middle East",0,1,50124.3859361728,37.1
-"138","Romania","Eastern Europe",0,0,12896.0886211622,64.7
-"139","Russia","Former Soviet States",0,1,NA,50.5
-"140","Rwanda","Sub-Saharan Africa",1,0,797.855520671748,33.8
-"141","Saudi Arabia","Greater Middle East",0,1,20110.3161924912,44
-"142","Sudan","Greater Middle East",1,0,595.467833007679,34.8
-"143","Senegal","Sub-Saharan Africa",1,0,1471.83096170711,30.7
-"144","Singapore","Asia-Pacific",0,0,59797.7521801188,58.1
-"145","Solomon Islands","Asia-Pacific",1,0,2250.6011638607,26.7
-"146","Sierra Leone","Sub-Saharan Africa",1,0,509.376593987322,25.7
-"147","El Salvador","Latin America & Caribbean",0,0,3798.63652082321,43.1
-"148","Serbia","Eastern Europe",0,0,7720.51057195234,55.2
-"149","Sao Tome and Principe","Sub-Saharan Africa",1,0,2157.84044569668,37.6
-"150","Suriname","Latin America & Caribbean",0,0,4916.60566637918,45.2
-"151","Slovakia","Eastern Europe",0,0,NA,68.3
-"152","Slovenia","Eastern Europe",0,0,25517.33066526,72
-"153","Sweden","Global West",0,0,52274.4087868798,78.7
-"154","Eswatini","Sub-Saharan Africa",0,0,3424.2822122311,33.8
-"155","Seychelles","Sub-Saharan Africa",0,0,10764.4204224611,58.2
-"156","Chad","Sub-Saharan Africa",1,0,659.270044977801,26.7
-"157","Togo","Sub-Saharan Africa",1,0,914.950792453212,29.5
-"158","Thailand","Asia-Pacific",0,1,7186.87409206525,45.4
-"159","Tajikistan","Former Soviet States",0,0,859.137961121368,38.2
-"160","Turkmenistan","Former Soviet States",0,0,NA,43.9
-"161","Timor-Leste","Asia-Pacific",1,0,1442.73073825015,35.3
-"162","Tonga","Asia-Pacific",0,0,4624.82344882844,45.1
-"163","Trinidad and Tobago","Latin America & Caribbean",0,0,15425.6351094785,47.5
-"164","Tunisia","Greater Middle East",0,0,3521.59194808639,46.7
-"165","Turkey","Eastern Europe",0,1,8536.43331960632,42.6
-"166","Taiwan","Asia-Pacific",0,1,NA,57.2
-"167","Tanzania","Sub-Saharan Africa",1,0,1076.47038455352,31.1
-"168","Uganda","Sub-Saharan Africa",1,0,822.027681531666,35.6
-"169","Ukraine","Former Soviet States",0,0,3726.92714937055,49.5
-"170","Uruguay","Latin America & Caribbean",0,0,15438.4116657291,49.1
-"171","United States of America","Global West",0,0,NA,69.3
-"172","Uzbekistan","Former Soviet States",0,0,1750.69711321291,44.3
-"173","Saint Vincent and the Grenadines","Latin America & Caribbean",0,0,NA,48.4
-"174","Venezuela","Latin America & Caribbean",0,0,NA,50.3
-"175","Viet Nam","Asia-Pacific",0,0,NA,33.4
-"176","Vanuatu","Asia-Pacific",1,0,2870.08930028914,28.9
-"177","Samoa","Asia-Pacific",0,0,4067.84345873762,37.3
-"178","South Africa","Sub-Saharan Africa",0,1,5655.86765390396,43.1
-"179","Zambia","Sub-Saharan Africa",1,0,985.132436038869,34.7
-"180","Zimbabwe","Sub-Saharan Africa",0,0,1214.50982023534,37
+country,region,ldc,emmrkt,gdp,EPI_cat
+Afghanistan,Southern Asia,1,0,516.747870807558,25.5
+Angola,Sub-Saharan Africa,1,0,1776.16686789531,29.7
+Albania,Eastern Europe,0,0,5246.29230634793,49
+United Arab Emirates,Greater Middle East,0,1,36284.5552429552,55.6
+Argentina,Latin America & Caribbean,0,1,8579.01777315683,52.2
+Armenia,Former Soviet States,0,0,4266.01807420946,52.3
+Antigua and Barbuda,Latin America & Caribbean,0,0,13992.7444804497,48.5
+Australia,Global West,0,0,51692.8427477695,74.9
+Austria,Global West,0,0,48586.8013213238,79.6
+Azerbaijan,Former Soviet States,0,0,4221.40747847848,46.5
+Burundi,Sub-Saharan Africa,1,0,238.990725856496,27
+Belgium,Global West,0,0,45159.3482229717,73.3
+Benin,Sub-Saharan Africa,1,0,1291.04097215441,30
+Burkina Faso,Sub-Saharan Africa,1,0,857.932729650223,38.3
+Bangladesh,Southern Asia,1,0,1961.6137487886,29
+Bulgaria,Eastern Europe,0,0,10079.2033812203,57
+Bahrain,Greater Middle East,0,0,20409.9528047731,51
+Bahamas,Latin America & Caribbean,0,0,NA,43.5
+Bosnia and Herzegovina,Eastern Europe,0,0,6079.73828544838,45.4
+Belarus,Former Soviet States,0,0,6424.15217642722,53
+Belize,Latin America & Caribbean,0,0,4115.17700795622,41.9
+Bolivia,Latin America & Caribbean,0,0,3133.09980321504,44.3
+Brazil,Latin America & Caribbean,0,1,6796.84454227877,51.2
+Barbados,Latin America & Caribbean,0,0,15373.8547035017,45.6
+Brunei Darussalam,Asia-Pacific,0,0,27442.95382794,54.8
+Bhutan,Southern Asia,1,0,3000.77932702976,39.3
+Botswana,Sub-Saharan Africa,0,0,6404.89993159074,40.4
+Central African Republic,Sub-Saharan Africa,1,0,492.79587119399,36.9
+Canada,Global West,0,0,43258.176319834,71
+Switzerland,Global West,0,0,87097.0364503764,81.5
+Chile,Latin America & Caribbean,0,1,13231.7042069383,55.3
+China,Asia-Pacific,0,1,10434.7751874839,37.3
+Cote d'Ivoire,Sub-Saharan Africa,0,0,2325.72370502247,25.8
+Cameroon,Sub-Saharan Africa,0,0,1537.13021832773,33.6
+Dem. Rep. Congo,Sub-Saharan Africa,1,0,NA,36.4
+Republic of Congo,Sub-Saharan Africa,0,0,NA,30.8
+Colombia,Latin America & Caribbean,0,1,5334.55604233917,52.9
+Comoros,Sub-Saharan Africa,1,0,1420.66174747221,32.1
+Cabo Verde,Sub-Saharan Africa,0,0,3064.27238842819,32.8
+Costa Rica,Latin America & Caribbean,0,0,12140.8541545754,52.5
+Cuba,Latin America & Caribbean,0,0,9477.85287326771,48.4
+Cyprus,Eastern Europe,0,0,26623.8008913181,64.8
+Czech Republic,Eastern Europe,0,1,22932.2249686565,71
+Germany,Global West,0,0,46208.4294717472,77.2
+Djibouti,Sub-Saharan Africa,1,0,3425.48417585803,28.1
+Dominica,Latin America & Caribbean,0,0,7003.85902147233,44.6
+Denmark,Global West,0,0,61063.3164304238,82.5
+Dominican Republic,Latin America & Caribbean,0,0,7268.1969096591,46.3
+Algeria,Greater Middle East,0,0,3306.85820838104,44.8
+Ecuador,Latin America & Caribbean,0,0,5600.38961495341,51
+Egypt,Greater Middle East,0,1,NA,43.3
+Eritrea,Sub-Saharan Africa,1,0,NA,30.4
+Spain,Global West,0,0,27063.1939180299,74.3
+Estonia,Eastern Europe,0,0,23027.0269956294,65.3
+Ethiopia,Sub-Saharan Africa,1,0,936.340461064749,34.4
+Finland,Global West,0,0,48773.2811691347,78.9
+Fiji,Asia-Pacific,0,0,5057.63191261761,34.4
+France,Global West,0,0,39030.3603713482,80
+Micronesia,Asia-Pacific,0,0,NA,33
+Gabon,Sub-Saharan Africa,0,0,6881.71519231831,45.8
+United Kingdom,Global West,0,0,41124.5347686731,81.3
+Georgia,Former Soviet States,0,0,4266.69079450924,41.3
+Ghana,Sub-Saharan Africa,0,0,2205.5290158584,27.6
+Guinea,Sub-Saharan Africa,1,0,1194.03786469445,26.4
+Gambia,Sub-Saharan Africa,1,0,NA,27.9
+Guinea-Bissau,Sub-Saharan Africa,1,0,727.520171719562,29.1
+Equatorial Guinea,Sub-Saharan Africa,0,0,7143.23870497146,38.1
+Greece,Eastern Europe,0,1,17622.5410033504,69.1
+Grenada,Latin America & Caribbean,0,0,9261.55187617696,43.1
+Guatemala,Latin America & Caribbean,0,0,4603.33961670975,31.8
+Guyana,Latin America & Caribbean,0,0,6955.93921717789,35.9
+Honduras,Latin America & Caribbean,0,0,2389.012430771,37.8
+Croatia,Eastern Europe,0,0,14134.1626811193,63.1
+Haiti,Latin America & Caribbean,1,0,1272.36799204205,27
+Hungary,Eastern Europe,0,1,15980.740889649,63.7
+Indonesia,Asia-Pacific,0,1,3869.58842704537,37.8
+India,Southern Asia,0,1,1927.70782309335,27.6
+Ireland,Global West,0,0,85267.7647437582,72.8
+Iran,Greater Middle East,0,0,NA,48
+Iraq,Greater Middle East,0,0,4145.86293637602,39.5
+Iceland,Global West,0,0,59270.1800510483,72.3
+Israel,Greater Middle East,0,0,44168.9436355026,65.8
+Italy,Global West,0,0,31714.2209467105,71
+Jamaica,Latin America & Caribbean,0,0,4664.53024222133,48.2
+Jordan,Greater Middle East,0,0,4282.76582461621,53.4
+Japan,Asia-Pacific,0,0,40193.2524448357,75.1
+Kazakhstan,Former Soviet States,0,0,9122.23343021644,44.7
+Kenya,Sub-Saharan Africa,0,0,1878.58070251348,34.7
+Kyrgyzstan,Former Soviet States,0,0,NA,39.8
+Cambodia,Asia-Pacific,1,0,1543.66925757282,33.6
+Kiribati,Asia-Pacific,1,0,1653.54029724315,37.7
+South Korea,Asia-Pacific,0,1,NA,66.5
+Kuwait,Greater Middle East,0,1,24811.7697100231,53.6
+Laos,Asia-Pacific,1,0,NA,34.8
+Lebanon,Greater Middle East,0,0,4649.54764607837,45.4
+Liberia,Sub-Saharan Africa,1,0,632.93638561735,22.6
+Saint Lucia,Latin America & Caribbean,0,0,NA,43.1
+Sri Lanka,Southern Asia,0,0,3680.67347661745,39
+Lesotho,Sub-Saharan Africa,1,0,875.353432963926,28
+Lithuania,Eastern Europe,0,0,20233.6413480843,62.9
+Luxembourg,Global West,0,0,116014.602496869,82.3
+Latvia,Eastern Europe,0,0,17726.2529351368,61.6
+Morocco,Greater Middle East,0,0,3009.24945958152,42.3
+Moldova,Former Soviet States,0,0,4547.05972064671,44.4
+Madagascar,Sub-Saharan Africa,1,0,471.491496300252,26.5
+Maldives,Southern Asia,0,0,6924.10574465625,35.6
+Mexico,Latin America & Caribbean,0,1,8329.27131263927,52.6
+Marshall Islands,Asia-Pacific,0,0,4129.850998412,30.8
+North Macedonia,Eastern Europe,0,0,5917.26257545221,55.4
+Mali,Sub-Saharan Africa,1,0,862.453018770252,29.4
+Malta,Global West,0,0,27884.6428274251,70.7
+Myanmar,Asia-Pacific,1,0,1467.60428115143,25.1
+Montenegro,Eastern Europe,0,0,7677.15222569996,46.3
+Mongolia,Asia-Pacific,0,0,4060.95051770038,32.2
+Mozambique,Sub-Saharan Africa,1,0,448.544280704982,33.9
+Mauritania,Sub-Saharan Africa,1,0,1701.99116304908,27.7
+Mauritius,Sub-Saharan Africa,0,0,8627.84315711981,45.1
+Malawi,Sub-Saharan Africa,1,0,636.820536833847,38.3
+Malaysia,Asia-Pacific,0,1,10412.3489834381,47.9
+Namibia,Sub-Saharan Africa,0,0,4179.27806560875,40.2
+Niger,Sub-Saharan Africa,1,0,567.669892261611,30.8
+Nigeria,Sub-Saharan Africa,0,0,2097.09247289022,31
+Nicaragua,Latin America & Caribbean,0,0,1905.26115155921,39.2
+Netherlands,Global West,0,0,52397.1167129558,75.3
+Norway,Global West,0,0,67389.912047247,77.7
+Nepal,Southern Asia,1,0,1155.14285440358,32.7
+New Zealand,Global West,0,0,41441.4666667011,71.3
+Oman,Greater Middle East,0,0,12659.7177242392,38.5
+Pakistan,Southern Asia,0,1,1188.85975692162,33.1
+Panama,Latin America & Caribbean,0,0,12509.8352901414,47.3
+Peru,Latin America & Caribbean,0,1,6126.87453978867,44
+Philippines,Asia-Pacific,0,1,3298.82958569657,38.4
+Papua New Guinea,Asia-Pacific,0,0,2757.21752973696,32.4
+Poland,Eastern Europe,0,1,15720.994663556,60.9
+Portugal,Global West,0,0,22176.2967116929,67
+Paraguay,Latin America & Caribbean,0,0,5001.07276045191,46.4
+Qatar,Greater Middle East,0,1,50124.3859361728,37.1
+Romania,Eastern Europe,0,0,12896.0886211622,64.7
+Russia,Former Soviet States,0,1,NA,50.5
+Rwanda,Sub-Saharan Africa,1,0,797.855520671748,33.8
+Saudi Arabia,Greater Middle East,0,1,20110.3161924912,44
+Sudan,Greater Middle East,1,0,595.467833007679,34.8
+Senegal,Sub-Saharan Africa,1,0,1471.83096170711,30.7
+Singapore,Asia-Pacific,0,0,59797.7521801188,58.1
+Solomon Islands,Asia-Pacific,1,0,2250.6011638607,26.7
+Sierra Leone,Sub-Saharan Africa,1,0,509.376593987322,25.7
+El Salvador,Latin America & Caribbean,0,0,3798.63652082321,43.1
+Serbia,Eastern Europe,0,0,7720.51057195234,55.2
+Sao Tome and Principe,Sub-Saharan Africa,1,0,2157.84044569668,37.6
+Suriname,Latin America & Caribbean,0,0,4916.60566637918,45.2
+Slovakia,Eastern Europe,0,0,NA,68.3
+Slovenia,Eastern Europe,0,0,25517.33066526,72
+Sweden,Global West,0,0,52274.4087868798,78.7
+Eswatini,Sub-Saharan Africa,0,0,3424.2822122311,33.8
+Seychelles,Sub-Saharan Africa,0,0,10764.4204224611,58.2
+Chad,Sub-Saharan Africa,1,0,659.270044977801,26.7
+Togo,Sub-Saharan Africa,1,0,914.950792453212,29.5
+Thailand,Asia-Pacific,0,1,7186.87409206525,45.4
+Tajikistan,Former Soviet States,0,0,859.137961121368,38.2
+Turkmenistan,Former Soviet States,0,0,NA,43.9
+Timor-Leste,Asia-Pacific,1,0,1442.73073825015,35.3
+Tonga,Asia-Pacific,0,0,4624.82344882844,45.1
+Trinidad and Tobago,Latin America & Caribbean,0,0,15425.6351094785,47.5
+Tunisia,Greater Middle East,0,0,3521.59194808639,46.7
+Turkey,Eastern Europe,0,1,8536.43331960632,42.6
+Taiwan,Asia-Pacific,0,1,NA,57.2
+Tanzania,Sub-Saharan Africa,1,0,1076.47038455352,31.1
+Uganda,Sub-Saharan Africa,1,0,822.027681531666,35.6
+Ukraine,Former Soviet States,0,0,3726.92714937055,49.5
+Uruguay,Latin America & Caribbean,0,0,15438.4116657291,49.1
+United States of America,Global West,0,0,NA,69.3
+Uzbekistan,Former Soviet States,0,0,1750.69711321291,44.3
+Saint Vincent and the Grenadines,Latin America & Caribbean,0,0,NA,48.4
+Venezuela,Latin America & Caribbean,0,0,NA,50.3
+Viet Nam,Asia-Pacific,0,0,NA,33.4
+Vanuatu,Asia-Pacific,1,0,2870.08930028914,28.9
+Samoa,Asia-Pacific,0,0,4067.84345873762,37.3
+South Africa,Sub-Saharan Africa,0,1,5655.86765390396,43.1
+Zambia,Sub-Saharan Africa,1,0,985.132436038869,34.7
+Zimbabwe,Sub-Saharan Africa,0,0,1214.50982023534,37
