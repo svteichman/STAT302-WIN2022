@@ -161,15 +161,6 @@ What if we want a way to look at all our variables at once?
 And we have more than a handful of variables?
 
 
---
-
-Consider this dataset with $29$ indicators of environmental performance for $180$ countries.
-
-```{r, echo = FALSE}
-environ_df <- read.csv("../projects/02_dimension_reduction/pca_data.csv")
-names(environ_df[2:ncol(environ_df)])
-```
-
 ---
 
 
@@ -187,6 +178,21 @@ str(gapminder)
 
 ---
 
+# Multivariate Data
+
+Dimension reduction: A transformation from a high-dimensional space into a low-dimensional space so that the low-dimensional space retains some meaningful properties of the original data 
+
+
+Consider this dataset with $29$ indicators of environmental performance for $180$ countries.
+
+```{r, echo = FALSE}
+environ_df <- read.csv("../projects/02_dimension_reduction/pca_data.csv")
+names(environ_df[2:ncol(environ_df)])
+```
+
+
+---
+
 class: inverse
 
 .sectionhead[Part 2. Principal Components Analysis (PCA): Theory]
@@ -196,28 +202,35 @@ class: inverse
 # Principal Components Analysis (PCA)
 
 
-.middler[**Goal**: Construct a set of variables that collectively retain meaningful properties of the original data set.]
+.middler[**Goal**: Construct a smaller set of variables that collectively retain meaningful properties of the original data set.]
 
 ---
 
 # Principal Components Analysis (PCA)
 
 
-.middler[**Goal**: Construct a set of *uncorrelated linear combinations of the original variables* that collectively retain meaningful properties of the original data set.]
+.middler[**Goal**: Construct a smaller set of *uncorrelated* variables that collectively retain meaningful properties of the original data set.]
 
 ---
 
 # Principal Components Analysis (PCA)
 
 
-.middler[**Goal**: Construct a set of *uncorrelated linear combinations of the original variables* that collectively retain *most of the variability* of the original data set.]
+.middler[**Goal**: Construct a smaller set of *uncorrelated linear combinations of the original variables* that collectively retain meaningful properties of the original data set.]
+
+---
+
+# Principal Components Analysis (PCA)
+
+
+.middler[**Goal**: Construct a smaller set of *uncorrelated linear combinations of the original variables* that collectively retain *most of the variability* of the original data set.]
 
 
 ---
 
 # Principal Components Analysis (PCA)
 
-**Goal**: Construct a set of *uncorrelated linear combinations of the original variables* that collectively retain *most of the variability* of the original data set.
+**Goal**: Construct a smaller set of *uncorrelated linear combinations of the original variables* that collectively retain *most of the variability* of the original data set.
 
 * Principal components: *uncorrelated linear combinations of the original variables*
 
@@ -233,42 +246,62 @@ class: inverse
 
 # Principal Components Analysis (PCA)
 
-**Goal**: Construct a set of *uncorrelated linear combinations of the original variables* that collectively retain *most of the variability* of the original data set.
+**Goal**: Construct a smaller set of *uncorrelated linear combinations of the original variables* that collectively retain *most of the variability* of the original data set.
 
-* Define our original variables $\mathbf{x}_1,\ldots, \mathbf{x}_p$, where each $\mathbf{x}_i$ is a vector of length $n$ representing $n$ observations of variable $i$
-
---
-
-* Define centered versions of our variables $\mathbf{x}^*_1,\ldots, \mathbf{x}^*_p$, where $\mathbf{x}^*_{i} = \mathbf{x}_{i} - \bar{\mathbf{x}}_i$, i.e. each individual observation of variable $i$ has the mean of variable $i$ subtracted off of it.
+* Define our original variables $\mathbf{x}_1,\ldots, \mathbf{x}_p$, where each $\mathbf{x}_j$ is a vector of length $n$ representing $n$ observations of variable $j$
 
 --
 
-* Our principal components are linear combinations of the $\mathbf{x}^*_i$ vectors:
+* Define centered versions of our variables $\mathbf{x}^*_1,\ldots, \mathbf{x}^*_p$, where $\mathbf{x}^*_{j} = \mathbf{x}_{j} - \bar{x}_j$, i.e. each individual observation of variable $j$ has the mean of variable $j$ subtracted off of it.
+
+--
+
+* Our principal components are linear combinations of the centered data vectors:
 
 $$\mathbf{y}_i = l_{i1}\mathbf{x}^*_1 + l_{i2}\mathbf{x}^*_2 + \ldots + l_{ip}\mathbf{x}^*_p$$
+--
+
+* We call these scaling values $l_{ij}$ loadings. 
+
+---
+
+# Principal Components Analysis (PCA)
+
+## A Reminder about Variances and Covariances 
+
+* Variance of a vector: 
+$$Var(\mathbf{x}_1) = \frac{\sum_{i=1}^n (x_{i1} -\bar{x}_1)^2}{n-1}$$
+--
+
+* Covariance between two vectors: 
+$$Cov(\mathbf{x}_1,\mathbf{x}_2) = \frac{\sum_{i=1}^n (x_{i1} -\bar{x}_1)(x_{i2}-\bar{x}_2)}{n-1}$$
+--
+
+* Centering doesn't affect variances or covariances:
+$$Var(\mathbf{x}_1^*) = Var(\mathbf{x}_1)$$
+$$Cov(\mathbf{x}_1^*,\mathbf{x}_2^*) = Cov(\mathbf{x}_1,\mathbf{x}_2)$$
 ---
 
 # Principal Component 1 
 
 * For our first principal component, we want to choose $l_{11},\ldots,l_{1p}$ in order to maximize the variance of $\mathbf{y}_1$.
 
+$$\text{maximize}_{l_{11},\ldots,l_{1p}}\ var(\mathbf{y}_1)$$
 $$\text{maximize}_{l_{11},\ldots,l_{1p}}\ var(l_{11}\mathbf{x}^*_1 + \ldots + l_{1p}\mathbf{x}^*_p)$$
 --
 
 * However, we could always increase the variance of $\mathbf{y}_1$ by just increasing the values of $\mathbf{l}_1$. Let's add the constraint that $\mathbf{l}_1^T\mathbf{l}_1 = 1$ (i.e. $\sum_{j=1}^p l_{1j}^2 = 1$). 
 
 $$\text{maximize}_{l_{11},\ldots,l_{1p}}\ var(l_{11}\mathbf{x}^*_1 + \ldots + l_{1p}\mathbf{x}^*_p)\ \text{s.t.}\  \mathbf{l}_1^T\mathbf{l}_1 = 1$$
---
 
-* We call these scaling values $l_{ij}$ loadings. 
 ---
 
 # Principal Component 2 
 
 
-* Let's start with the same condition as the first principal component: 
+* Let's start with the same goal as the first principal component: 
 
-$$\text{maximize}_{l_{11},\ldots,l_{1p}}\ var(l_{11}\mathbf{x}^*_1 + \ldots + l_{1p}\mathbf{x}^*_p)\ \text{s.t.}\  \mathbf{l}_1^T\mathbf{l}_1 = 1$$
+$$\text{maximize}_{l_{21},\ldots,l_{2p}}\ var(l_{21}\mathbf{x}^*_1 + \ldots + l_{2p}\mathbf{x}^*_p)\ \text{s.t.}\  \mathbf{l}_2^T\mathbf{l}_2 = 1$$
 --
 
 * Wait, what about the uncorrelated part? 
@@ -278,7 +311,9 @@ $$\text{maximize}_{l_{21},\ldots,l_{2p}}\ var(l_{21}\mathbf{x}^*_1 + \ldots + l_
 
 # A Brief Geometric Interpretation 
 
-Let's pretend that we only have two original vectors, $\mathbf{x}_1$ and $\mathbf{x}_2$. 
+* Let's pretend that we only have two original vectors, $\mathbf{x}_1$ and $\mathbf{x}_2$. 
+
+* First, we want to identify the axes along which the data have the most variance.
 
 .center[<img src="images/pcagif.gif" alt="" height="375"/>]
 
@@ -289,7 +324,9 @@ Let's pretend that we only have two original vectors, $\mathbf{x}_1$ and $\mathb
 
 # A Brief Geometric Interpretation 
 
-Let's pretend that we only have two original vectors, $\mathbf{x}_1$ and $\mathbf{x}_2$. 
+* Let's pretend that we only have two original vectors, $\mathbf{x}_1$ and $\mathbf{x}_2$. 
+
+* Next, we want to find an uncorrelated vector that explains as much of the remaining variance as possible. 
 
 .center[<img src="images/pca2plot.svg" alt="" height="375"/>]
 
@@ -320,16 +357,17 @@ $$\text{maximize}_{l_{k1},\ldots,l_{kp}}\ var(l_{k1}\mathbf{x}^*_1 + \ldots + l_
 
 \begin{align*}
 Var(\mathbf{y}_1) &= Var(l_{11}\mathbf{x}^*_1 + l_{12}\mathbf{x}^*_2 + l_{13}\mathbf{x}^*_3) \\
- &= l_{11}^2Var(\mathbf{x}^*_1) + 2l_{11}l_{12}Cov(\mathbf{x}^*_1,\mathbf{x}^*_2) + 
+ &= l_{11}^2Var(\mathbf{x}^*_1) + l_{12}^2Var(\mathbf{x}^*_2) + l_{13}^2Var(\mathbf{x}^*_3) + \\
+ &\ \ \ \ \ \  2l_{11}l_{12}Cov(\mathbf{x}^*_1,\mathbf{x}^*_2) + 
  2l_{11}l_{13}Cov(\mathbf{x}^*_1,\mathbf{x}^*_3) + \\
- &\ \ \ \ \ \ l_{12}^2Var(\mathbf{x}^*_2) + 2l_{12}l_{13}Cov(\mathbf{x}^*_2,\mathbf{x}^*_3) +\\ &\ \ \ \ \ \  l_{13}^2Var(\mathbf{x}^*_3) 
+ &\ \ \ \ \ \  2l_{12}l_{13}Cov(\mathbf{x}^*_2,\mathbf{x}^*_3)\\ 
 \end{align*}
 
 --
 
-* Remember the sample covariance matrix for the matrix $\mathbf{x}$.
+* Enter the sample covariance matrix for the matrix $\mathbf{X}^*$.
 
-$$S = \begin{pmatrix}
+$$S(\mathbf{X}^*) = \begin{pmatrix}
 Var(\mathbf{x}^*_1) & Cov(\mathbf{x}^*_1,\mathbf{x}^*_2) & Cov(\mathbf{x}^*_1,\mathbf{x}^*_3) \\
  Cov(\mathbf{x}^*_1,\mathbf{x}^*_2) & Var(\mathbf{x}^*_2) & Cov(\mathbf{x}^*_2,\mathbf{x}^*_3) \\
  Cov(\mathbf{x}^*_1,\mathbf{x}^*_3) & Cov(\mathbf{x}^*_2,\mathbf{x}^*_3) & Var(\mathbf{x}^*_3) 
@@ -339,17 +377,24 @@ Var(\mathbf{x}^*_1) & Cov(\mathbf{x}^*_1,\mathbf{x}^*_2) & Cov(\mathbf{x}^*_1,\m
 
 # PCA in Matrix Notation
 
-* We can rewrite $Var(\mathbf{y}_1)$ in matrix notation using the sample covariance matrix $\mathbf{S}$.
+* We can rewrite $Var(\mathbf{y}_1)$ in matrix notation using the sample covariance matrix $\mathbf{S}(\mathbf{X}^*)$.
 
-$$Var(\mathbf{y}_1) = \mathbf{l}_1^T\mathbf{S}\mathbf{l}_1$$
-$$\mathbf{l}_1^T\mathbf{S}\mathbf{l}_1 = \begin{pmatrix}l_{11} \\ l_{12} \\ l_{13} \end{pmatrix}\begin{pmatrix}
+\begin{align*}
+Var(\mathbf{y}_1) &= Var(l_{11}\mathbf{x}^*_1 + l_{12}\mathbf{x}^*_2 + l_{13}\mathbf{x}^*_3) \\
+ &= l_{11}^2Var(\mathbf{x}^*_1) + l_{12}^2Var(\mathbf{x}^*_2) + l_{13}^2Var(\mathbf{x}^*_3) + \\
+ &\ \ \ \ \ \  2l_{11}l_{12}Cov(\mathbf{x}^*_1,\mathbf{x}^*_2) + 
+ 2l_{11}l_{13}Cov(\mathbf{x}^*_1,\mathbf{x}^*_3) + \\
+ &\ \ \ \ \ \  2l_{12}l_{13}Cov(\mathbf{x}^*_2,\mathbf{x}^*_3)\\
+ &= \begin{pmatrix}l_{11} \\ l_{12} \\ l_{13} \end{pmatrix}\begin{pmatrix}
 Var(\mathbf{x}^*_1) & Cov(\mathbf{x}^*_1,\mathbf{x}^*_2) & Cov(\mathbf{x}^*_1,\mathbf{x}^*_3) \\
  Cov(\mathbf{x}^*_1,\mathbf{x}^*_2) & Var(\mathbf{x}^*_2) & Cov(\mathbf{x}^*_2,\mathbf{x}^*_3) \\
  Cov(\mathbf{x}^*_1,\mathbf{x}^*_3) & Cov(\mathbf{x}^*_2,\mathbf{x}^*_3) & Var(\mathbf{x}^*_3) 
-\end{pmatrix} \begin{pmatrix} l_{11} & l_{12} & l_{13}\end{pmatrix}$$
+\end{pmatrix} \begin{pmatrix} l_{11} & l_{12} & l_{13}\end{pmatrix} \\
+ &= \mathbf{l}_1^T\mathbf{S}(\mathbf{X}^*)\mathbf{l}_1 \\
+\end{align*}
 --
 
-* We can rewrite $Var(\mathbf{y}_k)$ as $Var(\mathbf{y}_k) = \mathbf{l}_k^T\mathbf{S}\mathbf{l}_k$ for any $k \in \{1,\ldots,p\}$.
+* We can rewrite $Var(\mathbf{y}_k)$ as $Var(\mathbf{y}_k) = \mathbf{l}_k^T\mathbf{S}(\mathbf{X}^*)\mathbf{l}_k$ for any $k \in \{1,\ldots,p\}$.
 
 ---
 
@@ -358,10 +403,10 @@ Var(\mathbf{x}^*_1) & Cov(\mathbf{x}^*_1,\mathbf{x}^*_2) & Cov(\mathbf{x}^*_1,\m
 * Therefore, we can solve the following maximization problems to get our loadings for our principal components. 
 
 \begin{align*}
-\text{maximize}_{\mathbf{l}_1}\ \mathbf{l}_1^T\mathbf{S}\mathbf{l}_1\ &\text{s.t.}\ \mathbf{l}_1^T\mathbf{l}_1=1 \\
-\text{maximize}_{\mathbf{l}_2}\ \mathbf{l}_2^T\mathbf{S}\mathbf{l}_2\ &\text{s.t.}\ \mathbf{l}_2^T\mathbf{l}_2=1,\ \mathbf{l}_1^T\mathbf{l}_2=0 \\
+\text{maximize}_{\mathbf{l}_1}\ \mathbf{l}_1^T\mathbf{S}(\mathbf{X}^*)\mathbf{l}_1\ &\text{s.t.}\ \mathbf{l}_1^T\mathbf{l}_1=1 \\
+\text{maximize}_{\mathbf{l}_2}\ \mathbf{l}_2^T\mathbf{S}(\mathbf{X}^*)\mathbf{l}_2\ &\text{s.t.}\ \mathbf{l}_2^T\mathbf{l}_2=1,\ \mathbf{l}_1^T\mathbf{l}_2=0 \\
 &\vdots \\
-\text{maximize}_{\mathbf{l}_p}\ \mathbf{l}_p^T\mathbf{S}\mathbf{l}_p\ &\text{s.t.}\ \mathbf{l}_p^T\mathbf{l}_p=1,\ \mathbf{l}_1^T\mathbf{l}_p=0,\\
+\text{maximize}_{\mathbf{l}_p}\ \mathbf{l}_p^T\mathbf{S}(\mathbf{X}^*)\mathbf{l}_p\ &\text{s.t.}\ \mathbf{l}_p^T\mathbf{l}_p=1,\ \mathbf{l}_1^T\mathbf{l}_p=0,\\
 &\ \ \ \ \ \ \  \mathbf{l}_2^T\mathbf{l}_p=0,\ldots,\mathbf{l}_{p-1}^T\mathbf{l}_{p} = 0
 \end{align*}
 
@@ -369,11 +414,11 @@ Var(\mathbf{x}^*_1) & Cov(\mathbf{x}^*_1,\mathbf{x}^*_2) & Cov(\mathbf{x}^*_1,\m
 
 # Finding Loading Vectors for PCA 
 
-* It turns out, the eigendecomposition (also called spectral decomposition) of the sample covariance matrix $\mathbf{S}$ will give us exactly what we need to solve this maximization problems! 
+* It turns out, the eigendecomposition of the sample covariance matrix $\mathbf{S}(\mathbf{X}^*)$ will give us exactly what we need to solve this maximization problems! 
 
 --
 
-* Spectral decomposition theorem: take any square symmetric matrix $\mathbf{A}$. It can be re-written as the decomposition $\mathbf{A} = \mathbf{U\Lambda U}^T$, where $\mathbf{U}$ is an orthonormal matrix made up of the eigenvectors of $\mathbf{A}$ as the columns, and $\mathbf{\Lambda}$ is a diagonal matrix with the eigenvalues of $\mathbf{A}$ on the diagonals.
+* Using the eigendecomposition, we can write $\mathbf{S}(\mathbf{X}^*)$ as a product of other matrices, i.e. $\mathbf{S}(\mathbf{X}^*) = \mathbf{U\Lambda U}^T$, where $\mathbf{U}$ is an orthonormal matrix made up of the eigenvectors of $\mathbf{S}(\mathbf{X}^*)$ as the columns, and $\mathbf{\Lambda}$ is a diagonal matrix with the ordered eigenvalues of $\mathbf{S}(\mathbf{X}^*)$ on the diagonals.
 
 --
 
@@ -381,7 +426,7 @@ Var(\mathbf{x}^*_1) & Cov(\mathbf{x}^*_1,\mathbf{x}^*_2) & Cov(\mathbf{x}^*_1,\m
 
 --
 
-* TLDR (avoiding the linear algebra): The eigendecomposition of our empirical covariance matrix $\mathbf{S} = \mathbf{U\Lambda U}^T$ will give us our variable loadings for our principal components as the columns of the matrix $\mathbf{U}$! 
+* TLDR (avoiding the linear algebra): If we perform an eigendecomposition of $\mathbf{S}(\mathbf{X}^*)$, the columns of the matrix $\mathbf{U}$ will give us our variable loadings for our principal components! 
 
 
 .footnote[Note: We could also get our loading vectors using the Singular Value Decomposition (SVD) of the matrix X*. These will give the same results!]
@@ -390,11 +435,11 @@ Var(\mathbf{x}^*_1) & Cov(\mathbf{x}^*_1,\mathbf{x}^*_2) & Cov(\mathbf{x}^*_1,\m
 
 # Finding Principal Components 
 
-* Remember, that we've defined the first principal component as the vector $\mathbf{y}_i= l_{11}\mathbf{x}^*_1+\ldots + l_{1p}\mathbf{x}^*_p$. 
+* Remember, that we've defined the first principal component as the vector $\mathbf{y}_1= l_{11}\mathbf{x}^*_1+\ldots + l_{1p}\mathbf{x}^*_p$. 
 
 --
 
-* Therefore, to compute our $\mathbf{y}_i$ vectors, we need to multiply our loadings with our $\mathbf{x}^*_i$ vectors, which are our original variables. 
+* Therefore, to compute our $\mathbf{y}_i$ vectors, we need to multiply our loadings with our $\mathbf{x}^*_i$ vectors, which are our centered variables. 
 
 --
 
@@ -409,15 +454,15 @@ $$\mathbf{Y} = \mathbf{U}\mathbf{X}^*$$
 
 --
 
-2. Compute the empirical covariance matrix of $\mathbf{X}^*$, $\mathbf{S}$.
+2. Compute the empirical covariance matrix of $\mathbf{X}^*$, $\mathbf{S}(\mathbf{X}^*)$.
 
 --
 
-3. Perform an eigendecomposition, $\mathbf{S} = \mathbf{U\Lambda U}^T$.
+3. Perform an eigendecomposition, $\mathbf{S}(\mathbf{X}^*) = \mathbf{U\Lambda U}^T$.
 
 --
 
-4. Use the columns of $\mathbf{U}$ as the loading vectors, i.e. $\mathbf{l}_i$ for each variable $i\in\{1,\ldots,p\}$.
+4. Use the columns of $\mathbf{U}$ as the loading vectors.
 
 --
 
@@ -425,12 +470,6 @@ $$\mathbf{Y} = \mathbf{U}\mathbf{X}^*$$
 
 ---
 
-# Uniqueness of Principal Components 
-
-* One nice property of principal components is that the loadings are unique, up to a sign flip. 
-* In other words, there is no randomness (besides signs) when generating principal components. 
-
----
 
 # Example of PCA 
 
@@ -473,17 +512,38 @@ ggplot(plot_df, aes(x = loading1,
 
 Let's look closer at the loadings. 
 
+.pull-left[
+```{r, echo = FALSE, fig.align='center'}
+plot_df <- data.frame(loading1 = cars_pca$loadings[ ,1],
+                      loading2 = cars_pca$loadings[, 2],
+                      name = names(cars_pca_df))
+ggplot(plot_df, aes(x = loading1,
+                    y = loading2,
+                    label = name)) + 
+  geom_point() + 
+  geom_text(nudge_x = 0.06) + 
+  geom_hline(yintercept = 0, color = "gray") + 
+  geom_vline(xintercept = 0, color = "gray") +
+  xlab("Loadings for Principal Component 1") + 
+  ylab("Loadings for Principal Component 2") + 
+  ggtitle("Loadings for First Two Principal Components") + 
+  theme_bw(base_size = 12) + 
+  theme(plot.title = element_text(hjust = 0.5))
+```
+]
+
+.pull-right[
 ```{r}
-round(cars_pca$loadings[1:5, ], 3)
 apply(cars_pca_df, 2, range)
 ```
+]
 
 ---
 
 # Scaling Variables before PCA 
 
 * Because of this behavior, where principal components depend on the scale of the data, we often scale our variables before performing PCA.
-* To scale a variable $\mathbf{x}_i$, first take the centered variable $\mathbf{x}^*_i$, then divide by the standard deviation of variable $i$, to get the centered and scaled version of variable $i$, $\tilde{\mathbf{x}}_i$.
+* To scale a variable $\mathbf{x}_j$, first take the centered variable $\mathbf{x}^*_j$, then divide by the standard deviation of variable $j$, to get the centered and scaled version of variable $i$, $\tilde{\mathbf{x}}_j$.
 
 ---
 
@@ -497,15 +557,15 @@ apply(cars_pca_df, 2, range)
 
 --
 
-3. Compute the empirical covariance matrix of $\tilde{\mathbf{X}}$, $\mathbf{S}$. (Note that this would be equal to the empirical correlation matrix of the original data $\mathbf{X}$!)
+3. Compute the empirical covariance matrix of $\tilde{\mathbf{X}}$, $\mathbf{S}(\tilde{\mathbf{X}})$. (Note that this would be equal to the empirical correlation matrix of the original data $\mathbf{X}$!)
 
 --
 
-4. Perform an eigendecomposition, $\mathbf{S} = \mathbf{U\Lambda U}^T$.
+4. Perform an eigendecomposition, $\mathbf{S}(\tilde{\mathbf{X}}) = \mathbf{U\Lambda U}^T$.
 
 --
 
-5. Use the columns of $\mathbf{U}$ as the loading vectors, i.e. $\mathbf{l}_i$ for each variable $i\in\{1,\ldots,p\}$.
+5. Use the columns of $\mathbf{U}$ as the loading vectors.
 
 --
 

@@ -21,7 +21,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ![](https://eige.europa.eu/sites/default/files/styles/eige_original_optimised/public/images/environment_climate_change_0.jpg?itok=OgfBMStR)
 
-**due date: 02/21**
+**due date: 02/23**
 
 * Instructions [[.html](files/projects/02_dimension_reduction/02-dimension_reduction.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/projects/02_dimension_reduction/02-dimension_reduction.Rmd)]
 * Dataset 1 [[.csv](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/projects/02_dimension_reduction/pca_data.csv)]

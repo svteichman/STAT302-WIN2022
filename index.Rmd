@@ -49,8 +49,8 @@ Materials for this course were originally developed by [Bryan Martin](https://br
 
 ### Week Eight
 
-* **M 02/21**: No class; Project 2 due at 11:59
-* **W 02/23**: Short Lab 4 assigned
+* **M 02/21**: No class
+* **W 02/23**: Project 2 due before class; Short Lab 4 assigned
 
 ### Week Nine
 

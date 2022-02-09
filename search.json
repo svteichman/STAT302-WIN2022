@@ -13,8 +13,8 @@
       "title": "STAT 302",
       "description": "Statistical Software and its Applications\n",
       "author": [],
-      "contents": "\nMaterials for this course were originally developed by Bryan Martin.\nSchedule\nWeek One\nM 01/03: Short Lab 0 assigned\nW 01/05: Short Lab 0 due before class; Short lab 1 assigned\nWeek Two\nM 01/10: Short Lab 1 due before class; Lab 1 assigned\nW 01/12: Short Lab 2 assigned\nWeek Three\nM 01/17: No class\nW 01/19: Short Lab 2 and Lab 1 due before class; Lab 2 assigned\nWeek Four\nM 01/24: Lab 2 due before class; Project 1 assigned\nW 01/26: No new assignment\nWeek Five\nM 01/31: Short Lab 3 assigned\nW 02/02: Project 1 and Short Lab 3 due before class; Lab 3 assigned\nWeek Six\nM 02/07: No new assignment\nW 02/09: Lab 3 due before class; Project 2 assigned\nWeek Seven\nM 02/14: No new assignment\nW 02/16: No new assignment\nWeek Eight\nM 02/21: No class; Project 2 due at 11:59\nW 02/23: Short Lab 4 assigned\nWeek Nine\nM 02/28: Short Lab 4 due before class; Short Lab 5 assigned\nW 03/02: Short Lab 5 due before class; Short Lab 6 assigned\nWeek Ten\nM 03/07: Short Lab 6 due before class; Project 3 assigned\nW 03/09: No new assignment\nFinals week\nM 12/06: Project 3 due Monday at 11:59\n\n\n\n",
-      "last_modified": "2022-01-26T10:44:44-08:00"
+      "contents": "\nMaterials for this course were originally developed by Bryan Martin.\nSchedule\nWeek One\nM 01/03: Short Lab 0 assigned\nW 01/05: Short Lab 0 due before class; Short lab 1 assigned\nWeek Two\nM 01/10: Short Lab 1 due before class; Lab 1 assigned\nW 01/12: Short Lab 2 assigned\nWeek Three\nM 01/17: No class\nW 01/19: Short Lab 2 and Lab 1 due before class; Lab 2 assigned\nWeek Four\nM 01/24: Lab 2 due before class; Project 1 assigned\nW 01/26: No new assignment\nWeek Five\nM 01/31: Short Lab 3 assigned\nW 02/02: Project 1 and Short Lab 3 due before class; Lab 3 assigned\nWeek Six\nM 02/07: No new assignment\nW 02/09: Lab 3 due before class; Project 2 assigned\nWeek Seven\nM 02/14: No new assignment\nW 02/16: No new assignment\nWeek Eight\nM 02/21: No class\nW 02/23: Project 2 due before class; Short Lab 4 assigned\nWeek Nine\nM 02/28: Short Lab 4 due before class; Short Lab 5 assigned\nW 03/02: Short Lab 5 due before class; Short Lab 6 assigned\nWeek Ten\nM 03/07: Short Lab 6 due before class; Project 3 assigned\nW 03/09: No new assignment\nFinals week\nM 12/06: Project 3 due Monday at 11:59\n\n\n\n",
+      "last_modified": "2022-02-09T11:48:52-08:00"
     },
     {
       "path": "labs.html",
@@ -29,8 +29,8 @@
       "title": "Projects",
       "description": "",
       "author": [],
-      "contents": "\nProject 1: Data Visualization\n\ndue date: 02/02\nInstructions [.html] [.Rmd]\nData [.csv]\nProject 2: Data Analysis Using PCA\n\ndue date: 02/21\nInstructions [.html] [.Rmd]\nDataset 1 [.csv]\nDataset 2 [.csv]\n\n\n\n",
-      "last_modified": "2022-02-08T13:36:55-08:00"
+      "contents": "\nProject 1: Data Visualization\n\ndue date: 02/02\nInstructions [.html] [.Rmd]\nData [.csv]\nProject 2: Data Analysis Using PCA\n\ndue date: 02/23\nInstructions [.html] [.Rmd]\nDataset 1 [.csv]\nDataset 2 [.csv]\n\n\n\n",
+      "last_modified": "2022-02-09T11:47:26-08:00"
     },
     {
       "path": "short_labs.html",
