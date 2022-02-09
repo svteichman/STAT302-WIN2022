@@ -49,13 +49,13 @@ pca_df <- clean_env_df %>%
   select(-iso, -region, -contains("cat"), 
          -region, -ldc, -emmrkt, -gdp)
 
-write.csv(pca_df, "files/projects/02_dimension_reduction/pca_data.csv")
+write_csv(pca_df, "files/projects/02_dimension_reduction/pca_data.csv")
 
 other_df <- clean_env_df %>% 
   select(country, region, ldc, emmrkt, gdp, EPI_cat) 
 names(other_df) <- str_remove(names(other_df), "_cat")
 
-write.csv(other_df, "files/projects/02_dimension_reduction/additional_data.csv")
+write_csv(other_df, "files/projects/02_dimension_reduction/additional_data.csv")
 
 
 
