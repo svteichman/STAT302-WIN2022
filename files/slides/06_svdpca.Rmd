@@ -36,8 +36,8 @@ Thanks Joia!
 # Outline
 
 1. Multivariate data and dimension reduction 
-2. Principal Components Analysis (PCA): Theory 
-3. Principal Components Analysis (PCA): Application
+2. Principal Components Analysis (PCA): Theory & Application
+3. Principal Components Regression
 
 
 .middler[**Goal:** Practice using R to implement a statistical method to analyze multivariate data.]
@@ -195,7 +195,7 @@ names(environ_df[2:ncol(environ_df)])
 
 class: inverse
 
-.sectionhead[Part 2. Principal Components Analysis (PCA): Theory]
+.sectionhead[Part 2. Principal Components Analysis (PCA): Theory & Application]
 
 ---
 
@@ -444,7 +444,7 @@ Var(\mathbf{x}^*_1) & Cov(\mathbf{x}^*_1,\mathbf{x}^*_2) & Cov(\mathbf{x}^*_1,\m
 --
 
 * We can again use matrix multiplication to do this all at once! If $\mathbf{X}^*$ is our $n\times p$ data matrix and $\mathbf{Y}$ is our $n\times p$ matrix of principal component vectors, we can write:
-$$\mathbf{Y} = \mathbf{U}\mathbf{X}^*$$
+$$\mathbf{Y} = \mathbf{X}^*\mathbf{U}$$
 
 ---
 
@@ -466,7 +466,7 @@ $$\mathbf{Y} = \mathbf{U}\mathbf{X}^*$$
 
 --
 
-5. Multiple the loadings by the centered matrix $\mathbf{X}^*$ to get the principal component vectors, $\mathbf{Y} = \mathbf{UX}^*$.
+5. Multiply the centered matrix $\mathbf{X}^*$ by the loadings to get the principal component vectors, $\mathbf{Y} = \mathbf{X}^*\mathbf{U}$.
 
 ---
 
@@ -569,7 +569,63 @@ apply(cars_pca_df, 2, range)
 
 --
 
-6. Multiple the loadings by the centered and scaled matrix $\tilde{\mathbf{X}}$ to get the principal component vectors, $\mathbf{Y} = \mathbf{U}\tilde{\mathbf{X}}$.
+6. Multiply the centered and scaled matrix $\tilde{\mathbf{X}}$ by the loadings to get the principal component vectors, $\mathbf{Y} = \tilde{\mathbf{X}}\mathbf{U}$.
+
+---
+
+# Pet picture of the day 
+
+```{r, echo = FALSE, out.width = "400px", fig.align = "center"}
+knitr::include_graphics("../../files/images/pets/nut_mad.jpg")
+```
+
+---
+
+# Review 
+
+## What is the goal of dimension reduction? 
+
+--
+
+## What is the goal of PCA? 
+
+---
+
+# Correction 
+
+## Mistake last week in the slides: 
+
+To get principal component vectors, compute $\mathbf{Y} = \mathbf{U}\tilde{\mathbf{X}}$. 
+
+## Corrected version: 
+
+To get principal component vectors, compute $\mathbf{Y} = \tilde{\mathbf{X}}\mathbf{U}$. 
+
+---
+
+# Steps to Perform PCA on Scaled Data 
+
+1. Mean center each variable of your data matrix $\mathbf{X}$ to get $\mathbf{X}^*$.
+
+--
+
+2. Scale each variable of your data matrix $\mathbf{X}^*$ by its standard deviation to get $\tilde{\mathbf{X}}$.
+
+--
+
+3. Compute the empirical covariance matrix of $\tilde{\mathbf{X}}$, $\mathbf{S}(\tilde{\mathbf{X}})$. (Note that this would be equal to the empirical correlation matrix of the original data $\mathbf{X}$!)
+
+--
+
+4. Perform an eigendecomposition, $\mathbf{S}(\tilde{\mathbf{X}}) = \mathbf{U\Lambda U}^T$.
+
+--
+
+5. Use the columns of $\mathbf{U}$ as the loading vectors.
+
+--
+
+6. Multiply the centered and scaled matrix $\tilde{\mathbf{X}}$ by the loadings to get the principal component vectors, $\mathbf{Y} = \tilde{\mathbf{X}}\mathbf{U}$.
 
 ---
 
@@ -592,7 +648,7 @@ Let's look closer at the loadings on the first two principal components.
 plot_df <- data.frame(loading1 = cars_pca_scaled$loadings[ ,1],
                       loading2 = cars_pca_scaled$loadings[, 2],
                       name = names(cars_pca_df))
-ggplot(plot_df, aes(x = loading1,
+loading_plot <- ggplot(plot_df, aes(x = loading1,
                     y = loading2,
                     label = name)) + 
   geom_point() + 
@@ -604,6 +660,7 @@ ggplot(plot_df, aes(x = loading1,
   ggtitle("Loadings for First Two Principal Components") + 
   theme_bw(base_size = 12) + 
   theme(plot.title = element_text(hjust = 0.5))
+loading_plot
 ```
 
 ---
@@ -618,17 +675,17 @@ ggplot(plot_df, aes(x = loading1,
 
 --
 
-* Intuition: If we have $p$ original variables but we can explain most of the variability in our data with $k$ (if $k < p$) principal components, then we can reduce the dimension of our dataset while retaining most of the data's variability 
+* Intuition: If we have $p$ original variables but we can explain most of the variability in our data with $k$ (if $k < p$) principal components, then we can reduce the dimension of our dataset while retaining most of the data's variability. 
 
 ---
 
 # How many principal components to use? 
 
-* If we keep all $p$ principal component vectors $\mathbf{y}_j$, $j\in\{1,\ldots,p\}$, then we can explain all of the variance in our data matrix $\mathbf{X}$ (or scaled data matrix $\tilde{\mathbf{X}}$). 
+* If we keep all $p$ principal component vectors $\mathbf{y}_j$, $j\in\{1,\ldots,p\}$, then we can explain all of the variance in our centered data matrix $\mathbf{X}^*$ (or scaled data matrix $\tilde{\mathbf{X}}$). 
 
 --
 
-* Remember our eigendecomposition, $\mathbf{S} = \mathbf{U\Lambda U}^T$, in which $\mathbf{\Lambda}$ is a diagonal matrix with the eigenvalues of $\mathbf{S}$ sorted in descending order.
+* Remember our eigendecomposition, $\mathbf{S}(\tilde{\mathbf{X}}) = \mathbf{U\Lambda U}^T$, in which $\mathbf{\Lambda}$ is a diagonal matrix with the eigenvalues of $\mathbf{S}$ sorted in descending order.
 
 --
 
@@ -660,6 +717,27 @@ screeplot(cars_pca_scaled, type = "lines", main = "Scree Plot")
 ```
 
 * In a scree plot, we look for the "elbow."
+
+---
+
+# How many principal components to use? 
+
+* We can make a scree plot to visualize the proportion of variance explained by each principal component. 
+
+```{r, fig.align='center', echo = FALSE, fig.height = 6.5} 
+scree_df <- data.frame(component = 1:length(cars_pca_scaled$sdev),
+                       variance = cars_pca_scaled$sdev^2)
+scree_df$cum_var <- cumsum(scree_df$variance)
+ggplot(scree_df, aes(x = as.numeric(component), y = cum_var)) + 
+  geom_line() + 
+  geom_point() + 
+  ylim(c(0, 5)) + 
+  xlab("Component") + 
+  ylab("Cumulative Variance Explained") + 
+  ggtitle("Cumulative Scree Plot") + 
+  theme_bw(base_size = 14) + 
+  theme(plot.title = element_text(hjust = 0.5))
+```
 
 ---
 
@@ -747,7 +825,7 @@ text_df <- plot_df %>%
            c("Merc 230", "Hornet 4 Drive",
              "Lotus Europa", "Porsche 914-2",
              "Maserati Bora", "Ferrari Dino"))
-ggplot(plot_df, 
+pc2_plot <- ggplot(plot_df, 
        aes(x = pc1, y = pc2,
            label = name)) + 
   geom_point() + 
@@ -761,6 +839,7 @@ ggplot(plot_df,
   theme_bw(base_size = 12) + 
   theme(plot.title = 
           element_text(hjust = 0.5))
+pc2_plot
 ```
 ]
 
@@ -768,7 +847,7 @@ ggplot(plot_df,
 
 # Biplots 
 
-* Biplots show the transformed data and loadings for the first two principal components. 
+* Biplots show the observations and loadings for the first two principal components. 
 
 ```{r, fig.align='center', fig.height = 6}
 biplot(cars_pca_scaled)
@@ -776,6 +855,22 @@ biplot(cars_pca_scaled)
 
 ---
 
+# Biplots 
+
+.pull-left[
+```{r, echo = FALSE}
+loading_plot
+```
+]
+
+.pull-right[
+```{r, echo = FALSE}
+pc2_plot
+```
+]
+
+---
+
 # Back to first two principal components 
 
 ```{r, echo = FALSE, fig.align='center'}
@@ -927,15 +1022,15 @@ plot_df <-
   data.frame(pc1 = cars_pca_scaled$scores[, 1],
              pc2 = cars_pca_scaled$scores[, 2],
              name = rownames(mtcars),
-             carb = mtcars$carb)
+             hp = mtcars$hp)
 ggplot(plot_df, 
        aes(x = pc1, y = pc2, 
            label = name,
-           color = carb)) + 
+           color = hp)) + 
   geom_point(size = 3) + 
   labs(x = "Principal Component 1", 
        y = "Principal Component 2",
-       color = "Carburetors",
+       color = "Horse Power",
        title = "First Two Principal Components of mtcars") + 
   theme_bw(base_size = 12) + 
   theme(plot.title = 
@@ -952,18 +1047,85 @@ plot_df <-
   data.frame(pc1 = cars_pca_scaled$scores[, 1],
              pc2 = cars_pca_scaled$scores[, 2],
              name = rownames(mtcars),
-             carb = mtcars$carb)
+             hp = mtcars$hp)
 ggplot(plot_df, 
        aes(x = pc1, y = pc2, 
            label = name,
-           color = carb)) + 
+           color = hp)) + 
   geom_point(size = 3) + 
   labs(x = "Principal Component 1", 
        y = "Principal Component 2",
-       color = "Carburetors",
+       color = "Horse Power",
        title = "First Two Principal Components of mtcars") + 
   theme_bw(base_size = 12) + 
   theme(plot.title = 
           element_text(hjust = 0.5)) + 
   scale_color_continuous(low = "blue", high = "red")
 ```
+
+---
+
+class: inverse
+
+.sectionhead[Part 3. Principal Components Regression]
+
+---
+
+# Principal Components Regression
+
+## Multicollinearity 
+
+--
+
+* Multicollinearity is a condition in which one covariate can be linearly predicted from other covariates in a regression. 
+
+--
+
+* This can cause problems with t tests for the coefficients in linear regression.
+
+---
+
+# Principal Components Regression
+
+```{r}
+cor(mtcars[,c("mpg", "disp", "drat", "wt", "qsec")])
+```
+
+```{r}
+cor(mtcars$hp, mtcars[,c("mpg", "disp", "drat", "wt", "qsec")])
+```
+
+---
+
+# Principal Components Regression
+
+```{r}
+mod <- lm(hp ~ mpg + disp + drat + wt + qsec, data = mtcars)
+summary(mod)
+```
+
+---
+
+# Principal Components Regression 
+
+## Steps for Principal Components Regression
+
+--
+
+1. Run PCA. 
+
+--
+
+2. Do linear regression on a set of the principal components.
+
+---
+
+# Principal Components Regression
+
+```{r}
+mtcars_pcs <- data.frame(cars_pca_scaled$scores)
+mtcars_pcs$hp <- mtcars$hp
+mod_pc <- lm(hp ~ ., data = mtcars_pcs)
+summary(mod_pc)
+```
+

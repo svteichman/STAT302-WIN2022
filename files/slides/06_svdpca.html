@@ -34,8 +34,8 @@ Thanks Joia!
 # Outline
 
 1. Multivariate data and dimension reduction 
-2. Principal Components Analysis (PCA): Theory 
-3. Principal Components Analysis (PCA): Application
+2. Principal Components Analysis (PCA): Theory &amp; Application
+3. Principal Components Regression
 
 
 .middler[**Goal:** Practice using R to implement a statistical method to analyze multivariate data.]
@@ -233,7 +233,7 @@ Consider this dataset with `\(29\)` indicators of environmental performance for 
 
 class: inverse
 
-.sectionhead[Part 2. Principal Components Analysis (PCA): Theory]
+.sectionhead[Part 2. Principal Components Analysis (PCA): Theory &amp; Application]
 
 ---
 
@@ -482,7 +482,7 @@ Var(\mathbf{x}^*_1) &amp; Cov(\mathbf{x}^*_1,\mathbf{x}^*_2) &amp; Cov(\mathbf{x
 --
 
 * We can again use matrix multiplication to do this all at once! If `\(\mathbf{X}^*\)` is our `\(n\times p\)` data matrix and `\(\mathbf{Y}\)` is our `\(n\times p\)` matrix of principal component vectors, we can write:
-`$$\mathbf{Y} = \mathbf{U}\mathbf{X}^*$$`
+`$$\mathbf{Y} = \mathbf{X}^*\mathbf{U}$$`
 
 ---
 
@@ -504,7 +504,7 @@ Var(\mathbf{x}^*_1) &amp; Cov(\mathbf{x}^*_1,\mathbf{x}^*_2) &amp; Cov(\mathbf{x
 
 --
 
-5. Multiple the loadings by the centered matrix `\(\mathbf{X}^*\)` to get the principal component vectors, `\(\mathbf{Y} = \mathbf{UX}^*\)`.
+5. Multiply the centered matrix `\(\mathbf{X}^*\)` by the loadings to get the principal component vectors, `\(\mathbf{Y} = \mathbf{X}^*\mathbf{U}\)`.
 
 ---
 
@@ -599,7 +599,61 @@ apply(cars_pca_df, 2, range)
 
 --
 
-6. Multiple the loadings by the centered and scaled matrix `\(\tilde{\mathbf{X}}\)` to get the principal component vectors, `\(\mathbf{Y} = \mathbf{U}\tilde{\mathbf{X}}\)`.
+6. Multiply the centered and scaled matrix `\(\tilde{\mathbf{X}}\)` by the loadings to get the principal component vectors, `\(\mathbf{Y} = \tilde{\mathbf{X}}\mathbf{U}\)`.
+
+---
+
+# Pet picture of the day 
+
+&lt;img src="../../files/images/pets/nut_mad.jpg" width="400px" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Review 
+
+## What is the goal of dimension reduction? 
+
+--
+
+## What is the goal of PCA? 
+
+---
+
+# Correction 
+
+## Mistake last week in the slides: 
+
+To get principal component vectors, compute `\(\mathbf{Y} = \mathbf{U}\tilde{\mathbf{X}}\)`. 
+
+## Corrected version: 
+
+To get principal component vectors, compute `\(\mathbf{Y} = \tilde{\mathbf{X}}\mathbf{U}\)`. 
+
+---
+
+# Steps to Perform PCA on Scaled Data 
+
+1. Mean center each variable of your data matrix `\(\mathbf{X}\)` to get `\(\mathbf{X}^*\)`.
+
+--
+
+2. Scale each variable of your data matrix `\(\mathbf{X}^*\)` by its standard deviation to get `\(\tilde{\mathbf{X}}\)`.
+
+--
+
+3. Compute the empirical covariance matrix of `\(\tilde{\mathbf{X}}\)`, `\(\mathbf{S}(\tilde{\mathbf{X}})\)`. (Note that this would be equal to the empirical correlation matrix of the original data `\(\mathbf{X}\)`!)
+
+--
+
+4. Perform an eigendecomposition, `\(\mathbf{S}(\tilde{\mathbf{X}}) = \mathbf{U\Lambda U}^T\)`.
+
+--
+
+5. Use the columns of `\(\mathbf{U}\)` as the loading vectors.
+
+--
+
+6. Multiply the centered and scaled matrix `\(\tilde{\mathbf{X}}\)` by the loadings to get the principal component vectors, `\(\mathbf{Y} = \tilde{\mathbf{X}}\mathbf{U}\)`.
 
 ---
 
@@ -635,7 +689,7 @@ cars_pca_scaled$loadings
 
 Let's look closer at the loadings on the first two principal components. 
 
-&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-18-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -649,17 +703,17 @@ Let's look closer at the loadings on the first two principal components.
 
 --
 
-* Intuition: If we have `\(p\)` original variables but we can explain most of the variability in our data with `\(k\)` (if `\(k &lt; p\)`) principal components, then we can reduce the dimension of our dataset while retaining most of the data's variability 
+* Intuition: If we have `\(p\)` original variables but we can explain most of the variability in our data with `\(k\)` (if `\(k &lt; p\)`) principal components, then we can reduce the dimension of our dataset while retaining most of the data's variability. 
 
 ---
 
 # How many principal components to use? 
 
-* If we keep all `\(p\)` principal component vectors `\(\mathbf{y}_j\)`, `\(j\in\{1,\ldots,p\}\)`, then we can explain all of the variance in our data matrix `\(\mathbf{X}\)` (or scaled data matrix `\(\tilde{\mathbf{X}}\)`). 
+* If we keep all `\(p\)` principal component vectors `\(\mathbf{y}_j\)`, `\(j\in\{1,\ldots,p\}\)`, then we can explain all of the variance in our centered data matrix `\(\mathbf{X}^*\)` (or scaled data matrix `\(\tilde{\mathbf{X}}\)`). 
 
 --
 
-* Remember our eigendecomposition, `\(\mathbf{S} = \mathbf{U\Lambda U}^T\)`, in which `\(\mathbf{\Lambda}\)` is a diagonal matrix with the eigenvalues of `\(\mathbf{S}\)` sorted in descending order.
+* Remember our eigendecomposition, `\(\mathbf{S}(\tilde{\mathbf{X}}) = \mathbf{U\Lambda U}^T\)`, in which `\(\mathbf{\Lambda}\)` is a diagonal matrix with the eigenvalues of `\(\mathbf{S}\)` sorted in descending order.
 
 --
 
@@ -691,9 +745,17 @@ Let's look closer at the loadings on the first two principal components.
 screeplot(cars_pca_scaled, type = "lines", main = "Scree Plot")
 ```
 
-&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-20-1.png" style="display: block; margin: auto;" /&gt;
 
 * In a scree plot, we look for the "elbow."
+
+---
+
+# How many principal components to use? 
+
+* We can make a scree plot to visualize the proportion of variance explained by each principal component. 
+
+&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-21-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -727,7 +789,7 @@ ggplot(plot_df,
 ]
 
 .pull-right[
-![](06_svdpca_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
+![](06_svdpca_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -762,27 +824,39 @@ ggplot(plot_df,
 ]
 
 .pull-right[
-![](06_svdpca_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
+![](06_svdpca_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
 ]
 
 ---
 
 # Biplots 
 
-* Biplots show the transformed data and loadings for the first two principal components. 
+* Biplots show the observations and loadings for the first two principal components. 
 
 
 ```r
 biplot(cars_pca_scaled)
 ```
 
-&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-24-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-26-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Biplots 
+
+.pull-left[
+![](06_svdpca_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+![](06_svdpca_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
+]
 
 ---
 
 # Back to first two principal components 
 
-&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-25-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-29-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -813,7 +887,7 @@ ggplot(plot_df,
 
 # Back to first two principal components 
 
-&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-27-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-31-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -844,7 +918,7 @@ ggplot(plot_df,
 
 # Back to first two principal components 
 
-&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-29-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-33-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -875,7 +949,7 @@ ggplot(plot_df,
 
 # Back to first two principal components 
 
-&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-31-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="06_svdpca_files/figure-html/unnamed-chunk-35-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -887,20 +961,154 @@ plot_df &lt;-
   data.frame(pc1 = cars_pca_scaled$scores[, 1],
              pc2 = cars_pca_scaled$scores[, 2],
              name = rownames(mtcars),
-             carb = mtcars$carb)
+             hp = mtcars$hp)
 ggplot(plot_df, 
        aes(x = pc1, y = pc2, 
            label = name,
-           color = carb)) + 
+           color = hp)) + 
   geom_point(size = 3) + 
   labs(x = "Principal Component 1", 
        y = "Principal Component 2",
-       color = "Carburetors",
+       color = "Horse Power",
        title = "First Two Principal Components of mtcars") + 
   theme_bw(base_size = 12) + 
   theme(plot.title = 
           element_text(hjust = 0.5)) + 
   scale_color_continuous(low = "blue", high = "red")
+```
+
+---
+
+class: inverse
+
+.sectionhead[Part 3. Principal Components Regression]
+
+---
+
+# Principal Components Regression
+
+## Multicollinearity 
+
+--
+
+* Multicollinearity is a condition in which one covariate can be linearly predicted from other covariates in a regression. 
+
+--
+
+* This can cause problems with t tests for the coefficients in linear regression.
+
+---
+
+# Principal Components Regression
+
+
+```r
+cor(mtcars[,c("mpg", "disp", "drat", "wt", "qsec")])
+```
+
+```
+##             mpg       disp        drat         wt        qsec
+## mpg   1.0000000 -0.8475514  0.68117191 -0.8676594  0.41868403
+## disp -0.8475514  1.0000000 -0.71021393  0.8879799 -0.43369788
+## drat  0.6811719 -0.7102139  1.00000000 -0.7124406  0.09120476
+## wt   -0.8676594  0.8879799 -0.71244065  1.0000000 -0.17471588
+## qsec  0.4186840 -0.4336979  0.09120476 -0.1747159  1.00000000
+```
+
+
+```r
+cor(mtcars$hp, mtcars[,c("mpg", "disp", "drat", "wt", "qsec")])
+```
+
+```
+##             mpg      disp       drat        wt       qsec
+## [1,] -0.7761684 0.7909486 -0.4487591 0.6587479 -0.7082234
+```
+
+---
+
+# Principal Components Regression
+
+
+```r
+mod &lt;- lm(hp ~ mpg + disp + drat + wt + qsec, data = mtcars)
+summary(mod)
+```
+
+```
+## 
+## Call:
+## lm(formula = hp ~ mpg + disp + drat + wt + qsec, data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -42.959 -18.390  -4.042  14.879 102.802 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)   
+## (Intercept) 392.8117   119.1055   3.298  0.00282 **
+## mpg          -3.1703     2.3523  -1.348  0.18936   
+## disp          0.1864     0.1356   1.375  0.18099   
+## drat         12.9668    16.7779   0.773  0.44658   
+## wt            7.9787    18.6915   0.427  0.67299   
+## qsec        -16.6811     4.9192  -3.391  0.00223 **
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 31.74 on 26 degrees of freedom
+## Multiple R-squared:  0.8203,	Adjusted R-squared:  0.7858 
+## F-statistic: 23.74 on 5 and 26 DF,  p-value: 6.262e-09
+```
+
+---
+
+# Principal Components Regression 
+
+## Steps for Principal Components Regression
+
+--
+
+1. Run PCA. 
+
+--
+
+2. Do linear regression on a set of the principal components.
+
+---
+
+# Principal Components Regression
+
+
+```r
+mtcars_pcs &lt;- data.frame(cars_pca_scaled$scores)
+mtcars_pcs$hp &lt;- mtcars$hp
+mod_pc &lt;- lm(hp ~ ., data = mtcars_pcs)
+summary(mod_pc)
+```
+
+```
+## 
+## Call:
+## lm(formula = hp ~ ., data = mtcars_pcs)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -42.959 -18.390  -4.042  14.879 102.802 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  146.688      5.610  26.147  &lt; 2e-16 ***
+## Comp.1       -28.525      3.002  -9.501 6.09e-10 ***
+## Comp.2       -29.715      5.678  -5.233 1.82e-05 ***
+## Comp.3        -9.541      9.818  -0.972    0.340    
+## Comp.4         2.404     14.311   0.168    0.868    
+## Comp.5        -6.596     24.549  -0.269    0.790    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 31.74 on 26 degrees of freedom
+## Multiple R-squared:  0.8203,	Adjusted R-squared:  0.7858 
+## F-statistic: 23.74 on 5 and 26 DF,  p-value: 6.262e-09
 ```
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
