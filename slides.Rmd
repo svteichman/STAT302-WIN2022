@@ -22,9 +22,9 @@ knitr::opts_chunk$set(echo = FALSE)
 
 * Lecture 06: Multivariate Data and PCA [[.html](files/slides/06_svdpca.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/slides/06_svdpca.Rmd)]
 
-\begin{comment}
-
 * Lecture 07: Debugging and Git [[.html](files/slides/07_debuggit.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/slides/07_debuggit.html)]
+
+\begin{comment}
 
 * Lecture 08: Application: Resampling [[.html](files/slides/08_resample-bayes.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/slides/08_resample-bayes.html)]
 
