@@ -385,6 +385,42 @@ X &lt;- matrix(nrow = 4, ncol = 3)
 X[, 1] &lt;- rnorm(4, mean = 0, sd = 1)
 X[, 2] &lt;- rnorm(4, mean = 0, sd = 10)
 X[, 3] &lt;- rnorm(4, mean = 0, sd = 15)</code></pre>
+<p><em>UPDATE 02/19</em> When <code>scale = FALSE</code>, your function will match <code>princomp()</code> for everything except for <code>portion_var</code> and when <code>scale = TRUE</code>, your function will match <code>princomp()</code> for everything except for the vectors <code>prin_comps</code>. These differences are coming from the way that variances and standard deviations are calculated (<code>princomp()</code> uses the denominator <code>n</code> and the built-in functions you are using, <code>sd()</code> and <code>cov()</code> use the denominator <code>n-1</code>). The results that I expect you to get when running <code>run_pca()</code> are shown below. <strong>You will get credit for having the correct answer either if your results from <code>run_pca()</code> match the results below OR the results from <code>princomp()</code></strong>.</p>
+<pre class="r"><code>load(&quot;sim_res.Rdata&quot;)
+# scale = FALSE
+run_pca_scaleF</code></pre>
+<pre><code>## $loadings
+##              [,1]         [,2]      [,3]
+## [1,]  0.042487821  0.239115929 0.9700610
+## [2,]  0.001277438 -0.970949987 0.2392791
+## [3,] -0.999096168  0.008927255 0.0415590
+## 
+## $prin_comps
+##           [,1]        [,2]        [,3]
+## [1,] -13.55252 -1.05491906  0.30259659
+## [2,]  18.90252 -4.54935358 -0.05120845
+## [3,] -18.19956  0.01014627 -0.26729080
+## [4,]  12.84956  5.59412638  0.01590267
+## 
+## $portion_var
+## [1] 345.77042619  17.70127504   0.05529476</code></pre>
+<pre class="r"><code># scale = TRUE
+run_pca_scaleT</code></pre>
+<pre><code>## $loadings
+##            [,1]         [,2]      [,3]
+## [1,]  0.7084795 -0.001857908 0.7057289
+## [2,] -0.5547743 -0.619565369 0.5553055
+## [3,] -0.4362135  0.784942866 0.4399801
+## 
+## $prin_comps
+##            [,1]       [,2]         [,3]
+## [1,] -0.7560208  0.4093017  0.177129784
+## [2,] -0.3393127 -1.4709209 -0.027876940
+## [3,] -0.9751796  0.7839786 -0.142327150
+## [4,]  2.0705130  0.2776406 -0.006925694
+## 
+## $portion_var
+## [1] 1.97490002 1.00761429 0.01748569</code></pre>
 </div>
 <div id="part-2" class="section level3">
 <h3>Part 2</h3>

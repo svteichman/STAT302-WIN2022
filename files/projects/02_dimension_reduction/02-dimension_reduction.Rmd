@@ -50,6 +50,16 @@ X[, 2] <- rnorm(4, mean = 0, sd = 10)
 X[, 3] <- rnorm(4, mean = 0, sd = 15)
 ```
 
+*UPDATE 02/19* When `scale = FALSE`, your function will match `princomp()` for everything except for `portion_var` and when `scale = TRUE`, your function will match `princomp()` for everything except for the vectors `prin_comps`. These differences are coming from the way that variances and standard deviations are calculated (`princomp()` uses the denominator `n` and the built-in functions you are using, `sd()` and `cov()` use the denominator `n-1`). The results that I expect you to get when running `run_pca()` are shown below. **You will get credit for having the correct answer either if your results from `run_pca()` match the results below OR the results from `princomp()`**.
+
+```{r}
+load("sim_res.Rdata")
+# scale = FALSE
+run_pca_scaleF
+# scale = TRUE
+run_pca_scaleT
+```
+
 ### Part 2 
 
 Now you'll be using your `run_pca()` function to explore the environmental performance index data. Like in Project 1, this part of your report should only have text and plots in the main body, and should be followed by a code appendix to show any code that you used for Part 2. 
