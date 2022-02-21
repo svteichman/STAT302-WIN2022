@@ -423,11 +423,11 @@ Var(\mathbf{y}_1) &amp;= Var(l_{11}\mathbf{x}^*_1 + l_{12}\mathbf{x}^*_2 + l_{13
  &amp;\ \ \ \ \ \  2l_{11}l_{12}Cov(\mathbf{x}^*_1,\mathbf{x}^*_2) + 
  2l_{11}l_{13}Cov(\mathbf{x}^*_1,\mathbf{x}^*_3) + \\
  &amp;\ \ \ \ \ \  2l_{12}l_{13}Cov(\mathbf{x}^*_2,\mathbf{x}^*_3)\\
- &amp;= \begin{pmatrix}l_{11} \\ l_{12} \\ l_{13} \end{pmatrix}\begin{pmatrix}
+ &amp;= \begin{pmatrix}l_{11} &amp; l_{12} &amp; l_{13} \end{pmatrix}\begin{pmatrix}
 Var(\mathbf{x}^*_1) &amp; Cov(\mathbf{x}^*_1,\mathbf{x}^*_2) &amp; Cov(\mathbf{x}^*_1,\mathbf{x}^*_3) \\
  Cov(\mathbf{x}^*_1,\mathbf{x}^*_2) &amp; Var(\mathbf{x}^*_2) &amp; Cov(\mathbf{x}^*_2,\mathbf{x}^*_3) \\
  Cov(\mathbf{x}^*_1,\mathbf{x}^*_3) &amp; Cov(\mathbf{x}^*_2,\mathbf{x}^*_3) &amp; Var(\mathbf{x}^*_3) 
-\end{pmatrix} \begin{pmatrix} l_{11} &amp; l_{12} &amp; l_{13}\end{pmatrix} \\
+\end{pmatrix} \begin{pmatrix} l_{11} \\ l_{12} \\ l_{13}\end{pmatrix} \\
  &amp;= \mathbf{l}_1^T\mathbf{S}(\mathbf{X}^*)\mathbf{l}_1 \\
 \end{align*}`
 --

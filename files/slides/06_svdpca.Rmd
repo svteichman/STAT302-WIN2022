@@ -385,11 +385,11 @@ Var(\mathbf{y}_1) &= Var(l_{11}\mathbf{x}^*_1 + l_{12}\mathbf{x}^*_2 + l_{13}\ma
  &\ \ \ \ \ \  2l_{11}l_{12}Cov(\mathbf{x}^*_1,\mathbf{x}^*_2) + 
  2l_{11}l_{13}Cov(\mathbf{x}^*_1,\mathbf{x}^*_3) + \\
  &\ \ \ \ \ \  2l_{12}l_{13}Cov(\mathbf{x}^*_2,\mathbf{x}^*_3)\\
- &= \begin{pmatrix}l_{11} \\ l_{12} \\ l_{13} \end{pmatrix}\begin{pmatrix}
+ &= \begin{pmatrix}l_{11} & l_{12} & l_{13} \end{pmatrix}\begin{pmatrix}
 Var(\mathbf{x}^*_1) & Cov(\mathbf{x}^*_1,\mathbf{x}^*_2) & Cov(\mathbf{x}^*_1,\mathbf{x}^*_3) \\
  Cov(\mathbf{x}^*_1,\mathbf{x}^*_2) & Var(\mathbf{x}^*_2) & Cov(\mathbf{x}^*_2,\mathbf{x}^*_3) \\
  Cov(\mathbf{x}^*_1,\mathbf{x}^*_3) & Cov(\mathbf{x}^*_2,\mathbf{x}^*_3) & Var(\mathbf{x}^*_3) 
-\end{pmatrix} \begin{pmatrix} l_{11} & l_{12} & l_{13}\end{pmatrix} \\
+\end{pmatrix} \begin{pmatrix} l_{11} \\ l_{12} \\ l_{13}\end{pmatrix} \\
  &= \mathbf{l}_1^T\mathbf{S}(\mathbf{X}^*)\mathbf{l}_1 \\
 \end{align*}
 --
