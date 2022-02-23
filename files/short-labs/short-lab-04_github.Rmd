@@ -8,19 +8,19 @@ output: html_document
 
 ## Part 1. Set up Git and GitHub
 
-1. Register for a (free) [GitHub](https://github.com/) account. You may want to also add the [Student Developer Pack](https://education.github.com/pack) to your account. [Slide](https://peteragao.github.io/STAT302-AUT2021/files/slides/07_debuggit.html#60)
+1. Register for a (free) [GitHub](https://github.com/) account. You may want to also add the [Student Developer Pack](https://education.github.com/pack) to your account. [Slide](https://svteichman.github.io/STAT302-WIN2022/files/slides/07_debuggit.html#67)
 
-2. Install Git on your computer. [Slide](https://peteragao.github.io/STAT302-AUT2021/files/slides/07_debuggit.html#54)
+2. Install Git on your computer. [Slide](https://svteichman.github.io/STAT302-WIN2022/files/slides/07_debuggit.html#60)
 
-3. Introduce yourself to Git. [Slide](https://peteragao.github.io/STAT302-AUT2021/files/slides/07_debuggit.html#61)
+3. Introduce yourself to Git. [Slide](https://svteichman.github.io/STAT302-WIN2022/files/slides/07_debuggit.html#68)
 
-4. Introduce your computer to GitHub. [Slide](https://peteragao.github.io/STAT302-AUT2021/files/slides/07_debuggit.html#63)
+4. Introduce your computer to GitHub. [Slide](https://svteichman.github.io/STAT302-WIN2022/files/slides/07_debuggit.html#70)
 
-5. Create a Git repo for Short Lab 4 and clone it to your computer. [Slide](https://peteragao.github.io/STAT302-AUT2021/files/slides/07_debuggit.html#66)
+5. Create a Git repo for Short Lab 4 and clone it to your computer. [Slide](https://svteichman.github.io/STAT302-WIN2022/files/slides/07_debuggit.html#73)
 
-6. Commit a local change using the shell. [Slide](https://peteragao.github.io/STAT302-AUT2021/files/slides/07_debuggit.html#67)
+6. Commit a local change using the shell. [Slide](https://svteichman.github.io/STAT302-WIN2022/files/slides/07_debuggit.html#75)
 
-7. Delete your local repository, then use RStudio to clone your repository back to your computer and commit a local change using RStudio. [Slide](https://peteragao.github.io/STAT302-AUT2021/files/slides/07_debuggit.html#71)
+7. Delete your local repository, then use RStudio to clone your repository back to your computer and commit a local change using RStudio. [Slide](https://svteichman.github.io/STAT302-WIN2022/files/slides/07_debuggit.html#78)
 
 8. If you use a private repository, add me and the grader as collaborators.
 

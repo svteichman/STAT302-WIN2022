@@ -901,6 +901,7 @@ To open a shell outside of RStudio:
 knitr::include_graphics("../../files/images/git_diagram.svg")
 ```
 
+[Image source](https://support.nesi.org.nz/hc/en-gb/articles/360001508515-Git-Reference-Sheet)
 
 ---
 
