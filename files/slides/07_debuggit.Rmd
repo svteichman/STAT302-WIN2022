@@ -707,6 +707,17 @@ fun()
 
 ---
 
+# Today's pet picture 
+
+
+```{r, echo = FALSE, out.width = "400px", fig.align = "center"}
+knitr::include_graphics("../../files/images/pets/rolo.jpg")
+```
+
+Thanks Katie! 
+
+---
+
 class: inverse
 
 .sectionhead[Part 2. Version Control]
@@ -817,6 +828,17 @@ class: inverse
 .sectionhead[Please follow along with any slides marked with (*).]
 
 ---
+
+# Poll
+## What type of operating system are you using?
+
+* Mac? 
+* Windows? 
+* Linux? 
+* Other?
+
+---
+
 # Install Git (*)
 
 Installing and connecting all the software you need is truly half the battle.
@@ -849,7 +871,6 @@ Sometimes people use the terms `Terminal`, `Console`, `Command Line`, and `Shell
 
 You can open a shell within RStudio:
   * *Tools > Terminal* to launch a shell within RStudio. This will often be sufficient for our purposes
-  * *Tools > Shell* to launch a shell external to RStudio.
   * **Windows:** For this class, we will focus on the **Git Bash** shell, which should have come with your install of Git for Windows. First, confirm that RStudio detected the presence of Git Bash. This should have happened automatically if you installed in the default location, but check by going to *Tools > Global Options > Terminal* and make sure you see "Git Bash" under "New terminals open with:".
   
 ---
@@ -872,22 +893,27 @@ To open a shell outside of RStudio:
   * You can drag and drop a file or folder into the shell window to paste the absolute path
   * You can use `Tab` to autocomplete unambiguous directory and file names. 
 * Navigate previous commands with arrow-up and arrow-down
-* Search for previous commands with `ctrl + r`
+
+---
+# How does git work? 
+
+```{r, echo = FALSE, out.width = "800px", fig.align = "center"}
+knitr::include_graphics("../../files/images/git_diagram.svg")
+```
+
 
 ---
 
 # Basic git commands 
 
-These commands are used within shell
+These commands are used within a shell
 
-* `git status` Informs you of your current branch, any changes or untracked files, and whether you are in sync with your remotes.
-* `git remote -v` lists all remotes. Very useful for making sure git knows about your remote and that the remote address is correct.
-* `git remote add origin GITHUB_URL` adds the remote `GITHUB_URL` with nickname origin.
-* `git add FILENAME` stages changes to the file. Will add the file to the tracked files if it isn't already. Use `git add .` to add all untracked files (but be careful with this!)
-* `git commit -m "COMMIT MESSAGE"` commit all staged changes
-* `git pull` pulls from remote to local copy
+* `git status` Informs you of any changes or untracked files, and whether you are in sync with your remote repository (on github.com).
+* `git remote -v` lists all remotes. Very useful for making sure git knows about your remote repository and that the remote address (url) is correct.
+* `git add FILENAME` stages changes to the file `FILENAME`. Will add the file to the tracked files if it isn't already. Use `git add .` to add all untracked files (but be careful with this!)
+* `git commit -m "COMMIT MESSAGE"` commit all staged changes to local copy
 * `git push` pushes from local copy to remote
-* `git init` creates an empty git repo within your current directory
+* `git pull` pulls from remote to local copy
 
 ---
 
@@ -963,10 +989,10 @@ In R, call `gitcreds::gitcreds_set()` to paste your PAT:
 
 ---
 
-# Recommended: Install a git client (*)
+# Optional: Install a git client (*)
 
-I highly recommend installing a GUI for git. 
-I like [GitKraken](https://www.gitkraken.com/), and it works on all common operating systems.
+Some people recommend installing a GUI for git. 
+One option is [GitKraken](https://www.gitkraken.com/), and it works on all common operating systems.
 
 See [https://happygitwithr.com/git-client.html](https://happygitwithr.com/git-client.html) to see Jenny Bryan's writeup of more git clients as well as why they are helpful.
 
@@ -982,7 +1008,8 @@ class: inverse
 1. Go to GitHub and click the green "New Repository" button. 
 2. Repository name: `shortlab4` or similar, following the naming conventions you've used in the class so far.
 3. Description: Whatever you want, but fill in something.
-4. Public or Private. If private, you **must** add both `peteragao` and the grader as collaborators (I will post the grader's GitHub account).
+4. Public or Private. Up to you! If private, you **must** add both `svteichman` and 
+`joiazhang` as collaborators.
 5. YES initialize the repository with a README.
 ]
 
@@ -998,7 +1025,7 @@ class: inverse
   ```
   Note that you can get the direct link by navigating to your repo and clicking the green "Clone or download" button and copying the text there.
 
-4. Explore your repo by entering (filling in the relevant info):
+4. Explore your repo by entering the following (replace YOUR-REPOSITORY with the name of your respository):
   ```{bash, eval = FALSE}
   cd YOUR-REPOSITORY
   ls
@@ -1045,12 +1072,12 @@ Now check the repository online at GitHub. What changed?
 # Add Short Lab 4 (*)
 
 
-1. Navigate to [the shortlab section of the course webpage](https://peteragao.github.io/STAT302-AUT2021/short_labs.html).
+1. Navigate to [the shortlab section of the course webpage](https://svteichman.github.io/STAT302-WIN2022/short_labs.html).
 2. Download the .Rmd for Short Lab 4.
-3. Using your standard file browser, copy the .Rmd into the folder (git repo) you created for the previous slides.
-4. In the Short Lab 4 .Rmd, fill in the required text for the link to your repo.
+3. Using your standard file browser, copy the .Rmd into the `shortlab4` or similarly named folder (git repo) you created.
+4. In RStudio, in the Short Lab 4 .Rmd, fill in the required text for the link to your repo.
 5. Knit/Compile Short Lab 4. 
-6. Add, commit, and push the change to your remote repository following the relevant steps from the previous slide.
+6. Add, commit, and push the change to your remote repository following the steps 3 and 4 from the previous slide.
 
 Now check the repository online at GitHub. If you see a README, .Rmd, and .html, then congratulations, you are done with this step!
 
@@ -1070,7 +1097,7 @@ If you were prompted to re-enter your GitHub credentials, then please follow the
 After you have confirmed that the online GitHub repository matches what you expect:
 
 1. Delete the local repository on your computer.
-2. *File > New Project > Version Control > Git*. In the "repository URL", paste the HTTPS URL for your repository.
+2. In RStudio, click *File > New Project > Version Control > Git*. In the "repository URL", paste the HTTPS URL for your repository.
 3. **Create this project within your `ShortLabs` parent directory for short labs!**
 4. Click "Open in new session"
 
@@ -1107,7 +1134,7 @@ If this is true, then congratulations, you are done with this Short Lab 4!
 
 If this is not true, then let me know and we will work through it together!
 
-Don't forget, if you created a private repository, be sure to add both `peteragao` and the grader as collaborators.
+Don't forget, if you created a private repository, be sure to add both `svteichman` and `joiazhang` as collaborators.
 
 ---
 

@@ -15,9 +15,9 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ### Short Lab 3: Strings, Factors, and Dates [[.html](files/short-labs/short-lab-03_strings.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/short-labs/short-lab-03_strings.Rmd)]
 
-\begin{comment}
-
 ### Short Lab 4: Setting up GitHub [[.html](files/short-labs/short-lab-04_github.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/short-labs/short-lab-04_github.Rmd)]
+
+\begin{comment}
 
 ### Short Lab 5: Resampling [[.html](files/short-labs/short-lab-05_resampling.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/short-labs/short-lab-05_resampling.Rmd)]
 
