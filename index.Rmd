@@ -54,12 +54,12 @@ Materials for this course were originally developed by [Bryan Martin](https://br
 
 ### Week Nine
 
-* **M 02/28**: Short Lab 4 due before class; Short Lab 5 assigned
-* **W 03/02**: Short Lab 5 due before class; Short Lab 6 assigned
+* **M 02/28**: Short Lab 4 due before class; Lab 4 assigned
+* **W 03/02**: No new assignment
 
 ### Week Ten
 
-* **M 03/07**: Short Lab 6 due before class; Project 3 assigned
+* **M 03/07**: Lab 4 due before class; Project 3 assigned
 * **W 03/09**: No new assignment
 
 ### Finals week 
