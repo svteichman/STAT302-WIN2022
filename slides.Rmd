@@ -24,12 +24,13 @@ knitr::opts_chunk$set(echo = FALSE)
 
 * Lecture 07: Debugging and Git [[.html](files/slides/07_debuggit.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/slides/07_debuggit.html)]
 
+* Lecture 08: Prediction [[.html](files/slides/09_prediction.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/slides/08_prediction.html)]
+
 \begin{comment}
 
 * Lecture 08: Application: Resampling [[.html](files/slides/08_resample-bayes.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/slides/08_resample-bayes.html)]
 
-* Lecture 09: Application: Prediction [[.html](files/slides/09_prediction.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/slides/09_prediction.html)]
-
 * Lecture 10: R Package Development [[.html](files/slides/10_package.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/slides/10_package.html)]
 
 \end{comment}
+

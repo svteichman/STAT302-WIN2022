@@ -19,8 +19,12 @@ names(environ_df) <- ifelse(names(environ_df) %in% cat_ind,
                             str_c(names(environ_df), "_cat"), 
                             names(environ_df))
 
-# look at missing values by column 
-colMeans(is.na(environ_df))
+# look at missing values by column (variable)
+colMeans(is.na(environ_df)) 
+# look at missig values by row (individuals)
+rowMeans(is.na(environ_df))
+
+# here I would decide to remove any variables or observations with too much missingness 
 
 # remove all fisheries indicators because of high missingness 
 environ_df <- environ_df %>%
@@ -28,6 +32,7 @@ environ_df <- environ_df %>%
 
 # impute other indicators using mice package
 mice_res <- mice(environ_df)
+# grab the 1st version of the imputed dataset (we could also use the 2nd, 3rd, etc.)
 clean_env_df <- complete(mice_res, 1)
 
 # in country_df, only keep region and country
