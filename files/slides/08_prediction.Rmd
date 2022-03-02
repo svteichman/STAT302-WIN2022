@@ -1,5 +1,5 @@
 ---
-title: "STAT 302, Lecture Slides 9"
+title: "STAT 302, Lecture Slides 8"
 subtitle: "Statistical Prediction"
 author: "Sarah Teichman (adapted from slides by Bryan Martin and Peter Gao)"
 date: ""
@@ -643,6 +643,15 @@ Sample-splitting gives us a powerful tool to evaluate the performance of estimat
 However, we can do better than just splitting our data in half.
 
 ---
+
+## Today's pet picture 
+
+
+```{r, echo = FALSE, out.width = "350px", fig.align = "center"}
+knitr::include_graphics("../../files/images/pets/maisy.jpeg")
+```
+
+---
 layout: false
 layout: true
 
@@ -655,7 +664,7 @@ In general, the process of $k$-fold cross-validation is as follows:
 2. Use all but 1 fold as your training data and fit the model
 3. Use the remaining fold for your test data and make predictions
 4. Switch which fold is your test data and repeat steps 2 and 3 until all folds have been test data (k times)
-5. Compute squared error
+5. Compute average squared error across folds
 
 Commonly, we use $k=5$ and $k=10$.
 

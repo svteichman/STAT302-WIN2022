@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>STAT 302, Lecture Slides 9</title>
+    <title>STAT 302, Lecture Slides 8</title>
     <meta charset="utf-8" />
     <meta name="author" content="Sarah Teichman (adapted from slides by Bryan Martin and Peter Gao)" />
     <link href="08_prediction_files/remark-css/default.css" rel="stylesheet" />
@@ -12,7 +12,7 @@
     <textarea id="source">
 class: center, title-slide
 
-# STAT 302, Lecture Slides 9
+# STAT 302, Lecture Slides 8
 ## Statistical Prediction
 ### Sarah Teichman (adapted from slides by Bryan Martin and Peter Gao)
 
@@ -503,6 +503,13 @@ Sample-splitting gives us a powerful tool to evaluate the performance of estimat
 However, we can do better than just splitting our data in half.
 
 ---
+
+## Today's pet picture 
+
+
+&lt;img src="../../files/images/pets/maisy.jpeg" width="350px" style="display: block; margin: auto;" /&gt;
+
+---
 layout: false
 layout: true
 
@@ -515,7 +522,7 @@ In general, the process of `\(k\)`-fold cross-validation is as follows:
 2. Use all but 1 fold as your training data and fit the model
 3. Use the remaining fold for your test data and make predictions
 4. Switch which fold is your test data and repeat steps 2 and 3 until all folds have been test data (k times)
-5. Compute squared error
+5. Compute average squared error across folds
 
 Commonly, we use `\(k=5\)` and `\(k=10\)`.
 
@@ -635,7 +642,7 @@ ggarrange(g_cv1, g_cv10, common.legend = TRUE, legend = "bottom")
 ```
 ---
 
-&lt;img src="08_prediction_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="08_prediction_files/figure-html/unnamed-chunk-20-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 layout: false
