@@ -44,8 +44,8 @@
       "path": "slides.html",
       "title": "Lecture Slides",
       "author": [],
-      "contents": "\nLecture 00: Course Overview [.html] [.Rmd]\nLecture 01: Introduction to R [.html] [.Rmd]\nLecture 02: R Fundamentals [.html] [.Rmd]\nLecture 03: Data Visualization and Manipulation [.html] [.Rmd]\nLecture 04: Strings, Factors, and Dates [.html] [.Rmd]\nLecture 05: Regression and Inference [.html] [.Rmd]\nLecture 06: Multivariate Data and PCA [.html] [.Rmd]\nLecture 07: Debugging and Git [.html] [.Rmd]\nLecture 08: Prediction [.html] [.Rmd]\n\n\n\n",
-      "last_modified": "2022-02-28T15:19:04-08:00"
+      "contents": "\nLecture 00: Course Overview [.html] [.Rmd]\nLecture 01: Introduction to R [.html] [.Rmd]\nLecture 02: R Fundamentals [.html] [.Rmd]\nLecture 03: Data Visualization and Manipulation [.html] [.Rmd]\nLecture 04: Strings, Factors, and Dates [.html] [.Rmd]\nLecture 05: Regression and Inference [.html] [.Rmd]\nLecture 06: Multivariate Data and PCA [.html] [.Rmd]\nLecture 07: Debugging and Git [.html] [.Rmd]\nLecture 08: Prediction [.html] [.Rmd]\nLecture 09: R Package Development [.html] [.Rmd]\n\n\n\n",
+      "last_modified": "2022-03-06T14:42:48-08:00"
     },
     {
       "path": "syllabus.html",

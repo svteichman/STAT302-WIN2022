@@ -26,11 +26,12 @@ knitr::opts_chunk$set(echo = FALSE)
 
 * Lecture 08: Prediction [[.html](files/slides/08_prediction.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/slides/08_prediction.html)]
 
+* Lecture 09: R Package Development [[.html](files/slides/09_package.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/slides/09_package.html)]
+
 \begin{comment}
 
 * Lecture 08: Application: Resampling [[.html](files/slides/08_resample-bayes.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/slides/08_resample-bayes.html)]
 
-* Lecture 10: R Package Development [[.html](files/slides/10_package.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/slides/10_package.html)]
 
 \end{comment}
 
