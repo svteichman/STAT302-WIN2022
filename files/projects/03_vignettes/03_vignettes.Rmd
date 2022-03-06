@@ -12,17 +12,17 @@ output: html_document
 
 For this portion of Project 3, you are being asked to develop a well-documented, well-tested, and well-explained R package.
 
-This R package should include the following  functions we've written throughout the class:
+This R package should include the following functions we've written throughout the class:
 
 * `my_t.test`
 * `my_lm`
 * `my_knn_cv`
 
-Follow the instruction on Lecture Slides 10 to set up the skeleton of your package (5 points for proper setup). Your package should include the following:
+Follow the instruction on Lecture Slides 9 to set up the skeleton of your package (5 points for proper setup). Your package should include the following:
 
-1. (5 points) Complete documentation for each of your functions and data. Each function must include `@examples` in the documentation.
+1. (8 points) Complete documentation for each of your functions. Each function must include `@examples` in the documentation. You must add and document the `penguins` data from the `palmerpenguins` package to your own package and export it as the object `my_penguins` (with proper credit in the documentation!).
 
-2. (15 points) A detailed vignette with examples and the use of all of these functions with the penguins data from the `palmerpenguins` package. You must add and document the `penguins` data to your own package and export it as the object `my_penguins` (with proper credit in the documentation!). Specifically, the vignette should have the following parts:
+2. (14 points) A detailed vignette with examples and the use of all of these functions with the penguins data.  Your vignette should start with a brief overview of the R package (what is it used for?). For each function, make sure to explain to the user what the function does, what the inputs are, and what the function will output. Specifically, the vignette should have the following parts:
 
     a. A tutorial for `my_t.test` testing the hypothesis that the mean `body_mass_g` of Adelie penguins is equal to 4000 (where the alternative is that the mean is less than 4000). Carefully interpret the results using a p-value cut-off of $\alpha = 0.05$.
     b. A tutorial for `my_lm` using `flipper_length_mm` as the independent variable and `body_mass_g` as the dependent variable. Carefully interpret the `flipper_length_mm` coefficient describe the hypothesis test associated with the `flipper_length_mm` coefficient, and carefully interpret the results the `flipper_length_mm` hypothesis test using a p-value cut-off of $\alpha = 0.05$.
@@ -30,17 +30,19 @@ Follow the instruction on Lecture Slides 10 to set up the skeleton of your packa
     
         * Use $5$-fold cross validation (`k_cv = 5`).
         
-        * Iterate from `k_nn`$= 1,\ldots, 10$. For each value of `k_nn`, record the training misclassification rate and the CV misclassification rate (output from your function).
+        * Iterate from `k_nn`$= 1,\ldots, 10$. For each value of `k_nn`, record the training misclassification rate and the CV misclassification rate (output from your function). Provide a table of this training misclassification rates and CV misclassification rates. 
         
         * State which model you would choose based on the training misclassification rates and which model you would choose based on the CV misclassification rates. Discuss which model you would choose in practice and why.
+        
+Feel free to look at the vignettes for [lubridate](https://cran.r-project.org/web/packages/lubridate/vignettes/lubridate.html) and [forcats](https://cran.r-project.org/web/packages/forcats/vignettes/forcats.html) for inspiration. 
         
 ### Notes
 
 * Your package directory should be submitted as a .zip file to Canvas.
-* All code and documentation should follow the style guidelines outlined in class.
+* All code and documentation should follow the style guidelines outlined in class. As always, be sure to comment your code.
 
 
-# Part 2. Self-Assessment and Reflection (5 points)
+# Part 2. Self-Assessment and Reflection (3 points)
 
 Submit answers to the following questions as a .pdf file to Canvas. A brief paragraph for each will be enough.
 

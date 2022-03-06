@@ -29,8 +29,8 @@
       "title": "Projects",
       "description": "",
       "author": [],
-      "contents": "\nProject 1: Data Visualization\n\ndue date: 02/02\nInstructions [.html] [.Rmd]\nData [.csv]\nProject 2: Data Analysis Using PCA\n\ndue date: 02/23\nInstructions [.html] [.Rmd]\nDataset 1 [.csv]\nDataset 2 [.csv]\n\n\n\n",
-      "last_modified": "2022-02-09T11:47:26-08:00"
+      "contents": "\nProject 1: Data Visualization\n\ndue date: 02/02\nInstructions [.html] [.Rmd]\nData [.csv]\nProject 2: Data Analysis Using PCA\n\ndue date: 02/23\nInstructions [.html] [.Rmd]\nDataset 1 [.csv]\nDataset 2 [.csv]\nProject 3: Making your own R package\n\ndue date: 03/16\nInstructions [.html] [.Rmd]\n\n\n\n",
+      "last_modified": "2022-03-06T12:41:02-08:00"
     },
     {
       "path": "short_labs.html",

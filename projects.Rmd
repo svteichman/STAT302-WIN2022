@@ -27,14 +27,11 @@ knitr::opts_chunk$set(echo = FALSE)
 * Dataset 1 [[.csv](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/projects/02_dimension_reduction/pca_data.csv)]
 * Dataset 2 [[.csv](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/projects/02_dimension_reduction/additional_data.csv)]
 
-\begin{comment}
 
-# Project 3: ????????
+# Project 3: Making your own R package
 
 ![](https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Cat_using_computer.jpg/640px-Cat_using_computer.jpg)
 
-*due date: 12/06*
+*due date: 03/16*
 
 * Instructions [[.html](files/projects/03_vignettes/03_vignettes.html)] [[.Rmd](https://raw.githubusercontent.com/svteichman/STAT302-WIN2022/main/files/projects/03_vignettes/03_vignettes.Rmd)]
-
-\end{comment}
