@@ -85,8 +85,8 @@ install.packages(c("devtools", "roxygen2", "testthat", "knitr", "covr"))
 
 # Step 1: Create the directory (*)
 
-1. Within your `STAT302` directory, go to your folder for projects
-2. Create a new subdirectory, `Project3` (or similar)
+1. Go to your `STAT302` directory
+2. Create a new subdirectory, `Project_practice` (or similar)
 3. **Change your working directory within R to your `Project3` subfolder!**
 4. Type in your R console (changing the package name)
   
@@ -267,7 +267,7 @@ For long lines of documentation, begin a new line and indent an extra 2 spaces.
 Next, we document **all** parameters of a function.
 We proceed the documentation with `@param`, then a space, then the parameter name, then another space, then the description.
 
-In general, write the documentation as a sentence. Starting with a capital letter and ending with a full stop `.`. 
+In general, write the documentation as a sentence. Starting with a capital letter and ending with a full stop. 
 Include the type of data input expected as well as the default value, if applicable.
 
 To refer to other parameters or value of code, wrap the text in `\code{TEXT}`.
@@ -501,11 +501,6 @@ Data is exported to the user, and so it must also be documented! The process is 
 #' head(gapminder)
 #' summary(gapminder)
 #' table(gapminder$continent)
-#' 
-#' # how many unique countries does the data contain, by continent?
-#' gapminder %&gt;%
-#'   group_by(continent) %&gt;%
-#'   summarize(n_obs = n(), n_countries = n_distinct(country))
 #'
 "my_gapminder"
 ```
@@ -628,9 +623,7 @@ class: inverse
   * Create a `tests/testthat` directory for storing your tests
   * Adds `testthat` to the `Suggests` field in `DESCRIPTION`
   * Creates `tests/testthat.R` which runs your tests automatically whenever you check your package.
-2. Push your local changes to GitHub using instructions from Lecture Slide 7.
-  * Recall: Easy way - through RStudio! 
-  * Note that you may need to open and close RStudio. You probably opened this R session before you set up with git. The git panel will not show up if this is the case. If you restart RStudio, it will appear.
+
 
 ---
 layout: true
@@ -784,24 +777,6 @@ library(demo_package)
 
 ---
 
-# Install vignettes with package 
-
-In order to install the vignettes with the package from Github, 
-use the optional parameters `build_vignette = TRUE` and `build_opts = c()`.
-
-
-```r
-devtools::install(build_vignettes = TRUE, build_opts = c())
-library(Demo)
-# Use this to view the vignette in the Demo HTML help
-help(package = "Demo", help_type = "html")
-# Use this to view the vignette as an isolated HTML file
-utils::browseVignettes(package = "Demo")
-```
-
-I recommend including instructions like these in any package `README.md` file to tell users how to view your vignette. 
-
----
 
 # Step 12: Set up a GitHub Actions (*)
 
