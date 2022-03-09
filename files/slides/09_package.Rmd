@@ -601,6 +601,10 @@ class: inverse
 
 # Today's pet picture 
 
+```{r, echo = FALSE, out.width = "450px", fig.align = "center"}
+knitr::include_graphics("../../files/images/pets/nut_edited.JPEG")
+```
+
 ---
 
 layout: false
